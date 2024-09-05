@@ -1,25 +1,31 @@
 # LEAF LIFE
+<img src="./Resources/leaf life logo.png" class="img">
+<p><i>Empowering Organic Farmers Through Technology</i></p>
+
+<style>
+    .img{
+        display: flex;
+        align-items: centre;
+        justify-content: centre;
+    }
+</style>
 
 <h1>Project Description</h1>
-<img src="./Resources/leaf life logo.png">
+
 <p>
-    LeafLife is a web app designed for small-scale organic farmers to help them manage their gardens and document their sustainable farming practices. Users can create and track multiple gardens, monitor crop growth from planting to harvest, and log organic farming activities like natural fertilization, pest control, and crop rotation.
-    As more people turn to organic gardening, LeafLife provides a user-friendly web platform to manage small gardens while promoting sustainable farming practices.
+    LeafLife is an innovative web application tailored for small-scale organic farmers, enabling them to efficiently manage their gardens while documenting sustainable agricultural practices. The platform allows users to create and track multiple gardens, monitor the growth of crops from planting to harvest, and log essential activities such as natural fertilization, pest management, and crop rotation. As the demand for organic produce rises, LeafLife provides a streamlined and user-friendly solution for individuals to maintain their gardens while contributing to a healthier, eco-friendly environment.
 </p>
 
-## Little Background:
+## Little Background of LeafLife
 <p>
-    When Julius isn’t coding,  he’s tending a small vegetable garden in his neighborhood where he grows fresh produce for his family. He developed an Excel sheet to track the growth of various crops in the garden.
-
-    During the brainstorming phase for a project idea, he shared the tracker with the team and they all agreed to transform it into a web app. Now with many people turning to kitchen gardens for the daily supplies of healthy vegetables, this app will help them effectively manage their small gardens.
+    The inspiration behind LeafLife stems from a passion for organic farming. Julius, a member of our team, manages a small vegetable garden where he grows fresh produce for his family. To keep track of crop growth, he initially developed an Excel sheet, which proved invaluable. During our project ideation phase, Julius shared this tool, and the team immediately saw the potential to elevate it into a comprehensive web application. In response to the growing trend of kitchen gardens, LeafLife is designed to empower individuals and communities to efficiently manage their gardens, optimize crop production, and embrace sustainable practices.
 </p>
 
-## LEAF LIFE TEAM
-- Julius Wamuyu
-- Chigodi Antony
-- Diana Wairimu
-- Prudence Wambui
-
+## LeafLife Team
+- Chigodi Antony Aboud <chiegody254@gmail.com>
+- Diana Wangui <dianawanguikt048@gmail.com>
+- Julius Wamuyu  <juliusmchr@gmail.com>
+- Prudence Wambui <wambuiprudy@gmail.com>
 
 <h2>LeafLife Features
 
