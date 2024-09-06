@@ -2,16 +2,8 @@
 <img src="./Resources/leaf life logo.png" class="img">
 <p><i>Empowering Organic Farmers Through Technology</i></p>
 
-<style>
-    .img{
-        display: flex;
-        align-items: centre;
-        justify-content: centre;
-    }
-</style>
 
 <h1>Project Description</h1>
-
 <p>
     LeafLife is an innovative web application tailored for small-scale organic farmers, enabling them to efficiently manage their gardens while documenting sustainable agricultural practices. The platform allows users to create and track multiple gardens, monitor the growth of crops from planting to harvest, and log essential activities such as natural fertilization, pest management, and crop rotation. As the demand for organic produce rises, LeafLife provides a streamlined and user-friendly solution for individuals to maintain their gardens while contributing to a healthier, eco-friendly environment.
 </p>
@@ -27,6 +19,5 @@
 - Julius Wamuyu  <juliusmchr@gmail.com>
 - Prudence Wambui <wambuiprudy@gmail.com>
 
-<h2>LeafLife Features
-
-
+<h2>LeafLife Features</h2>
+- User
