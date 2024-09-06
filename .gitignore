@@ -2,4 +2,4 @@ env/
 __pycache__/
 BACK-END/__pycache__/
 BACK-END/LeafLife/__pycache__/
-
+FRONT-END/node_modules/
