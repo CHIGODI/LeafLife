@@ -19,7 +19,7 @@ const Sustainability = () => {
         {/* Description */}
         <div className="md:w-1/2 text-gray-700 leading-relaxed">
           <p>
-            At Smart Kilimo, we champion sustainability by promoting eco-friendly farming practices that minimize environmental impact. We support local communities through education and resources, enhancing agricultural practices and livelihoods. Our commitment to ethical governance ensures transparency and accountability, driving positive change for both the environment and the communities we serve.
+            At Leaf Life, we champion sustainability by promoting eco-friendly farming practices that minimize environmental impact. We support local communities through education and resources, enhancing agricultural practices and livelihoods. Our commitment to ethical governance ensures transparency and accountability, driving positive change for both the environment and the communities we serve.
           </p>
         </div>
       </div>
