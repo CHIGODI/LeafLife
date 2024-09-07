@@ -16,19 +16,19 @@ const Navbar = () => {
               <div className="flex space-x-2">
                 <a
                   href="#"
-                  className="text-green-500 bg-transparent hover:bg-green-500 hover:text-white rounded-md px-3 py-2 transition duration-300"
+                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
                 >
                   Home
                 </a>
                 <a
                   href="#"
-                  className="text-green-500 bg-transparent hover:bg-green-500 hover:text-white rounded-md px-3 py-2 transition duration-300"
+                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
                 >
                   Contact
                 </a>
                 <a
                   href="#"
-                  className="text-green-500 bg-transparent hover:bg-green-500 hover:text-white rounded-md px-3 py-2 transition duration-300"
+                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
                 >
                   Sign Up
                 </a>

@@ -5,13 +5,19 @@ import FounderMessage from './components/FounderMessage'
 import FunctionCards from './components/FunctionCards';
 import agriImage from './assets/images/agri2.jpg';
 import agriImage2 from './assets/images/aerial1.jpg';
+import MissionValues from './components/MissionValues';
+import Sustainability from './components/Sustainability';
+import Founders from './components/Founders';
+import Contact from './components/Contact';
+
+
 
 
 const App = () => {
   return (
     <>
       <div
-        className="relative min-h-screen bg-cover bg-center"
+        className="relative h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${agriImage})` }}>
         <Navbar />
         <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
@@ -22,6 +28,10 @@ const App = () => {
         style={{ backgroundImage: `url(${agriImage2})` }}>
       <FunctionCards />
       </div>
+      <MissionValues />
+      <Sustainability />
+      <Founders />
+      <Contact />
           
     </>
   )
