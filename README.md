@@ -20,4 +20,10 @@
 - Prudence Wambui <wambuiprudy@gmail.com>
 
 <h2>LeafLife Features</h2>
-- User
+- User Authentication
+- Create Garden
+
+
+
+
+<h2>How to run the app locally on your machine</h2>
