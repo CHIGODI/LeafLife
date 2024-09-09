@@ -4,7 +4,7 @@ import logo from '../assets/images/logo.png';
 const MissionValues = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center px-4 py-8 bg-white space-y-4 md:space-y-0 md:space-x-4">
-      {/* Logo and Main Message - 1/3 of the space */}
+      {/* Logo and Main Message */}
       <div className="flex flex-col items-center mb-8 md:mb-0 md:basis-1/3 p-4">
         <img
           src={logo}
@@ -19,9 +19,9 @@ const MissionValues = () => {
         </p>
       </div>
 
-      {/* Values and Work Sections - 2/3 of the space */}
+      {/* Values and Work Sections */}
       <div className="flex flex-col md:flex-row gap-4 md:basis-2/3 w-full">
-        {/* Child Div 1 with Dark Green Border */}
+        
         <div className="bg-green-300 p-6 rounded-lg shadow-md flex-1 border-2 border-green-800">
           <h2 className="text-xl font-bold mb-4 text-green-900">THE VALUES WE UPHOLD</h2>
           <p className="text-gray-700">
@@ -29,7 +29,7 @@ const MissionValues = () => {
           </p>
         </div>
         
-        {/* Child Div 2 with Dark Green Border */}
+        
         <div className="bg-green-300 p-6 rounded-lg shadow-md flex-1 border-2 border-green-800">
           <h2 className="text-xl font-bold mb-4 text-green-900">THE WORK WE DO</h2>
           <p className="text-gray-700">

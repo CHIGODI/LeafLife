@@ -46,7 +46,7 @@ const FunctionCards = () => {
           Leaf Life Highlights
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Map through the highlights array and render a HighlightCard for each highlight */}
+          {/* Mapping through the highlights array to render a HighlightCard for each highlight */}
           {highlights.map((highlight, index) => (
             <HighlightCard
               key={index}
