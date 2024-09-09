@@ -10,6 +10,7 @@ import Founders from './components/Founders';
 import Contact from './components/Contact';
 import SignupForm from './components/Dashboard/SignUpForm';
 import LoginForm from './components/Dashboard/LoginForm';
+import Dashboard from './components/Dashboard/Dashboard';  // Import the Dashboard component
 import agriImage from './assets/images/agri2.jpg';
 import agriImage2 from './assets/images/aerial1.jpg';
 
@@ -18,17 +19,15 @@ const Home = () => (
     {/* Combined Navbar and Hero with the same background image */}
     <div
       className="relative h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${agriImage})` }}
-    >
+      style={{ backgroundImage: `url(${agriImage})` }}>
       <Navbar />
       <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
     </div>
-
+    
     <FounderMessage />
     <div
       className="relative min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${agriImage2})` }}
-    >
+      style={{ backgroundImage: `url(${agriImage2})` }}>
       <FunctionCards />
     </div>
 
@@ -73,6 +72,17 @@ const App = () => {
           }
         />
 
+        {/* Dashboard route */}
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <Navbar />
+              <Dashboard />
+            </>
+          }
+        />
+
         {/* Contact route */}
         <Route
           path="/contact"
@@ -83,7 +93,6 @@ const App = () => {
             </>
           }
         />
-        
       </Routes>
     </Router>
   );
