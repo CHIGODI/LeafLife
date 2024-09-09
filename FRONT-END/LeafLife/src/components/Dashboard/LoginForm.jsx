@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const LoginForm = () => {
@@ -12,6 +13,7 @@ const LoginForm = () => {
   // State to handle loading state and error messages
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,6 +40,8 @@ const LoginForm = () => {
       // Log this when login is successful
       console.log('User logged in successfully:', response.data);
       alert('Login successful!');
+      navigate('/dashboard');
+      
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Login failed. Please try again.');
