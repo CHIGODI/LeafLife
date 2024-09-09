@@ -9,7 +9,7 @@ class User(Base):
 
     def __str__(self):
         """string representation of user object"""
-        return f"{self.__class__.__name__}:{self.username}"
+        return f"{self.__class__.__name__}:{self.id}-{self.username}"
 
 
     class Meta:
