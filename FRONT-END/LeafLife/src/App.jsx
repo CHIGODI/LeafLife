@@ -9,7 +9,7 @@ import Sustainability from './components/Sustainability';
 import Founders from './components/Founders';
 import Contact from './components/Contact';
 import SignupForm from './components/Dashboard/SignUpForm';
-import LoginForm from './components/Dashboard/LoginForm';  // Import the LoginForm component
+import LoginForm from './components/Dashboard/LoginForm';
 import agriImage from './assets/images/agri2.jpg';
 import agriImage2 from './assets/images/aerial1.jpg';
 
@@ -23,6 +23,7 @@ const Home = () => (
       <Navbar />
       <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
     </div>
+
     <FounderMessage />
     <div
       className="relative min-h-screen bg-cover bg-center"
@@ -30,6 +31,7 @@ const Home = () => (
     >
       <FunctionCards />
     </div>
+
     <MissionValues />
     <Sustainability />
     <Founders />
@@ -43,12 +45,12 @@ const App = () => {
       <Routes>
         {/* Home route - renders Navbar and other components */}
         <Route path="/" element={<Home />} />
+
         {/* Sign up route */}
         <Route
           path="/signup"
           element={
             <>
-              {/* Navbar is kept for consistent navigation */}
               <div
                 className="relative h-screen bg-cover bg-center"
                 style={{ backgroundImage: `url(${agriImage})` }}
@@ -59,6 +61,7 @@ const App = () => {
             </>
           }
         />
+
         {/* Login route */}
         <Route
           path="/login"
@@ -69,6 +72,7 @@ const App = () => {
             </>
           }
         />
+
         {/* Contact route */}
         <Route
           path="/contact"
@@ -79,6 +83,7 @@ const App = () => {
             </>
           }
         />
+        
       </Routes>
     </Router>
   );
