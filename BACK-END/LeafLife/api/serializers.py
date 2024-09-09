@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-""" This module contains classes that serilize all models"""
+"""
+This module contains classes that serilize all models
+to json objects, to be served by the API
+"""
 
 from rest_framework import serializers
 from .models import User
@@ -9,6 +12,7 @@ from .models import CropRotation
 from .models import Crop
 from .models import Harvest
 from .models import Inspection
+from .models import Activity
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,7 +31,7 @@ class GardenSerializer(serializers.ModelSerializer):
                 'longitude', 'latitude', 'description', 'user_id']
 
 
-class BedSerializer(serializers.ModelSerializer):
+class BedSerializerSerializer(serializers.ModelSerializer):
     """
     Serialize bed class to json
     """
@@ -37,7 +41,7 @@ class BedSerializer(serializers.ModelSerializer):
                   'garden_id']
 
 
-class CropRotation(serializers.ModelSerializers):
+class CropRotationSerializer(serializers.ModelSerializers):
     """
     Serialize crop rotation class to json
     """
@@ -47,7 +51,7 @@ class CropRotation(serializers.ModelSerializers):
                   'previous_crop', 'next_crop']
 
 
-class Crop(serializers.ModelSerializers):
+class CropSerializer(serializers.ModelSerializers):
     """Serialize crop class to json"""
     class Meta:
         model = Crop
@@ -55,7 +59,7 @@ class Crop(serializers.ModelSerializers):
                   'variety', 'planting_date', 'bed_id']
 
 
-class Harvest(serializers.ModelSerializers):
+class HarvestSerializer(serializers.ModelSerializers):
     """Serialize harvest class to json"""
     class Meta:
         model = Harvest
@@ -63,9 +67,17 @@ class Harvest(serializers.ModelSerializers):
                   'crop_id', 'quantity_harvested', 'notes']
 
 
-class Inspection(serializers.ModelSerializers):
+class InspectionSerializer(serializers.ModelSerializers):
     """Serialize inspection class to json"""
     class Meta:
         model = Inspection
         fields = ['id', 'created_at', 'updated_at', 'user_id',
                   'bed_id', 'crop_id', 'inspection_date', 'notes']
+
+
+class ActivitySerializer(serializers.ModelSerializers):
+    """Serializes activities class to json"""
+    class Meta:
+        model = Activity
+        fields = ['id', 'created_at', 'updated_at', 'user_id',
+                  'garden_id', 'bed_id', 'date', 'description']
