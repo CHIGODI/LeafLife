@@ -12,3 +12,11 @@ class ActivityListCreate(generics.ListCreateAPIView):
     """
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
+
+class ActivityDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Update or delete an activity
+    """
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
+    lookup_field = 'id'
