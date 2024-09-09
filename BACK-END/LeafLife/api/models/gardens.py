@@ -4,8 +4,8 @@ from . import models, Base
 class Garden(Base):
     """Garden model that inherits from Base and has additional attributes"""
     name = models.CharField(max_length=255)
-    latitude = models.CharField(max_length=255)
-    longitude = models.CharField(max_length=255)
+    lat = models.CharField(max_length=255)
+    long = models.CharField(max_length=255)
     description = models.TextField()
     user_id = models.ForeignKey('User',
                              on_delete=models.CASCADE,
