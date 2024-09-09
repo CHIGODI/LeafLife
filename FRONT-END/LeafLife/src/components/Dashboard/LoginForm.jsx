@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginForm = () => {
+  // State to handle user inputs
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  // State to handle loading state and error messages
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,21 +21,43 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // You can add your login logic here (e.g., API call)
+
+    try {
+      setLoading(true); // Set loading to true when starting the request
+      setError(''); // Clear any previous error
+
+      // Use POST request for login
+      const response = await axios.post('api goes here', {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      // Log this when login is successful
+      console.log('User logged in successfully:', response.data);
+      alert('Login successful!');
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setError('Login failed. Please try again.');
+    } finally {
+      setLoading(false); // Set loading to false after request is complete
+    }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-green-600">Login</h2>
+        
+        {/* error message will dispaly here */}
+        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+
         <form onSubmit={handleSubmit}>
-          {/* Email or Username Input */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 mb-2">
-              Email or Username
+              Email
             </label>
             <input
               type="text"
@@ -38,12 +66,11 @@ const LoginForm = () => {
               value={formData.email}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-              placeholder="Enter your email or username"
+              placeholder="Enter your email"
               required
             />
           </div>
 
-          {/* Password Input */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-700 mb-2">
               Password
@@ -60,15 +87,14 @@ const LoginForm = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition duration-300"
+            disabled={loading}  // Disable button when loading is happenening
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </button>
 
-          {/* Sign Up Link */}
           <p className="mt-4 text-center text-gray-600">
             Don't have an account?{' '}
             <Link to="/signup" className="text-green-600 hover:underline">
