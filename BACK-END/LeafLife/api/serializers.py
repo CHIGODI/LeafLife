@@ -28,7 +28,7 @@ class GardenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Garden
         fields = ['id', 'created_at', 'updated_at', 'name',
-                'longitude', 'latitude', 'description', 'user_id']
+                'long', 'lat', 'description', 'user_id']
 
 
 class BedSerializer(serializers.ModelSerializer):
