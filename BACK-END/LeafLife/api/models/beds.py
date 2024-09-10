@@ -3,7 +3,9 @@ from . import models, Base
 
 class Bed(Base):
     """Bed model that inherits from Base and has additional attributes"""
-    name = models.CharField(max_length=5)
+
+     # Overwrites the inherited `id` field with an AutoField (integer)
+    id = models.AutoField(primary_key=True)
     garden_id = models.ForeignKey('Garden',
                                on_delete=models.CASCADE,
                                related_name='beds')
