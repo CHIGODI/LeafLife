@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -43,9 +42,9 @@ const SignupForm = () => {
         password: formData.password,
       });
 
-      // log this when successfully singup happens and redirect to dashboard
+      // log this when successfully singup
       console.log('User signed up successfully:', response.data);
-      navigate('/dashboard');
+      navigate('/dashboard'); // now naviagte to the dashboard
 
     } catch (error) {
       console.error('Error signing up:', error);

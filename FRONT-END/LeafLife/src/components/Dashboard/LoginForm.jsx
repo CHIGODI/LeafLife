@@ -28,7 +28,7 @@ const LoginForm = () => {
     console.log('Form submitted:', formData);
 
     try {
-      setLoading(true); // Set loading to true when starting the request
+      setLoading(true);
       setError(''); // Clear any previous error
 
       // Use POST request for login
@@ -46,7 +46,7 @@ const LoginForm = () => {
       console.error('Error logging in:', error);
       setError('Login failed. Please try again.');
     } finally {
-      setLoading(false); // Set loading to false after request is complete
+      setLoading(false);
     }
   };
 
@@ -94,7 +94,7 @@ const LoginForm = () => {
           <button
             type="submit"
             className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition duration-300"
-            disabled={loading}  // Disable button when loading is happenening
+            disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>

@@ -10,13 +10,12 @@ import Founders from './components/Founders';
 import Contact from './components/Contact';
 import SignupForm from './components/Dashboard/SignUpForm';
 import LoginForm from './components/Dashboard/LoginForm';
-import Dashboard from './components/Dashboard/Dashboard';  // Import the Dashboard component
+import Dashboard from './components/Dashboard/Dashboard';
 import agriImage from './assets/images/agri2.jpg';
 import agriImage2 from './assets/images/aerial1.jpg';
 
 const Home = () => (
   <>
-    {/* Combined Navbar and Hero with the same background image */}
     <div
       className="relative h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${agriImage})` }}>
@@ -42,26 +41,18 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Home route - renders Navbar and other components */}
         <Route path="/" element={<Home />} />
-
-        {/* Sign up route */}
         <Route
           path="/signup"
           element={
             <>
-              <div
-                className="relative h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url(${agriImage})` }}
-              >
+              <div>
                 <Navbar />
                 <SignupForm />
               </div>
             </>
           }
         />
-
-        {/* Login route */}
         <Route
           path="/login"
           element={
@@ -71,19 +62,10 @@ const App = () => {
             </>
           }
         />
-
-        {/* Dashboard route */}
         <Route
           path="/dashboard"
-          element={
-            <>
-              <Navbar />
-              <Dashboard />
-            </>
-          }
+          element={<Dashboard />}
         />
-
-        {/* Contact route */}
         <Route
           path="/contact"
           element={

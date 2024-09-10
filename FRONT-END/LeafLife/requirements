@@ -1,0 +1,3 @@
+npm install recharts
+nmp init
+npm install chart.js react-chartjs-2
