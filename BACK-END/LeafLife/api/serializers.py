@@ -31,7 +31,7 @@ class GardenSerializer(serializers.ModelSerializer):
                 'longitude', 'latitude', 'description', 'user_id']
 
 
-class BedSerializerSerializer(serializers.ModelSerializer):
+class BedSerializer(serializers.ModelSerializer):
     """
     Serialize bed class to json
     """
@@ -41,7 +41,7 @@ class BedSerializerSerializer(serializers.ModelSerializer):
                   'garden_id']
 
 
-class CropRotationSerializer(serializers.ModelSerializers):
+class CropRotationSerializer(serializers.ModelSerializer):
     """
     Serialize crop rotation class to json
     """
@@ -51,7 +51,7 @@ class CropRotationSerializer(serializers.ModelSerializers):
                   'previous_crop', 'next_crop']
 
 
-class CropSerializer(serializers.ModelSerializers):
+class CropSerializer(serializers.ModelSerializer):
     """Serialize crop class to json"""
     class Meta:
         model = Crop
@@ -59,7 +59,7 @@ class CropSerializer(serializers.ModelSerializers):
                   'variety', 'planting_date', 'bed_id']
 
 
-class HarvestSerializer(serializers.ModelSerializers):
+class HarvestSerializer(serializers.ModelSerializer):
     """Serialize harvest class to json"""
     class Meta:
         model = Harvest
@@ -67,7 +67,7 @@ class HarvestSerializer(serializers.ModelSerializers):
                   'crop_id', 'quantity_harvested', 'notes']
 
 
-class InspectionSerializer(serializers.ModelSerializers):
+class InspectionSerializer(serializers.ModelSerializer):
     """Serialize inspection class to json"""
     class Meta:
         model = Inspection
@@ -75,7 +75,7 @@ class InspectionSerializer(serializers.ModelSerializers):
                   'bed_id', 'crop_id', 'inspection_date', 'notes']
 
 
-class ActivitySerializer(serializers.ModelSerializers):
+class ActivitySerializer(serializers.ModelSerializer):
     """Serializes activities class to json"""
     class Meta:
         model = Activity
