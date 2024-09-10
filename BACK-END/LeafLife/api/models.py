@@ -1,4 +1,5 @@
 from django.db import models
-from models import *
 
-# Create your models here.
+# Import models from the models directory
+from .models import User, Garden, Bed, Crop, Inspection, Activity, Harvest, CropRotation
+

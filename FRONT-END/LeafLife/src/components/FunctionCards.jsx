@@ -42,11 +42,11 @@ const FunctionCards = () => {
   return (
     <section className="">
       <div className="container-xl lg:container m-auto">
-        <h2 className="text-3xl font-bold text-green-500 mb-6 text-center">
+        <h2 className="text-3xl font-bold text-green-800 mb-6 text-center pt-10 ">
           Leaf Life Highlights
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Map through the highlights array and render a HighlightCard for each highlight */}
+          {/* Mapping through the highlights array to render a HighlightCard for each highlight */}
           {highlights.map((highlight, index) => (
             <HighlightCard
               key={index}
