@@ -6,6 +6,7 @@ BACK-END/LeafLife/__pycache__/
 BACK-END/LeafLife/api/__pycache__/
 BACK-END/LeafLife/api/views/__pycache__/
 BACK-END/LeafLife/api/migrations/__pycache__/
-FRONT-END/node_modules/
-BACK-END/LeafLife/db.sqlite3
-models
+BACK-END/LeafLife/api/migrations/0*
+*lock.json
+*/node_modules/
+*db.sqlite3
