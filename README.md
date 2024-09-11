@@ -19,5 +19,29 @@
 - Julius Wamuyu  <juliusmchr@gmail.com>
 - Prudence Wambui <wambuiprudy@gmail.com>
 
-<h2>LeafLife Features</h2>
-- User
+<h2>Technologies Used</h2>
+
+- Python
+- Django Rest Framerwork
+- React
+- NextJS
+- PostgreSQL
+
+## Installation
+
+1. Clone the repository:
+```shell
+git clone https://github.com/CHIGODI/LeafLife.git
+cd LeafLife
+```
+
+2. Create a virtual environment and activate it:
+```shell
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+3. Install dependencies:
+```shell
+pip install -r requirements.txt
+```

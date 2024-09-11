@@ -3,4 +3,9 @@
 *__pycache__/
 BACK-END/__pycache__/
 BACK-END/LeafLife/__pycache__/
+BACK-END/LeafLife/api/__pycache__/
+BACK-END/LeafLife/api/views/__pycache__/
+BACK-END/LeafLife/api/migrations/__pycache__/
 FRONT-END/node_modules/
+BACK-END/LeafLife/db.sqlite3
+models
