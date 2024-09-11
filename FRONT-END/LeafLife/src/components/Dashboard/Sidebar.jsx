@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
@@ -7,17 +8,27 @@ const Sidebar = () => {
         Leaflife
       </div>
       <ul className="mt-4 space-y-2">
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">Dashboard</li>
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">My Garden</li>
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">Bed</li>
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">Plants</li>
-      </ul>
-      <hr className="border-gray-700 my-4 mx-2" />
-      <ul className="space-y-2">
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">New</li>
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">New</li>
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">New</li>
-        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">New</li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/dashboard">User Dashboard</Link>
+        </li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/gardens">Gardens</Link>
+        </li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/beds">Beds</Link>
+        </li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/crops">Crops</Link>
+        </li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/harvests">Harvests</Link>
+        </li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/activity">Activity</Link>
+        </li>
+        <li className="px-4 py-2 hover:bg-green-700 cursor-pointer">
+          <Link to="/growth-tracker">Growth Tracker</Link>
+        </li>
       </ul>
     </div>
   );
