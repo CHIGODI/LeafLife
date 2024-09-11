@@ -11,6 +11,12 @@ import Contact from './components/Contact';
 import SignupForm from './components/Dashboard/SignUpForm';
 import LoginForm from './components/Dashboard/LoginForm';
 import Dashboard from './components/Dashboard/Dashboard';
+import GardenPage from './components/Dashboard/GardenPage';
+import BedPage from './components/Dashboard/BedPage';
+import CropPage from './components/Dashboard/CropPage';
+import HarvestPage from './components/Dashboard/HarvestPage';
+import ActivityPage from './components/Dashboard/ActivityPage';
+import GrowthTrackerPage from './components/Dashboard/GrowthTrackerPage';
 import agriImage from './assets/images/agri2.jpg';
 import agriImage2 from './assets/images/aerial1.jpg';
 
@@ -22,7 +28,7 @@ const Home = () => (
       <Navbar />
       <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
     </div>
-    
+    <Dashboard />
     <FounderMessage />
     <div
       className="relative min-h-screen bg-cover bg-center"
@@ -46,10 +52,8 @@ const App = () => {
           path="/signup"
           element={
             <>
-              <div>
-                <Navbar />
-                <SignupForm />
-              </div>
+              <Navbar />
+              <SignupForm />
             </>
           }
         />
@@ -75,6 +79,13 @@ const App = () => {
             </>
           }
         />
+        {/* Add new routes */}
+        <Route path="/gardens" element={<GardenPage />} />
+        <Route path="/beds" element={<BedPage />} />
+        <Route path="/crops" element={<CropPage />} />
+        <Route path="/harvests" element={<HarvestPage />} />
+        <Route path="/activity" element={<ActivityPage />} />
+        <Route path="/growth-tracker" element={<GrowthTrackerPage />} />
       </Routes>
     </Router>
   );
