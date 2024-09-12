@@ -26,7 +26,8 @@ class Activity(Base):
                             null=True,
                             blank=True,
                             related_name='activities')
-    activity_type = models.CharField(max_length=20, choices=ACTIVITY_TYPE_CHOICES)
+    activity_type = models.CharField(max_length=20,
+                                     choices=ACTIVITY_TYPE_CHOICES,default='inspection')
     date = models.DateField()
     notes = models.TextField()
 
