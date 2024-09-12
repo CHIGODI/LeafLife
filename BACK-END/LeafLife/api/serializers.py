@@ -13,12 +13,16 @@ from .models import Crop
 from .models import Harvest
 from .models import Inspection
 from .models import Activity
+from django.contrib.auth.hashers import make_password
+
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password']
+        # hide password from json response
+        extra_kwargs = {'password': {'write_only': True}}
 
 
 class GardenSerializer(serializers.ModelSerializer):
