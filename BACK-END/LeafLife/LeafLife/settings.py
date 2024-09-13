@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,11 +100,11 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'leaflife',
-        'USER': 'julio',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',  # Set to your PostgreSQL server host
-        'PORT': '5432',       # Default PostgreSQL port
+        'NAME': os.getenv('LEAFLIFE_POSTGRES_BB'),
+        'USER': os.getenv('LEAFLIFE_POSTGRES_USER'),
+        'PASSWORD': os.getenv('LEAFLIFE_POSTGRES_PWD'),
+        'HOST': os.getenv('LEAFLIFE_POSTGRES_HOST'),
+        'PORT': os.getenv('LEAFLIFE_POSTGRES_PORT'),
     }
 }
 # configure DRF to use JWT
