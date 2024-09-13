@@ -3,7 +3,6 @@ from django.urls import path
 from .views.users import UserList, UserCreate, UserDetail
 from .views.gardens import GardenListCreate, GardenDetail
 from .views.beds import BedListCreate,  BedDetail
-from .views.register import RegisterUserView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views.login import CustomLoginJWTView
 
@@ -11,8 +10,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('login/', CustomLoginJWTView.as_view(), name='login'),
-    path('register/', RegisterUserView.as_view(), name='register'),
-    path('user/', UserCreate.as_view(), name='user-create'),
+    path('signup/', UserCreate.as_view(), name='user-create'),
     path('users/', UserList.as_view(), name='user-list'),
     path('users/<str:id>/', UserDetail.as_view(), name='user-detail'),
     path('users/<str:id>/gardens/', GardenListCreate.as_view(), name='gardens-list-create'),
