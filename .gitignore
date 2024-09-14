@@ -8,4 +8,5 @@ BACK-END/LeafLife/api/views/__pycache__/
 BACK-END/LeafLife/api/migrations/__pycache__/
 FRONT-END/node_modules/
 BACK-END/LeafLife/db.sqlite3
+FRONT-END/package-lock.json
 models
