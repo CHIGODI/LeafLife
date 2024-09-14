@@ -6,4 +6,4 @@ const ActivityPage = () => {
   )
 }
 
-export default ActivityPage
+export default ActivityPage;
