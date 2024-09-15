@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
-import Sidebar from './Sidebar';
+import Sidebar from './SideNav';
 import axios from 'axios';
 
-const GardenForm = () => {
+const NewFarmForm = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [lat, setLat] = useState('');
@@ -44,16 +44,16 @@ const GardenForm = () => {
     };
 
     return (
-        <div className="flex h-screen">
+        <div className="flex min-h-screen">
             <Sidebar className="w-64" />
             <div className="flex-1 flex flex-col p-6">
                 <Navbar />
                 <div className="flex flex-1 items-center justify-center mt-4">
-                    <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
-                        <h1 className="text-2xl font-bold mb-4">Create New Garden</h1>
+                    <div className="w-[60%] max-w-4xl p-6 bg-white rounded-lg shadow-md">
+                        <h1 className="text-2xl font-bold mb-4">Add new farm</h1>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Garden Name</label>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Garden Name<span className="text-red-700 ml-1">*</span></label>
                                 <input
                                     type="text"
                                     id="name"
@@ -65,7 +65,7 @@ const GardenForm = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description<span className="text-red-700 ml-1">*</span></label>
                                 <textarea
                                     id="description"
                                     value={description}
@@ -76,9 +76,9 @@ const GardenForm = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="lat" className="block text-sm font-medium text-gray-700">Latitude</label>
+                                <label htmlFor="lat" className="block text-sm font-medium text-gray-700"></label>
                                 <input
-                                    type="text"
+                                    type="hidden"
                                     id="lat"
                                     value={lat}
                                     onChange={(e) => setLat(e.target.value)}
@@ -89,9 +89,9 @@ const GardenForm = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="long" className="block text-sm font-medium text-gray-700">Longitude</label>
+                                <label htmlFor="long" className="block text-sm font-medium text-gray-700"></label>
                                 <input
-                                    type="text"
+                                    type="hidden"
                                     id="long"
                                     value={long}
                                     onChange={(e) => setLong(e.target.value)}
@@ -105,7 +105,7 @@ const GardenForm = () => {
                                 <button
                                     type="button"
                                     onClick={getLocation}
-                                    className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                                    className="w-[40%] py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                                 >
                                     Get My Location
                                 </button>
@@ -113,9 +113,9 @@ const GardenForm = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full py-2 px-4 bg-green-600 text-white font-semibold rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className="w-[20%] py-2 px-4 ml-[70%] bg-green-600 text-white font-semibold rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                             >
-                                Create Garden
+                                Add
                             </button>
                         </form>
                     </div>
@@ -125,4 +125,4 @@ const GardenForm = () => {
     );
 };
 
-export default GardenForm;
+export default NewFarmForm;

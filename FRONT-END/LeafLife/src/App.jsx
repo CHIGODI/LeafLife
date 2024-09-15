@@ -1,71 +1,45 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/Landing_page';
+import SignUp from './pages/SignUp_page';
+import LoginPage from './pages/Login_page';
+import Dashboard from './pages/Dashboard_page';
+import BedPage from './components/BedPage';
+import CropPage from './components/CropPage';
+import HarvestPage from './components/HarvestPage';
+import ActivityPage from './components/ActivityPage';
+import GrowthTrackerPage from './components/GrowthTrackerPage';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import FounderMessage from './components/FounderMessage';
-import FunctionCards from './components/FunctionCards';
-import MissionValues from './components/MissionValues';
-import Sustainability from './components/Sustainability';
-import Founders from './components/Founders';
 import Contact from './components/Contact';
-import SignupForm from './components/Dashboard/SignUpForm';
-import LoginForm from './components/Dashboard/LoginForm';
-import Dashboard from './components/Dashboard/Dashboard';
-import GardenPage from './components/Dashboard/GardenPage';
-import BedPage from './components/Dashboard/BedPage';
-import CropPage from './components/Dashboard/CropPage';
-import HarvestPage from './components/Dashboard/HarvestPage';
-import ActivityPage from './components/Dashboard/ActivityPage';
-import GrowthTrackerPage from './components/Dashboard/GrowthTrackerPage';
-import agriImage from './assets/images/agri2.jpg';
-import agriImage2 from './assets/images/aerial1.jpg';
+import NewFarmForm from './components/NewFarmForm';
+import GardenStats from './pages/Garden_page';
 
-const Home = () => (
-  <>
-    <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: `url(${agriImage})` }}>
-      <Navbar />
-      <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
-    </div>
-    <FounderMessage />
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${agriImage2})` }}>
-      <FunctionCards />
-    </div>
-    <MissionValues />
-    <Sustainability />
-    <Founders />
-    <Contact />
-  </>
-);
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/signup"
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signup"
           element={
             <>
               <Navbar />
-              <SignupForm />
+              <SignUp />
             </>
           }
         />
-        <Route
-          path="/login"
+        <Route path="/login"
           element={
             <>
               <Navbar />
-              <LoginForm />
+              <LoginPage />
             </>
           }
         />
-        <Route
-          path="/dashboard"
+        <Route path="/dashboard"
           element={<Dashboard />}
         />
-        <Route
-          path="/contact"
+        <Route path="/contact"
           element={
             <>
               <Navbar />
@@ -73,13 +47,14 @@ const App = () => {
             </>
           }
         />
-        {/* Add new routes */}
-        <Route path="/gardens" element={<GardenPage />} />
+        <Route path="/gardens" element={<GardenStats />} />
+        <Route path="/gardenstats" element={<GardenStats />} />
         <Route path="/beds" element={<BedPage />} />
         <Route path="/crops" element={<CropPage />} />
         <Route path="/harvests" element={<HarvestPage />} />
         <Route path="/activity" element={<ActivityPage />} />
         <Route path="/growth-tracker" element={<GrowthTrackerPage />} />
+        <Route path="/new-farm" element={<NewFarmForm />} />
       </Routes>
     </Router>
   );

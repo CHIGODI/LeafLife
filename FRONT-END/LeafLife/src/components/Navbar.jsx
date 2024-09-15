@@ -1,42 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo.png';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-const Navbar = () => {
+const Navbar = ({ token }) => {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  // Fetch user data
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/user/', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass auth token
+          },
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (token) {
+      fetchUser();
+    }
+  }, [token]);
+
+  // Toggle logout visibility
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
+  };
+
+  // Handle logout action
+  const handleLogout = () => {
+    console.log('Logged out');
+  };
+
   return (
-    <nav className="bg-transparent"> 
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
-            <Link className="flex flex-shrink-0 items-center mr-4" to="/">
-              <img className="h-20 w-auto" src={logo} alt="Logo" />
-            </Link>
-            <div className="md:ml-auto mt-4">
-              <div className="flex space-x-2">
-                <Link
-                  to="/"
-                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/contact"
-                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
-                >
-                  Contact
-                </Link>
-                <Link
-                  to="/signup"
-                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
-                >
-                  Sign Up
-                </Link>
+    <div className="relative">
+      <div className="flex justify-end p-8 bg-white">
+        <div className="flex justify-end">
+          <div className="relative">
+            <button onClick={toggleDropdown} className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faUser} className="h-4 w-4 text-gray-600 mr-2" />
+              {user && <span className="text-gray-700">{user.name}</span>}
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-4 w-40 bg-white">
+                <ul>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-center px-2 py-2 text-gray-700 hover:bg-red-500 border rounded-lg shadow-lg hover:border-red-400"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 
