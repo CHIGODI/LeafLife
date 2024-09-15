@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password
 
 class UserCreate(generics.CreateAPIView):
     """
-    Create a new user -- POST method
+    POST method to create new user
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
