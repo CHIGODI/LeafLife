@@ -8,7 +8,9 @@ class Base(models.Model):
     id = models.UUIDField(primary_key=True,
                           default=uuid.uuid4,
                           editable=False)
+    # automatically created at when an object is created
     created_at = models.DateTimeField(auto_now=True)
+    # automatically set when an object is updated
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

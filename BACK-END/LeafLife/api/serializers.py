@@ -13,12 +13,16 @@ from .models import Crop
 from .models import Harvest
 from .models import Inspection
 from .models import Activity
+from django.contrib.auth.hashers import make_password
+
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password']
+        # hide password from json response
+        extra_kwargs = {'password': {'write_only': True}}
 
 
 class GardenSerializer(serializers.ModelSerializer):
@@ -28,7 +32,7 @@ class GardenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Garden
         fields = ['id', 'created_at', 'updated_at', 'name',
-                'longitude', 'latitude', 'description', 'user_id']
+                'long', 'lat', 'description', 'user_id']
 
 
 class BedSerializer(serializers.ModelSerializer):
@@ -37,8 +41,8 @@ class BedSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Bed
-        fields = ['id', 'created_at', 'updated_at', 'name',
-                  'garden_id']
+        fields = ['id', 'created_at', 'updated_at', 'garden_id',
+                    'bed_type', 'length', 'width', 'soil_type']
 
 
 class CropRotationSerializer(serializers.ModelSerializer):
@@ -80,4 +84,4 @@ class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         fields = ['id', 'created_at', 'updated_at', 'user_id',
-                  'garden_id', 'bed_id', 'date', 'description']
+                  'garden_id', 'bed_id', 'date', 'activity_type', 'notes']

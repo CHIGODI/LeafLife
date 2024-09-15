@@ -21,3 +21,4 @@ class GardenDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Garden.objects.all()
     serializer_class = GardenSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'garden_id'

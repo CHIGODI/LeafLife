@@ -9,4 +9,9 @@ BACK-END/LeafLife/api/migrations/__pycache__/
 FRONT-END/node_modules/
 BACK-END/LeafLife/db.sqlite3
 FRONT-END/package-lock.json
-models
+BACK-END/LeafLife/api/migrations/0*
+*lock.json
+*/node_modules/
+*db.sqlite3
+BACKEND/LeafLife/api/test.rest
+.env
