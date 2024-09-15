@@ -20,9 +20,9 @@ class Bed(Base):
     ]
 
     # override the default primary key
-    id = models.AutoField(primary_key=True)
+    bed_number = models.CharField(max_length=10)
 
-    garden_id = models.ForeignKey('Garden', on_delete=models.CASCADE, related_name='beds')
+    garden = models.ForeignKey('Garden', on_delete=models.CASCADE, related_name='beds')
     # predefined bed types
     bed_type = models.CharField(max_length=20, choices=BED_TYPE_CHOICES)
     # dimensions in meters

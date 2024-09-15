@@ -15,13 +15,13 @@ class Activity(Base):
         ('transplanting', 'Transplanting'),
         ('other', 'Other'),
     ]
-    user_id = models.ForeignKey('User',
+    user = models.ForeignKey('User',
                                 on_delete=models.CASCADE,
                                 related_name='activities')
-    garden_id = models.ForeignKey('Garden',
+    garden = models.ForeignKey('Garden',
                                on_delete=models.CASCADE,
                                related_name='activities')
-    bed_id = models.ForeignKey('Bed',
+    bed = models.ForeignKey('Bed',
                             on_delete=models.SET_NULL,
                             null=True,
                             blank=True,
