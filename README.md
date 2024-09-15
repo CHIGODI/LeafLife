@@ -45,3 +45,20 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```shell
 pip install -r requirements.txt
 ```
+
+4. Setup postgres database
+```shell
+sudo -u postgres psql -d postgres -a -f setup_postgress_db.sql
+```
+Confirm that the database setup was successful using this command:
+```shell
+sudo -u postgres psql -d leaflife_dev_db -c "\l"
+```
+
+5. Run the API
+Move to the project's folder and run this command:
+```shell
+python3 manage.py runserver
+```
+
+
