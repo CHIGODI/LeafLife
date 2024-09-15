@@ -4,7 +4,6 @@ import BackgroundImage from '../assets/images/image1agri.jpg';
 const Contact = () => {
   return (
     <div className="h-screen bg-gray-300">
-      {/* Contact Section with Background Image */}
       <div
         className="h-96 bg-cover bg-center flex flex-col justify-center items-center text-white"
         style={{ backgroundImage: `url(${BackgroundImage})` }}
@@ -13,7 +12,7 @@ const Contact = () => {
         <p className="text-lg text-green-600">Visit our socials or get in touch via phone or email.</p>
       </div>
 
-      {/* Footer with Contact Information */}
+      {/* Footer */}
       <footer className="bg-gray-300 py-8">
         <div className="max-w-screen-lg mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
           <div className="flex flex-col items-center sm:items-start mb-4 sm:mb-0">

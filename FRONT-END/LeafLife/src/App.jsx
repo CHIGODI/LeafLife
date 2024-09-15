@@ -10,28 +10,26 @@ import Founders from './components/Founders';
 import Contact from './components/Contact';
 import SignupForm from './components/Dashboard/SignUpForm';
 import LoginForm from './components/Dashboard/LoginForm';
+import Dashboard from './components/Dashboard/Dashboard';
+import GardenPage from './components/Dashboard/GardenPage';
+import BedPage from './components/Dashboard/BedPage';
+import CropPage from './components/Dashboard/CropPage';
+import HarvestPage from './components/Dashboard/HarvestPage';
+import ActivityPage from './components/Dashboard/ActivityPage';
+import GrowthTrackerPage from './components/Dashboard/GrowthTrackerPage';
 import agriImage from './assets/images/agri2.jpg';
 import agriImage2 from './assets/images/aerial1.jpg';
 
 const Home = () => (
   <>
-    {/* Combined Navbar and Hero with the same background image */}
-    <div
-      className="relative h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${agriImage})` }}
-    >
+    <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: `url(${agriImage})` }}>
       <Navbar />
       <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
     </div>
-
     <FounderMessage />
-    <div
-      className="relative min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${agriImage2})` }}
-    >
+    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${agriImage2})` }}>
       <FunctionCards />
     </div>
-
     <MissionValues />
     <Sustainability />
     <Founders />
@@ -43,26 +41,16 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Home route - renders Navbar and other components */}
         <Route path="/" element={<Home />} />
-
-        {/* Sign up route */}
         <Route
           path="/signup"
           element={
             <>
-              <div
-                className="relative h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url(${agriImage})` }}
-              >
-                <Navbar />
-                <SignupForm />
-              </div>
+              <Navbar />
+              <SignupForm />
             </>
           }
         />
-
-        {/* Login route */}
         <Route
           path="/login"
           element={
@@ -72,8 +60,10 @@ const App = () => {
             </>
           }
         />
-
-        {/* Contact route */}
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
         <Route
           path="/contact"
           element={
@@ -83,7 +73,13 @@ const App = () => {
             </>
           }
         />
-        
+        {/* Add new routes */}
+        <Route path="/gardens" element={<GardenPage />} />
+        <Route path="/beds" element={<BedPage />} />
+        <Route path="/crops" element={<CropPage />} />
+        <Route path="/harvests" element={<HarvestPage />} />
+        <Route path="/activity" element={<ActivityPage />} />
+        <Route path="/growth-tracker" element={<GrowthTrackerPage />} />
       </Routes>
     </Router>
   );

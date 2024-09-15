@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const SignupForm = () => {
@@ -12,9 +12,11 @@ const SignupForm = () => {
 // set loading when signing in
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate to naviagte to dasboard
+
 
   const handleChange = (e) => {
-    // using spread operator to dynamically change user information when user ckicks on any input field but keep the rest intact
+    // using spread operator to dynamically change user information
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -40,10 +42,10 @@ const SignupForm = () => {
         password: formData.password,
       });
 
-      // log this when successfully singup happens
+      // log this when successfully singup
       console.log('User signed up successfully:', response.data);
-      alert('Signup successful!');
-      // else alert an error message will work on this
+      navigate('/dashboard'); // now naviagte to the dashboard
+
     } catch (error) {
       console.error('Error signing up:', error);
       setError('Signup failed. Please try again.');

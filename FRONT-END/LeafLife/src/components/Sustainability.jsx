@@ -7,9 +7,7 @@ import Image4 from '../assets/images/image3agti.jpg';
 const Sustainability = () => {
   return (
     <div className="flex flex-col px-8 py-12 bg-green-300 shadow-lg">
-      {/* Title and Description Section */}
       <div className="flex flex-col md:flex-row justify-between items-start mb-12 flex-grow">
-        {/* Title */}
         <div className="md:w-1/2 mb-8 md:mb-0">
           <h1 className="text-4xl font-bold text-black leading-tight mb-6">
             Advocating for sustainability
@@ -24,7 +22,7 @@ const Sustainability = () => {
         </div>
       </div>
 
-      {/* Image Gallery Section */}
+      {/* Images */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 flex-grow">
         <img
           src={Image4}
