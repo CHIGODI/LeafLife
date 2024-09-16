@@ -6,10 +6,10 @@ class Harvest(Base):
     Harvest model that records harvested quantities
     from a bed and crop
     """
-    bed_id= models.ForeignKey('Bed',
+    bed = models.ForeignKey('Bed',
                               on_delete=models.CASCADE,
                               related_name='harvests')
-    crop_id = models.ForeignKey('Crop',
+    crop = models.ForeignKey('Crop',
                                 on_delete=models.CASCADE,
                                 related_name='harvests')
     quantity_harvested = models.PositiveIntegerField()

@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password
 
 class UserCreate(generics.CreateAPIView):
     """
-    Create a new user -- POST method
+    POST method to create new user
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -30,7 +30,7 @@ class UserList(generics.ListAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]                           
+    permission_classes = [AllowAny]                           
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -40,5 +40,5 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'id'
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 

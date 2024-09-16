@@ -7,7 +7,7 @@ class Garden(Base):
     lat = models.CharField(max_length=255)
     long = models.CharField(max_length=255)
     description = models.TextField()
-    user_id = models.ForeignKey('User',
+    user = models.ForeignKey('User',
                              on_delete=models.CASCADE,
                              related_name='gardens')
 
