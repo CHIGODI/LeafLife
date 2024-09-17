@@ -4,7 +4,7 @@
 from rest_framework import generics
 from ..models import User, Garden
 from ..serializers import GardenSerializer
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, Http404
 
 
 class GardenListCreate(generics.ListCreateAPIView):
@@ -16,11 +16,14 @@ class GardenListCreate(generics.ListCreateAPIView):
     def get_queryset(self):
         """ Filter gardens by user """
         user_id = self.kwargs['user_id']
-        return Garden.objects.filter(user_id=user_id)
+        queryset = Garden.objects.filter(user_id=user_id)
+        if not queryset:
+            raise Http404( "User has no gardens")
+        return queryset
     
     def perform_create(self, serializer):
         # Extract user_id from URL kwargs
-        user_id = self.kwargs.get('user_id')
+        user_id = self.kwargs.get('id')
 
         # Retrieve User instance or raise 404 if user not found
         user = get_object_or_404(User, id=user_id)
