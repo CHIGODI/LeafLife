@@ -30,7 +30,7 @@ class UserList(generics.ListAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]                           
+    permission_classes = [IsAuthenticated]                           
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -40,5 +40,5 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
