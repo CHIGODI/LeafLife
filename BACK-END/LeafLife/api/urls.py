@@ -4,12 +4,17 @@ from .views.users import UserList, UserCreate, UserDetail
 from .views.gardens import GardenListCreate, GardenDetail
 from .views.beds import BedListCreate,  BedDetail
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views.login import CustomLoginJWTView
+from .views.login import LoginView
+from .views.refresh import CustomTokenRefreshView
+from .views.logout import logout_view
 
 urlpatterns = [
     path('signup/', UserCreate.as_view(), name='user-create'),
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/', LoginView.as_view(), name='login'),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/', logout_view, name='logout'),
     path('users/', UserList.as_view(), name='user-list'),
     path('users/<uuid:id>/', UserDetail.as_view(), name='user-detail'),
     path('users/<uuid:user_id>/gardens/', GardenListCreate.as_view(), name='gardens-list-create'),
