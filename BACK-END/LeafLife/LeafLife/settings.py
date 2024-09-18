@@ -164,3 +164,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Enable CSRF protection
+CSRF_COOKIE_SECURE = False  # Ensure CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_HTTPONLY = True  # Hide CSRF cookie from JavaScript
+SESSION_COOKIE_SECURE = False  # Ensure session cookie is only sent over HTTPS
+
+# SameSite settings to prevent CSRF
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Ensure cookies are sent over HTTPS
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_SSL_REDIRECT = False
+
