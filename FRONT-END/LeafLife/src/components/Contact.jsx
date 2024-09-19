@@ -1,43 +1,66 @@
 import React from 'react';
 import BackgroundImage from '../assets/images/image1agri.jpg';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Contact = () => {
   return (
-    <div className="h-screen bg-gray-300">
-      {/* Contact Section with Background Image */}
+    <div className="bg-gray-300">
       <div
         className="h-96 bg-cover bg-center flex flex-col justify-center items-center text-white"
-        style={{ backgroundImage: `url(${BackgroundImage})` }}
+        style={{
+          backgroundImage: `url(${BackgroundImage})`,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundBlendMode: 'overlay'
+        }}
       >
         <h1 className="text-4xl font-bold mb-4 text-green-600">How To Reach Out To Us</h1>
         <p className="text-lg text-green-600">Visit our socials or get in touch via phone or email.</p>
       </div>
 
-      {/* Footer with Contact Information */}
-      <footer className="bg-gray-300 py-8">
-        <div className="max-w-screen-lg mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-          <div className="flex flex-col items-center sm:items-start mb-4 sm:mb-0">
-            <p className="text-lg font-semibold text-green-600">PHONE</p>
-            <p className="text-sm text-gray-600">+254 43 966 928</p>
-            <p className="text-sm text-gray-600">+254 43 966 928</p>
-            <p className="text-sm text-gray-600">+254 43 966 928</p>
-            <p className="text-sm text-gray-600">+254 43 966 928</p>
+      <footer className="bg-green-700 text-white py-8">
+        <div className="max-w-screen-lg mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h2 className="text-lg font-semibold mb-4">Products</h2>
+            <ul>
+              <li>FarmCloud</li>
+              <li>FarmShield</li>
+              <li>Smart Greenhouses</li>
+              <li>Screenhouses</li>
+              <li>NetHouses</li>
+              <li>Smart Drip Kits</li>
+              <li>Herbs for Export</li>
+            </ul>
           </div>
-          <div className="flex flex-col items-center sm:items-start mb-4 sm:mb-0">
-            <p className="text-lg font-semibold text-green-600">EMAIL</p>
-            <p className="text-sm text-gray-600">leaflife@gmail.com</p>
-            <p className="text-sm text-gray-600">julius@gmail.com</p>
-            <p className="text-sm text-gray-600">prudence@gmail.com</p>
-            <p className="text-sm text-gray-600">antony@gmail.com</p>
-            <p className="text-sm text-gray-600">diana@gmail.com</p>
+
+          <div>
+            <h2 className="text-lg font-semibold mb-4">Resources</h2>
+            <ul>
+              <li>About Us</li>
+              <li>Farmer Help Centre</li>
+              <li>Sign into FarmCloud</li>
+              <li>Pricing Calculator</li>
+              <li>Pre-Site Survey</li>
+              <li>Request a Meeting</li>
+              <li>Terms & Conditions</li>
+              <li>Privacy Policy</li>
+            </ul>
           </div>
-          <div className="flex flex-col items-center sm:items-start">
-            <p className="text-lg font-semibold text-green-600">SOCIAL</p>
-            <p className="text-sm text-gray-600">@leaflife</p>
-            <p className="text-sm text-gray-600">@julius</p>
-            <p className="text-sm text-gray-600">@prudence</p>
-            <p className="text-sm text-gray-600">@antony</p>
-            <p className="text-sm text-gray-600">@diana</p>
+
+          <div>
+            <h2 className="text-lg font-semibold mb-4">Contact</h2>
+            <p>Synnefa Kenya office</p>
+            <p>Postal Address: P.O. BOX 23170-00505</p>
+            <p>Nairobi, Kenya</p>
+            <p>Kenya Support Line: +254 20 3892455</p>
+            <p>US Support Line: +1 302 545 4495</p>
+
+            <div className="flex space-x-4 mt-4">
+              <FaFacebookF />
+              <FaTwitter />
+              <FaLinkedinIn />
+              <FaInstagram />
+              <FaYoutube />
+            </div>
           </div>
         </div>
       </footer>

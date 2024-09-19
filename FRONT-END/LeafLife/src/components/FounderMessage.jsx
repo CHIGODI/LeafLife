@@ -4,7 +4,6 @@ import founderPic from '../assets/images/image1agri.jpg';
 const FounderMessage = () => {
   return (
     <div className="flex flex-col md:flex-row items-center md:items-start p-6 bg-white shadow-lg rounded-lg">
-      {/* Image Section */}
       <div className="flex-shrink-0 md:w-1/2 mb-4 md:mb-0">
         <img
           src={founderPic}
@@ -13,7 +12,6 @@ const FounderMessage = () => {
         />
       </div>
       
-      {/* Text Section */}
       <div className="md:w-1/2 md:pl-6">
         <h2 className="text-2xl font-semibold mb-4">Message from the Founders</h2>
         <p className="text-gray-700">

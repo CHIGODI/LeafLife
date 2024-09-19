@@ -1,81 +1,45 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/Landing_page';
+import SignUp from './pages/SignUp_page';
+import LoginPage from './pages/Login_page';
+import Dashboard from './pages/Dashboard_page';
+import BedForm from './components/BedForm';
+import CropPage from './pages/CropPage';
+import HarvestPage from './pages/HarvestPage';
+import AccountInfo from './pages/AccountInfo';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import FounderMessage from './components/FounderMessage';
-import FunctionCards from './components/FunctionCards';
-import MissionValues from './components/MissionValues';
-import Sustainability from './components/Sustainability';
-import Founders from './components/Founders';
 import Contact from './components/Contact';
-import SignupForm from './components/Dashboard/SignUpForm';
-import LoginForm from './components/Dashboard/LoginForm';
-import agriImage from './assets/images/agri2.jpg';
-import agriImage2 from './assets/images/aerial1.jpg';
+import NewFarmForm from './components/NewFarmForm';
+import GardenStats from './pages/Garden_page';
+import ActivityPage from './pages/ActivityPage';
 
-const Home = () => (
-  <>
-    {/* Combined Navbar and Hero with the same background image */}
-    <div
-      className="relative h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${agriImage})` }}
-    >
-      <Navbar />
-      <Hero title="Welcome to Leaf Life" subtitle="Grow your passion for farming" />
-    </div>
-
-    <FounderMessage />
-    <div
-      className="relative min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${agriImage2})` }}
-    >
-      <FunctionCards />
-    </div>
-
-    <MissionValues />
-    <Sustainability />
-    <Founders />
-    <Contact />
-  </>
-);
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Home route - renders Navbar and other components */}
-        <Route path="/" element={<Home />} />
-
-        {/* Sign up route */}
-        <Route
-          path="/signup"
-          element={
-            <>
-              <div
-                className="relative h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url(${agriImage})` }}
-              >
-                <Navbar />
-                <SignupForm />
-              </div>
-            </>
-          }
-        />
-
-        {/* Login route */}
-        <Route
-          path="/login"
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signup"
           element={
             <>
               <Navbar />
-              <LoginForm />
+              <SignUp />
             </>
           }
         />
-
-        {/* Contact route */}
-        <Route
-          path="/contact"
+        <Route path="/login"
+          element={
+            <>
+              <Navbar />
+              <LoginPage />
+            </>
+          }
+        />
+        <Route path="/dashboard"
+          element={<Dashboard />}
+        />
+        <Route path="/contact"
           element={
             <>
               <Navbar />
@@ -83,7 +47,14 @@ const App = () => {
             </>
           }
         />
-        
+        <Route path="/gardens" element={<GardenStats />} />
+        <Route path="/gardenstats" element={<GardenStats />} />
+        <Route path="/beds" element={<BedForm />} />
+        <Route path="/crops" element={<CropPage />} />
+        <Route path="/harvests" element={<HarvestPage />} />
+        <Route path="/activity" element={<ActivityPage />} />
+        <Route path="/account-info" element={<AccountInfo/>} />
+        <Route path="/new-farm" element={<NewFarmForm />} />
       </Routes>
     </Router>
   );

@@ -1,41 +1,70 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/leaf-life-logo.svg';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  const location = useLocation();
+
+  const linkClasses = (path) =>
+    `text-green-600 bg-transparent hover-underline ${location.pathname === path ? 'active-underline' : 'hover:bg-transparent'
+    }`;
+
   return (
-    <nav className="bg-transparent"> 
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
-            {/* Logo */}
-            <Link className="flex flex-shrink-0 items-center mr-4" to="/">
-              <img className="h-20 w-auto" src={logo} alt="Logo" />
-            </Link>
-            <div className="md:ml-auto mt-4">
-              <div className="flex space-x-2">
-                <Link
-                  to="/"
-                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/contact"
-                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
-                >
-                  Contact
-                </Link>
-                <Link
-                  to="/signup"
-                  className="text-green-500 bg-transparent hover:bg-green-400 hover:text-white rounded-md px-3 py-2 transition duration-300"
-                >
-                  Sign Up
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+    <nav className="flex flex-row justify-between bg-transparent">
+      <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
+        <Link className="flex flex-shrink-0 items-center mr-4" to="/">
+          <img className="h-20 w-auto" src={logo} alt="Logo" />
+        </Link>
+      </div>
+      <div className="w-[50%] flex flex-row justify-around items-center">
+        <style>
+          {`
+          .hover-underline::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: green;
+            transition: width 0.3s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -2.5px;
+          }
+
+          .hover-underline:hover::after {
+            width: 80%;
+          }
+
+          .active-underline::after {
+            content: '';
+            display: block;
+            width: 80%;
+            height: 2px;
+            background-color: green;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -5px;
+          }
+        `}
+        </style>
+
+        <Link to="/" className={`relative ${linkClasses('/')}`}>
+          Home
+        </Link>
+        <Link to="/services" className={`relative ${linkClasses('/services')}`}>
+          Our Services
+        </Link>
+        <Link to="/contact" className={`relative ${linkClasses('/contact')}`}>
+          Contact
+        </Link>
+        <Link to="/login" className="border border-green-600 px-[2%] py-2 rounded-[1rem] hover:bg-green-600 hover:text-white">
+          Login
+        </Link>
+        <Link to="/signup" className="border border-green-600 px-[2%] py-2 rounded-[1rem] hover:bg-green-600 hover:text-white">
+          Sign Up
+        </Link>
       </div>
     </nav>
   );

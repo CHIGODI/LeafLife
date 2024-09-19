@@ -1,0 +1,9 @@
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm install
+npm install react-router-dom
+npm install recharts
+npm install @heroicons/react
+npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+npm install chart.js react-chartjs-2
+npm install axios
