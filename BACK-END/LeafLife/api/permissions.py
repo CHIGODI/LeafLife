@@ -6,6 +6,11 @@ from rest_framework.permissions import BasePermission
 
 class IsGardenOwner(BasePermission):
     """ Checks garden ownership."""
+
+    def __init__(self):
+        super().__init__()
+        print("IsBedOwner permission class initialized")
+
     def has_object_permission(self, request, view, obj):
         """ Check if the authenticated user is the owner of the garden"""
         return obj.user == request.user
