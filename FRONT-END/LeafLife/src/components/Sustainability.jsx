@@ -6,14 +6,14 @@ import Image4 from '../assets/images/image3agti.jpg';
 
 const Sustainability = () => {
   return (
-    <div className="flex flex-col px-8 py-12 bg-green-300 shadow-lg">
+    <div className="flex flex-col px-8 py-12 shadow-lg">
       <div className="flex flex-col md:flex-row justify-between items-start mb-12 flex-grow">
         <div className="md:w-1/2 mb-8 md:mb-0">
           <h1 className="text-4xl font-bold text-black leading-tight mb-6">
             Advocating for sustainability
           </h1>
         </div>
-        
+
         {/* Description */}
         <div className="md:w-1/2 text-gray-700 leading-relaxed">
           <p>

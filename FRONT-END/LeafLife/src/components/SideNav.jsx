@@ -6,7 +6,7 @@ const SideNav = () => {
   const [isFarmsOpen, setIsFarmsOpen] = useState(false);
 
   return (
-    <div className="w-52 min-h-screen bg-green-50 text-gray-800">
+    <div className="w-[16%] fixed min-h-screen bg-green-50 text-gray-800">
       <div className="p-4 text-2xl font-bold border-b border-green-700">
         Leaflife
       </div>
@@ -24,7 +24,12 @@ const SideNav = () => {
           {isFarmsOpen && (
             <ul className="pl-6 text-sm bg-green-50 rounded-md cursor-pointer">
               <li className={`mt-0 px-2 py-1 ${location.pathname === '/gardens' ? 'bg-green-200' : 'hover:bg-green-200'}`}>
-                <Link to="/gardenstats" className="block w-full">Julio Garden</Link>
+                <Link to="/gardenstats" className="block w-full">North Garden</Link>
+
+              </li>
+              <li className={`mt-0 px-2 py-1 ${location.pathname === '/gardens' ? 'bg-green-200' : 'hover:bg-green-200'}`}>
+                <Link to="/gardenstats" className="block w-full">South Garden</Link>
+
               </li>
             </ul>
           )}

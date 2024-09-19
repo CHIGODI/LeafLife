@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "garden_name": "North Garden",
+        "crops": [
+            {
+                "crop_name": "Tomatoes",
+                "crop_count": 25
+            },
+            {
+                "crop_name": "Carrots",
+                "crop_count": 15
+            },
+            {
+                "crop_name": "Lettuce",
+                "crop_count": 20
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "garden_name": "South Garden",
+        "crops": [
+            {
+                "crop_name": "Peppers",
+                "crop_count": 10
+            },
+            {
+                "crop_name": "Beans",
+                "crop_count": 30
+            },
+            {
+                "crop_name": "Cabbage",
+                "crop_count": 18
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "garden_name": "East Garden",
+        "crops": [
+            {
+                "crop_name": "Spinach",
+                "crop_count": 12
+            },
+            {
+                "crop_name": "Onions",
+                "crop_count": 22
+            },
+            {
+                "crop_name": "Lettuce",
+                "crop_count": 16
+            }
+        ]
+    }
+]

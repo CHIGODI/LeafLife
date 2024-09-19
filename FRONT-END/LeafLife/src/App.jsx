@@ -4,15 +4,15 @@ import LandingPage from './pages/Landing_page';
 import SignUp from './pages/SignUp_page';
 import LoginPage from './pages/Login_page';
 import Dashboard from './pages/Dashboard_page';
-import BedPage from './components/BedPage';
-import CropPage from './components/CropPage';
-import HarvestPage from './components/HarvestPage';
-import ActivityPage from './components/ActivityPage';
-import GrowthTrackerPage from './components/GrowthTrackerPage';
+import BedForm from './components/BedForm';
+import CropPage from './pages/CropPage';
+import HarvestPage from './pages/HarvestPage';
+import AccountInfo from './pages/AccountInfo';
 import Navbar from './components/Navbar';
 import Contact from './components/Contact';
 import NewFarmForm from './components/NewFarmForm';
 import GardenStats from './pages/Garden_page';
+import ActivityPage from './pages/ActivityPage';
 
 
 const App = () => {
@@ -48,12 +48,12 @@ const App = () => {
           }
         />
         <Route path="/gardens" element={<GardenStats />} />
-        <Route path="/gardenstats" element={<GardenStats />} />
-        <Route path="/beds" element={<BedPage />} />
+        <Route path="//gardenstats/:id" element={<GardenStats />} />
+        <Route path="/beds" element={<BedForm />} />
         <Route path="/crops" element={<CropPage />} />
         <Route path="/harvests" element={<HarvestPage />} />
         <Route path="/activity" element={<ActivityPage />} />
-        <Route path="/growth-tracker" element={<GrowthTrackerPage />} />
+        <Route path="/account-info" element={<AccountInfo/>} />
         <Route path="/new-farm" element={<NewFarmForm />} />
       </Routes>
     </Router>

@@ -37,8 +37,7 @@ const LoginPage = () => {
 
             console.log('User logged in successfully:', response.data);
             alert('Login successful!');
-
-            // if Login was successfull navigate to dasboard
+            
             navigate('/dashboard');
         } catch (error) {
             console.error('Error logging in:', error);

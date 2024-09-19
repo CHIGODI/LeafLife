@@ -1,0 +1,44 @@
+[
+    {
+        "day": "Mon",
+        "garden1_time": 4,
+        "garden2_time": 2,
+        "time_taken": 5
+    },
+    {
+        "day": "Tue",
+        "garden1_time": 3,
+        "garden2_time": 1,
+        "time_taken": 3
+    },
+    {
+        "day": "Wed",
+        "garden1_time": 2,
+        "garden2_time": 3,
+        "time_taken": 4
+    },
+    {
+        "day": "Thu",
+        "garden1_time": 5,
+        "garden2_time": 2,
+        "time_taken": 6
+    },
+    {
+        "day": "Fri",
+        "garden1_time": 1,
+        "garden2_time": 1,
+        "time_taken": 2
+    },
+    {
+        "day": "Sat",
+        "garden1_time": 4,
+        "garden2_time": 3,
+        "time_taken": 7
+    },
+    {
+        "day": "Sun",
+        "garden1_time": 3,
+        "garden2_time": 2,
+        "time_taken": 5
+    }
+]
