@@ -1,54 +1,123 @@
-import React from 'react';
-import Sidebar from '../components/SideNav';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'; // Add this import
+import SideNav from '../components/SideNav';
+import Account from '../components/Account';
 import {
     PieChart,
     Pie,
     Cell,
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
     Tooltip,
-    Legend,
 } from 'recharts';
-
-const pieData = [
-    { name: 'Tomatoes', value: 25 },
-    { name: 'Carrots', value: 15 },
-    { name: 'Lettuce', value: 20 },
-    { name: 'Peppers', value: 10 },
-    { name: 'Beans', value: 30 },
-];
-
-const barData = [
-    { day: 'Mon', timeTaken: 5, garden1: 4, garden2: 2 },
-    { day: 'Tue', timeTaken: 3, garden1: 3, garden2: 1 },
-    { day: 'Wed', timeTaken: 4, garden1: 2, garden2: 3 },
-    { day: 'Thu', timeTaken: 6, garden1: 5, garden2: 2 },
-    { day: 'Fri', timeTaken: 2, garden1: 1, garden2: 1 },
-    { day: 'Sat', timeTaken: 7, garden1: 4, garden2: 3 },
-    { day: 'Sun', timeTaken: 5, garden1: 3, garden2: 2 },
-];
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF69B4'];
 
 const GardenStats = () => {
+    const { id } = useParams();
+    const [pieData, setPieData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPieChartData = async () => {
+            try {
+                const response = await fetch('/garden-bed-stats.json');
+                const data = await response.json();
+
+                // Find the garden by ID
+                const garden = data.find(garden => garden.id === parseInt(id));
+
+                if (garden) {
+                    // Format the crop data for the Pie chart
+                    setPieData(garden.crops.map((crop) => ({
+                        name: crop.crop_name,
+                        value: crop.crop_count,
+                    })));
+                } else {
+                    setError('Garden not found');
+                }
+            } catch (error) {
+                console.error('Error fetching PieChart data:', error);
+                setError('Failed to load PieChart data');
+            }
+        };
+
+        // Fetch pie chart data when the component mounts and when the id changes
+        setLoading(true);
+        fetchPieChartData().finally(() => setLoading(false));
+    }, [id]);  // Re-fetch data when the id changes
+
+
+    // Code for APIs
+    /*
+    const GardenStats = () => {
+        const [pieData, setPieData] = useState([]);
+        const [barData, setBarData] = useState([]);
+        const [loading, setLoading] = useState(true);
+        const [error, setError] = useState(null);
+
+        useEffect(() => {
+            const fetchPieChartData = async () => {
+                try {
+                    const response = await axios.get('/api/garden-bed-stats'); // Replace with your actual API endpoint
+                    const pieChartData = response.data.map((bed) => ({
+                        name: bed.crop_name, // Assuming API returns crop name
+                        value: bed.crop_count, // Assuming API returns crop count per bed
+                    }));
+                    setPieData(pieChartData);
+                } catch (error) {
+                    console.error('Error fetching PieChart data:', error);
+                    setError('Failed to load PieChart data');
+                }
+            };
+
+            const fetchBarChartData = async () => {
+                try {
+                    const response = await axios.get('/api/garden-activity-stats'); // Replace with your actual API endpoint
+                    const barChartData = response.data.map((activity) => ({
+                        day: activity.day,  // Assuming API returns the day of the activity
+                        garden1: activity.garden1_time,  // Assuming API returns time taken in Garden 1
+                        garden2: activity.garden2_time,  // Assuming API returns time taken in Garden 2
+                        timeTaken: activity.time_taken,  // Total time taken for the activity
+                    }));
+                    setBarData(barChartData);
+                } catch (error) {
+                    console.error('Error fetching BarChart data:', error);
+                    setError('Failed to load BarChart data');
+                }
+            };
+
+            // Fetch both pie and bar chart data
+            setLoading(true);
+            Promise.all([fetchPieChartData(), fetchBarChartData()])
+                .then(() => setLoading(false))
+                .catch(() => setLoading(false));
+        }, []);
+
+        if (loading) {
+            return <div>Loading...</div>;
+        }
+
+        if (error) {
+            return <div>{error}</div>;
+        }
+    */
+
     return (
         <div className="flex">
-            <Sidebar />
-            <div className="p-8 mt-16 mx-auto flex flex-col gap-8">
-                <div className="flex flex-wrap gap-8 justify-between">
-                    <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center w-full sm:w-2/2 md:w-1/3">
-                        <h2 className="text-lg font-bold mb-4">Garden Bed Space Usage</h2>
-                        <PieChart width={400} height={300}>
+            <SideNav />
+            <div className="flex flex-col w-[84%] ml-[16%]">
+                <Account />
+                <div className="bg-white p-6 rounded-lg shadow-md flex flex-col p-8 w-[100%] flex flex-col gap-8 ">
+                    <h2 className="text-lg font-bold mb-4">Garden Bed Space Usage</h2>
+                    <div className="relative flex">
+                        <PieChart className="mt-16" width={900} height={400}>
                             <Pie
                                 data={pieData}
                                 cx="50%"
                                 cy="50%"
                                 labelLine={false}
-                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                                outerRadius={80}
+                                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                                outerRadius={180}
                                 fill="#8884d8"
                                 dataKey="value"
                             >
@@ -58,39 +127,22 @@ const GardenStats = () => {
                             </Pie>
                             <Tooltip />
                         </PieChart>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
-                        <h2 className="text-lg font-bold mb-4">Another Pie Chart Title</h2>
-                        <PieChart width={400} height={300}>
-                            <Pie
-                                data={pieData}
-                                cx="50%"
-                                cy="50%"
-                                labelLine={false}
-                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                                outerRadius={80}
-                                fill="#8884d8"
-                                dataKey="value"
-                            >
+                        {/* Key for the Pie Chart */}
+                        <div className="absolute right-0 bottom-20 bg-gray-100 p-4 border border-gray-200 rounded-md shadow-md">
+                            <h3 className="text-lg font-semibold mb-2">Crops</h3>
+                            <ul>
                                 {pieData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    <li key={index} className="flex items-center mb-1">
+                                        <span
+                                            className="inline-block w-4 h-4 mr-2 rounded-full"
+                                            style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                                        ></span>
+                                        {entry.name}
+                                    </li>
                                 ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center w-full">
-                    <h2 className="text-lg font-bold mb-4">Garden Activity Progress</h2>
-                    <BarChart width={600} height={300} data={barData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="day" />
-                        <YAxis label={{ value: 'Time Taken (Hours)', angle: -90, position: 'insideLeft' }} />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="garden1" name="Garden 1" fill="#8884d8" />
-                        <Bar dataKey="garden2" name="Garden 2" fill="#82ca9d" />
-                    </BarChart>
                 </div>
             </div>
         </div>

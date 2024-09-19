@@ -25,7 +25,6 @@ const SignUp = () => {
         });
     };
 
-    // Submits form data for signing up
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -34,7 +33,7 @@ const SignUp = () => {
             alert('Passwords do not match');
             return;
         }
-
+        // API call to sign up the user
         try {
             setLoading(true);
             const response = await axios.post('http://127.0.0.1:8000/api/v1/signup/', {
@@ -43,7 +42,6 @@ const SignUp = () => {
                 password: formData.password,
             });
 
-            // navigate to the dashboard after successful signup
             navigate('/dashboard');
         } catch (error) {
             console.error('Error signing up:', error);

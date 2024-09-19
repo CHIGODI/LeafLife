@@ -1,69 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import logo from '../assets/images/leaf-life-logo.svg';
+import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = ({ token }) => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [user, setUser] = useState(null);
+const Navbar = () => {
+  const location = useLocation();
 
-  // Fetch user data
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get('/api/user/', {
-          headers: {
-            Authorization: `Bearer ${token}`, // Pass auth token
-          },
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    if (token) {
-      fetchUser();
-    }
-  }, [token]);
-
-  // Toggle logout visibility
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
-  };
-
-  // Handle logout action
-  const handleLogout = () => {
-    console.log('Logged out');
-  };
+  const linkClasses = (path) =>
+    `text-green-600 bg-transparent hover-underline ${location.pathname === path ? 'active-underline' : 'hover:bg-transparent'
+    }`;
 
   return (
-    <div className="relative">
-      <div className="flex justify-end p-8 bg-white">
-        <div className="flex justify-end">
-          <div className="relative">
-            <button onClick={toggleDropdown} className="flex items-center space-x-2">
-              <FontAwesomeIcon icon={faUser} className="h-4 w-4 text-gray-600 mr-2" />
-              {user && <span className="text-gray-700">{user.name}</span>}
-            </button>
-            {isDropdownOpen && (
-              <div className="absolute right-0 mt-4 w-40 bg-white">
-                <ul>
-                  <li>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-center px-2 py-2 text-gray-700 hover:bg-red-500 border rounded-lg shadow-lg hover:border-red-400"
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+    <nav className="flex flex-row justify-between bg-transparent">
+      <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
+        <Link className="flex flex-shrink-0 items-center mr-4" to="/">
+          <img className="h-20 w-auto" src={logo} alt="Logo" />
+        </Link>
       </div>
-    </div>
+      <div className="w-[50%] flex flex-row justify-around items-center">
+        <style>
+          {`
+          .hover-underline::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: green;
+            transition: width 0.3s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -2.5px;
+          }
+
+          .hover-underline:hover::after {
+            width: 80%;
+          }
+
+          .active-underline::after {
+            content: '';
+            display: block;
+            width: 80%;
+            height: 2px;
+            background-color: green;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -5px;
+          }
+        `}
+        </style>
+
+        <Link to="/" className={`relative ${linkClasses('/')}`}>
+          Home
+        </Link>
+        <Link to="/services" className={`relative ${linkClasses('/services')}`}>
+          Our Services
+        </Link>
+        <Link to="/contact" className={`relative ${linkClasses('/contact')}`}>
+          Contact
+        </Link>
+        <Link to="/login" className="border border-green-600 px-[2%] py-2 rounded-[1rem] hover:bg-green-600 hover:text-white">
+          Login
+        </Link>
+        <Link to="/signup" className="border border-green-600 px-[2%] py-2 rounded-[1rem] hover:bg-green-600 hover:text-white">
+          Sign Up
+        </Link>
+      </div>
+    </nav>
   );
 };
 

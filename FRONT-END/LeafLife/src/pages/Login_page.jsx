@@ -38,7 +38,6 @@ const LoginPage = () => {
             console.log('User logged in successfully:', response.data);
             alert('Login successful!');
 
-            // if Login was successfull navigate to dasboard
             navigate('/dashboard');
         } catch (error) {
             console.error('Error logging in:', error);
@@ -54,7 +53,6 @@ const LoginPage = () => {
                 <h2 className="text-2xl font-bold mb-6 text-center text-green-600">Login</h2>
 
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700 mb-2">Username</label>
