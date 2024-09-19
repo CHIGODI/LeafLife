@@ -3,6 +3,7 @@
 
 from django.shortcuts import get_object_or_404, Http404
 from django.core.exceptions import PermissionDenied
+from rest_framework.exceptions import NotFound
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from ..models import Crop, Bed
@@ -48,6 +49,6 @@ class CropDetail(generics.RetrieveUpdateDestroyAPIView):
                 raise PermissionDenied("You do not have permission to access this crop.")
             return crop
         except Crop.DoesNotExist:
-            raise Http404("Crop does not exist")
+            raise NotFound("Crop does not exist")
         
 
