@@ -10,17 +10,18 @@ class GardenListCreate(generics.ListCreateAPIView):
     Create a new garden or list all gardens
     """
     serializer_class = GardenSerializer
-    permission_classes = [IsAuthenticated, IsGardenOwner]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         """ Filter gardens that belong to the authenticated user """
-        user = self.request.user
-        if not user.is_authenticated:
-            raise PermissionDenied("You must be logged in to view your gardens.")
+        auth_user = self.request.user
+        # get the id of the user making the request
+        query_user = self.kwargs.get('user_id')
+        if auth_user.id != query_user:
+            raise PermissionDenied("Not authorized")
         # retrieve gardens belonging to the authenticated user
-        queryset = Garden.objects.filter(user=user)
-        if not queryset.exists():
-            raise NotFound("You have no gardens yet")
+        queryset = Garden.objects.filter(user=auth_user)
+        # return an empty list if there is no garden
         return queryset
         
     
@@ -50,4 +51,3 @@ class GardenDetail(generics.RetrieveUpdateDestroyAPIView):
             return garden
         except Garden.DoesNotExist:
             raise NotFound("Garden does not exist")
-     

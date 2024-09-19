@@ -10,14 +10,13 @@ class Crop(Base):
         ('H', 'Harvested'),
         ('D', 'Dead'),
     )
-    name = models.CharField(max_length=255)
-    variety = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
+    variety = models.CharField(max_length=100)
     planting_date = models.DateField()
     harvest_date = models.DateField()
     status = models.CharField(max_length=1, choices=CROP_STATUS, default='G')
-    bed_id = models.ForeignKey('Bed',
-                            on_delete=models.CASCADE,
-                            related_name='crops')
+    bed = models.ForeignKey('Bed',
+                           on_delete=models.CASCADE)
     
 
     def __str__(self):

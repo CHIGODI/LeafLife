@@ -24,12 +24,12 @@ class Bed(Base):
 
     garden = models.ForeignKey('Garden', on_delete=models.CASCADE, related_name='beds')
     # predefined bed types
-    bed_type = models.CharField(max_length=20, choices=BED_TYPE_CHOICES)
+    bed_type = models.CharField(max_length=20, choices=BED_TYPE_CHOICES, default='raised')
     # dimensions in meters
-    length = models.DecimalField(max_digits=5, decimal_places=2)
-    width = models.DecimalField(max_digits=5, decimal_places=2)
+    length = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    width = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     # soil type
-    soil_type = models.CharField(max_length=255, choices=SOIL_TYPE_CHOICES)
+    soil_type = models.CharField(max_length=255, choices=SOIL_TYPE_CHOICES, default='loam')
 
     def __str__(self):
         """String representation of the bed object"""

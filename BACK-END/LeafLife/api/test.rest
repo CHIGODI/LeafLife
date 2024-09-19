@@ -1,0 +1,8 @@
+POST http//127.0.0.1:8000/api/v1/register
+Content-Type: application/json
+
+{
+    "email": "user13@gmail.com",
+    "password": "password",
+    "username": "chiegody"
+}

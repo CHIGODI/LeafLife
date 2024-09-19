@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """ This module contains users endpoints using Django Rest Framework CBV """
-from django.shortcuts import get_object_or_404, Http404
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, NotFound
 from ..models import User
 from ..serializers import UserSerializer
 from django.contrib.auth.hashers import make_password
@@ -41,6 +41,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
@@ -53,5 +54,5 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
                 raise PermissionDenied("You are not authorized to access this user's details.")
             return queried_user
         except User.DoesNotExist:
-            raise Http404("User does not exist")
+            raise NotFound("User does not exist")
       
