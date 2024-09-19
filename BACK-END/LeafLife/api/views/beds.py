@@ -20,6 +20,9 @@ class BedListCreate(generics.ListCreateAPIView):
     def get_queryset(self):
         """ Filter beds belonging to the authenticated user """
         auth_user = self.request.user
+        query_user = self.kwargs.get('user_id')
+        if auth_user.id != query_user:
+            raise PermissionDenied("Not authorized")
         query_set = (Bed.objects.filter(garden__user=auth_user,
                                         garden_id=self.kwargs.get('garden_id'))) 
         # returns empty an list if there is no bed
@@ -28,7 +31,12 @@ class BedListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         """Set the authenticated user as the owner of the bed"""
         # retrieve the garden name from the url
+        query_user = self.kwargs.get('user_id')
+        if self.request.user.id != query_user:
+            raise PermissionDenied("You don't have permission to create a bed in this garden")
+        
         garden_id = self.kwargs.get('garden_id')
+    
         # retrieve the garden object
         garden = generics.get_object_or_404(Garden, id=garden_id, user=self.request.user)
         # save the bed with the garden object
@@ -42,21 +50,30 @@ class BedDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BedSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'bed_id'
-    permission_classes = [IsAuthenticated, IsBedOwner]
+    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):
         """Return the beds for the logged-in user"""
         # Filter beds based on the garden and the logged-in user
         garden_id = self.kwargs.get('garden_id')
+        query_user = self.kwargs.get('user_id')
         auth_user = self.request.user
-        return Bed.objects.filter(garden__id=garden_id, garden__user=auth_user)
+        if auth_user.id != query_user:
+            raise PermissionDenied("Not authorized")
+        return Bed.objects.filter(garden__id=garden_id, 
+                                  garden__user__id=auth_user.id)
+    
     
     def get_object(self):
         """Retrieve and return a bed for the logged-in user"""
         try:
             bed = super().get_object()
+            print("bed.garden.user", bed.garden.user)
+            print("self.request.user", self.request.user)
             if bed.garden.user != self.request.user:
                 raise PermissionDenied("You do not have permission to access this bed.")
             return bed
         except Bed.DoesNotExist:
             raise NotFound("Bed does not exist")
+

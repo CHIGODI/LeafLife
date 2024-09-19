@@ -1,3 +1,4 @@
+import datetime
 from . import models, Base
 
 
@@ -12,8 +13,9 @@ class Crop(Base):
     )
     name = models.CharField(max_length=100)
     variety = models.CharField(max_length=100)
-    planting_date = models.DateField()
-    harvest_date = models.DateField()
+    planting_date = models.DateField(default=datetime.date.today)
+    harvest_date = models.DateField(default=datetime.date.strftime(
+        datetime.date.today() + datetime.timedelta(days=90), "%Y-%m-%d"))
     status = models.CharField(max_length=1, choices=CROP_STATUS, default='G')
     bed = models.ForeignKey('Bed',
                            on_delete=models.CASCADE)

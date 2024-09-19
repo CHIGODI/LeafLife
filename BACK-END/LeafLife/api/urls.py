@@ -4,6 +4,8 @@ from .views.users import UserList, UserCreate, UserDetail
 from .views.gardens import GardenListCreate, GardenDetail
 from .views.beds import BedListCreate,  BedDetail
 from .views.crops import CropListCreate, CropDetail
+from .views.all_crops import AllCrops
+from .views.all_gardens import AllGardens
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views.login import LoginView
 from .views.refresh import CustomTokenRefreshView
@@ -24,7 +26,8 @@ urlpatterns = [
     path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/', BedDetail.as_view(), name='bed-detail'),
     path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/crops/', CropListCreate.as_view(), name='bed-list-crops'),
     path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/crops/<crop_id>', CropDetail.as_view(), name='crop-detail'),
-
+    path('crops/', AllCrops.as_view(), name='all-crops'),
+    path('gardens/', AllGardens.as_view(), name='all-gardens'),
     # path('beds/<int:id>/', BedDetail.as_view(), name='bed-detail'),
     # path('beds/<int:id>/crops/', BedDetail.as_view(), name='bed-crops'),
     # URLS to obtain and refresh tokens
