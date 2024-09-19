@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const LoginPage = () => {
@@ -22,6 +23,9 @@ const LoginPage = () => {
         });
     };
 
+    if (formData.password.len < 8){
+        error('Password length must be more than 8 characters')
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -30,18 +34,24 @@ const LoginPage = () => {
             setError('');
 
             // Make a POST request to the server
-            const response = await axios.post('http//127.0.0.1:8000/api/v1/login/', {
-                email: formData.email,
+            const response = await axios.post('http://127.0.0.1:8000/api/v1/login/', {
+                username: formData.username,
                 password: formData.password,
-            });
-
-            console.log('User logged in successfully:', response.data);
-            alert('Login successful!');
-
+            })
+            console.log(response)
             navigate('/dashboard');
+            toast.success('Login successful!');
+            console.log('User logged in successfully:', response.data);
         } catch (error) {
-            console.error('Error logging in:', error);
-            setError('Login failed. Please try again.');
+            if (error.response) {
+                // Server responded with a status code other than 2xx
+                console.error('Error logging in:', error.response.data);
+                setError(error.response.data.error || 'Login failed. Please try again.');
+            } else {
+                // Network error or other unexpected error
+                setError('An unexpected error occurred. Please try again.');
+                console.error('Error logging in:', error.message);
+            }
         } finally {
             setLoading(false);
         }
