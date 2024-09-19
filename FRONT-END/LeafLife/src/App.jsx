@@ -48,7 +48,7 @@ const App = () => {
           }
         />
         <Route path="/gardens" element={<GardenStats />} />
-        <Route path="//gardenstats/:id" element={<GardenStats />} />
+        <Route path="/gardenstats" element={<GardenStats />} />
         <Route path="/beds" element={<BedForm />} />
         <Route path="/crops" element={<CropPage />} />
         <Route path="/harvests" element={<HarvestPage />} />

@@ -12,7 +12,7 @@ import {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF69B4'];
 
 const GardenStats = () => {
-    const { id } = useParams();  // Extract the garden ID from the URL
+    const { id } = useParams();
     const [pieData, setPieData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,7 +20,7 @@ const GardenStats = () => {
     useEffect(() => {
         const fetchPieChartData = async () => {
             try {
-                const response = await fetch('/garden-bed-stats.json'); // Fetch the mock JSON file
+                const response = await fetch('/garden-bed-stats.json');
                 const data = await response.json();
 
                 // Find the garden by ID

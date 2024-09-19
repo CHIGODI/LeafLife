@@ -55,7 +55,7 @@ const BedForm = () => {
         <Account />
         <div className="flex items-center justify-center mt-4">
           <div className="w-[60%] max-w-4xl p-6 bg-white rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold mb-4">Add New Bed</h1>
+            <h1 className="text-2xl font-bold mb-4">Partion your farm</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && <p className="text-red-500 bg-red-100 p-3 rounded-lg">{error}</p>}
               {success && <p className="text-green-500 bg-green-300 p-3 rounded-lg ">Bed added successfully!</p>}

@@ -111,38 +111,7 @@ const NewFarmForm = () => {
                                     </button>
                                     {error && <p className="text-red-500">{error}</p>}
                                 </div>
-                                <button type="button" onClick={nextStep} className="ml-[90%] hover:text-green-600">{"Next >>"}</button>
-                            </form>
-                        )}
-
-                        {/* Page 2: Farm partition details */}
-                        {step === 2 && (
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div>
-                                    <label htmlFor="partitionName" className="block text-sm font-medium text-gray-700">
-                                        Partition Name<span className="text-red-700 ml-1">*</span>
-                                    </label>
-                                    <input type="text" id="partitionName" value={partitionName} onChange={(e) => setPartitionName(e.target.value)}
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
-                                        placeholder="Enter partition name"
-                                        required/>
-                                </div>
-                                <div>
-                                    <label htmlFor="partitionSize" className="block text-sm font-medium text-gray-700">
-                                        Partition Size<span className="text-red-700 ml-1">*</span>
-                                    </label>
-                                    <input type="text" id="partitionSize" value={partitionSize} onChange={(e) => setPartitionSize(e.target.value)}
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
-                                        placeholder="Enter partition size (in acres)"
-                                        required/>
-                                </div>
-                                <div className="flex justify-end">
-                                    <button type="submit"
-                                        className="w-[20%] ml-[10%] py-2 px-4 bg-green-600 text-white font-semibold rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                        Add
-                                    </button>
-                                </div>
-                                <button type="button" onClick={prevStep} className="hover:text-green-600">{"<< Previous"}</button>
+                                <button type="button" className="ml-[80%] w-[20%] py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">Add farm</button>
                             </form>
                         )}
                     </div>

@@ -36,7 +36,7 @@ const Account = () => {
     };
 
     return (
-        <div className="bg-red-100 p-5 h-[5%] flex justify-end align-center pr-[2.5%]">
+        <div className="p-5 h-[5%] flex justify-end items-center pr-[2.5%]">
             <button onClick={toggleDropdown} className="flex items-end space-x-2">
                 <FontAwesomeIcon icon={faUser} className="h-4 w-4 text-gray-600 mr-2" />
                 {user && <span className="text-gray-700">{user.name}</span>}
