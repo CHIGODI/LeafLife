@@ -2,20 +2,52 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
+import AddCropsForm from './AddCropsForm';  // Import the AddCropsForm component
 
 const GardenStats = () => {
-    const { id } = useParams();
+    const { id } = useParams();  // Get the garden ID from the URL
     const [isPartitionFormOpen, setIsPartitionFormOpen] = useState(false);
+    const [isCropsFormOpen, setIsCropsFormOpen] = useState(false);
     const [numPartitions, setNumPartitions] = useState(0);
-    const [partitions, setPartitions] = useState([]);
+    const [gardenPartitions, setGardenPartitions] = useState({});
+    const [selectedPartitionIndex, setSelectedPartitionIndex] = useState(null);
 
     const handlePartitionSubmit = (e) => {
         e.preventDefault();
         const newPartitions = Array.from({ length: numPartitions }, (_, index) => ({
             name: `Bed ${index + 1}`,
+            crops: [],  // Add a crops array to hold crop information
         }));
-        setPartitions(newPartitions);
+
+        // Associate the partitions with the specific garden ID
+        setGardenPartitions(prevState => ({
+            ...prevState,
+            [id]: newPartitions
+        }));
+
         setIsPartitionFormOpen(false);
+    };
+
+    const handleAddCropsClick = (index) => {
+        setSelectedPartitionIndex(index);
+        setIsCropsFormOpen(true);
+    };
+
+    const handleSaveCrops = (index, cropData) => {
+        const updatedPartitions = gardenPartitions[id].map((partition, i) => {
+            if (i === index) {
+                return {
+                    ...partition,
+                    crops: [...partition.crops, cropData],
+                };
+            }
+            return partition;
+        });
+
+        setGardenPartitions(prevState => ({
+            ...prevState,
+            [id]: updatedPartitions,
+        }));
     };
 
     return (
@@ -97,19 +129,31 @@ const GardenStats = () => {
                 </div>
             )}
 
-            {/* Partition Cards */}
+            {/* Partition Cards for the Current Garden */}
             <div className="w-[84%] ml-[16%] mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {partitions.length > 0 && partitions.map((partition, index) => (
+                {gardenPartitions[id]?.length > 0 && gardenPartitions[id].map((partition, index) => (
                     <div key={index} className="bg-white p-4 rounded-lg shadow-lg">
                         <h3 className="text-lg font-bold mb-2">{partition.name}</h3>
-                        <p>Area: 100 sq ft</p>
-                        <p>Crops: None</p>
-                        <button className="mt-4 py-1 px-3 bg-green-500 text-white rounded-md hover:bg-green-600">
+                        <p>Area: {partition.crops.reduce((total, crop) => total + crop.cropArea, 0) || '0'} sq ft</p>
+                        <p>Crops: {partition.crops.length > 0 ? partition.crops.map(crop => crop.cropName).join(', ') : 'None'}</p>
+                        <button
+                            className="mt-4 py-1 px-3 bg-green-500 text-white rounded-md hover:bg-green-600"
+                            onClick={() => handleAddCropsClick(index)}
+                        >
                             Add Crops
                         </button>
                     </div>
                 ))}
             </div>
+
+            {/* Add Crops Form Popup */}
+            {isCropsFormOpen && (
+                <AddCropsForm
+                    partitionIndex={selectedPartitionIndex}
+                    onClose={() => setIsCropsFormOpen(false)}
+                    onSave={handleSaveCrops}
+                />
+            )}
         </div>
     );
 };
