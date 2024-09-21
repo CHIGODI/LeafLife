@@ -1,9 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from ..models import Garden
-from ..serializers import GardenSerializer
-from django.db.models import Value
-from django.db.models.functions import Lower
+from ..serializers import GardenListSerializer
 from rest_framework.response import Response
 
 
@@ -11,7 +9,8 @@ class AllGardens(generics.ListAPIView):
     """
     View to list all gardens in the database.
     """
-    serializer_class = GardenSerializer
+    fields = ['id', 'name']
+    serializer_class = GardenListSerializer
     permission_classes = [AllowAny]
 
     def get_queryset(self):

@@ -2,7 +2,6 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from ..models import Crop
 from ..serializers import CropSerializer
-from django.db.models import Value
 from django.db.models.functions import Lower
 
 class AllCrops(generics.ListAPIView):
@@ -22,3 +21,4 @@ class AllCrops(generics.ListAPIView):
                             variety_lower=Lower('variety')
                         ).distinct('name_lower', 'variety_lower')
         return queryset
+    
