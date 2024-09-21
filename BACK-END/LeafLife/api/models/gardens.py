@@ -7,8 +7,7 @@ class Garden(Base):
     lat = models.CharField(max_length=255)
     long = models.CharField(max_length=255)
     description = models.TextField()
-    user = models.ForeignKey('User',
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='gardens')
 
     def __str__(self):
         """string representation of garden object"""

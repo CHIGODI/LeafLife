@@ -17,7 +17,7 @@ class Crop(Base):
     harvest_date = models.DateField(default=datetime.date.strftime(
         datetime.date.today() + datetime.timedelta(days=90), "%Y-%m-%d"))
     status = models.CharField(max_length=1, choices=CROP_STATUS, default='G')
-    bed = models.ForeignKey('Bed',
+    bed = models.ForeignKey('Bed', related_name='crops',
                            on_delete=models.CASCADE)
     
 

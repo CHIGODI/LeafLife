@@ -33,6 +33,8 @@ class LoginView(APIView):
             refresh = RefreshToken.for_user(user)
             print("refresh token", refresh)
             response = Response({'user_id': user.id,
+                                 'access': str(refresh.access_token),
+                                 'refresh': str(refresh),
                                  'message': 'Login successful'},
                                 status=status.HTTP_200_OK)
             print("refresh.access_token", refresh.access_token)

@@ -16,25 +16,34 @@ from .models import Activity
 from django.contrib.auth.hashers import make_password
 
 
-
-class UserSerializer(serializers.ModelSerializer):
+class CropSerializer(serializers.ModelSerializer):
+    """Serialize crop class to json"""
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password']
-        # hide password from json response
-        extra_kwargs = {'password': {'write_only': True}}
-
+        model = Crop
+        fields = ['id', 'created_at', 'updated_at', 'name',
+                  'variety', 'planting_date', 'bed_id']
+        
+class BedSerializer(serializers.ModelSerializer):
+    """
+    Serialize bed class to json
+    """
+    crops = CropSerializer(many=True)
+    class Meta:
+        model = Bed
+        fields = ['id', 'created_at', 'updated_at', 'garden_id',
+                  'bed_number', 'bed_type', 'soil_type', 'crops']
 
 class GardenSerializer(serializers.ModelSerializer):
     """
     Serialize garden class to json
     """
+    beds = BedSerializer(many=True)
     class Meta:
         model = Garden
         fields = ['id', 'created_at', 'updated_at', 'name',
-                'long', 'lat', 'description']
+                'long', 'lat', 'description', 'beds']
 
-        
+
 class GardenListSerializer(serializers.ModelSerializer):
     """
     Serialize garden class to json
@@ -44,15 +53,14 @@ class GardenListSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class BedSerializer(serializers.ModelSerializer):
-    """
-    Serialize bed class to json
-    """
+class UserSerializer(serializers.ModelSerializer):
+    """ Serialize user class to json"""
+    gardens = GardenSerializer(many=True)
     class Meta:
-        model = Bed
-        fields = ['id', 'created_at', 'updated_at', 'garden_id',
-                  'bed_number', 'bed_type', 'soil_type']
-
+        model = User
+        fields = ['id', 'username', 'email', 'password', 'gardens']
+        # hide password from json response
+        extra_kwargs = {'password': {'write_only': True}}
 
 class CropRotationSerializer(serializers.ModelSerializer):
     """
@@ -64,12 +72,7 @@ class CropRotationSerializer(serializers.ModelSerializer):
                   'previous_crop', 'next_crop']
 
 
-class CropSerializer(serializers.ModelSerializer):
-    """Serialize crop class to json"""
-    class Meta:
-        model = Crop
-        fields = ['id', 'created_at', 'updated_at', 'name',
-                  'variety', 'planting_date', 'bed_id']
+
 
 
 class HarvestSerializer(serializers.ModelSerializer):
