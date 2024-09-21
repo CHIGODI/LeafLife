@@ -28,6 +28,7 @@ class BedSerializer(serializers.ModelSerializer):
     Serialize bed class to json
     """
     crops = CropSerializer(many=True)
+    crops = serializers.CharField(required=False)
     class Meta:
         model = Bed
         fields = ['id', 'created_at', 'updated_at', 'garden_id',
@@ -38,6 +39,7 @@ class GardenSerializer(serializers.ModelSerializer):
     Serialize garden class to json
     """
     beds = BedSerializer(many=True)
+    beds = serializers.CharField(required=False)
     class Meta:
         model = Garden
         fields = ['id', 'created_at', 'updated_at', 'name',
@@ -56,6 +58,7 @@ class GardenListSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """ Serialize user class to json"""
     gardens = GardenSerializer(many=True)
+    gardens = serializers.CharField(required=False)
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password', 'gardens']

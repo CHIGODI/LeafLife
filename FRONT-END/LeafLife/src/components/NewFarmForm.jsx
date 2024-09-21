@@ -18,12 +18,17 @@ const NewFarmForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/api/gardens', {
+            const response = await axios.post('http://127.0.0.1:8000/api/v1/garden/create/', {
                 name,
                 description,
                 lat,
                 long,
-                partition: { name: partitionName, size: partitionSize }
+            },  
+            {       
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    }
             });
 
             console.log('Garden created successfully:', response.data);
@@ -111,7 +116,7 @@ const NewFarmForm = () => {
                                     </button>
                                     {error && <p className="text-red-500">{error}</p>}
                                 </div>
-                                <button type="button" className="ml-[80%] w-[20%] py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">Add farm</button>
+                                <button type="button" onClick={handleSubmit} className="ml-[80%] w-[20%] py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">Add farm</button>
                             </form>
                         )}
                     </div>

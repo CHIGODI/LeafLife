@@ -27,9 +27,11 @@ class GardenList(generics.ListAPIView):
         return queryset
 
 class GardenCreate(generics.CreateAPIView):
-    """ Create a new garden """
+    serializer_class = GardenSerializer
+    permission_classes = [IsAuthenticated, IsGardenOwner]
+
     def perform_create(self, serializer):
-        """ Set the authenticated user as the owner of the garden """
+        """Save the post data when creating a new garden"""
         serializer.save(user=self.request.user)
 
 
