@@ -1,150 +1,187 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Add this import
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
-import {
-    PieChart,
-    Pie,
-    Cell,
-    Tooltip,
-} from 'recharts';
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF69B4'];
+import AddCropsForm from './AddCropsForm';
 
 const GardenStats = () => {
     const { id } = useParams();
-    const [pieData, setPieData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [isPartitionFormOpen, setIsPartitionFormOpen] = useState(false);
+    const [isCropsFormOpen, setIsCropsFormOpen] = useState(false);
+    const [numPartitions, setNumPartitions] = useState(0);
+    const [gardenPartitions, setGardenPartitions] = useState({});
+    const [selectedPartitionIndex, setSelectedPartitionIndex] = useState(null);
+    const [gardenName, setGardenName] = useState(''); // State for garden name
 
     useEffect(() => {
-        const fetchPieChartData = async () => {
+        const fetchGardenDetails = async () => {
             try {
-                const response = await fetch('/garden-bed-stats.json');
-                const data = await response.json();
-
-                // Find the garden by ID
-                const garden = data.find(garden => garden.id === parseInt(id));
-
-                if (garden) {
-                    // Format the crop data for the Pie chart
-                    setPieData(garden.crops.map((crop) => ({
-                        name: crop.crop_name,
-                        value: crop.crop_count,
-                    })));
+                const response = await fetch(`/api/gardens/${id}`); // Adjust the endpoint as needed
+                if (response.ok) {
+                    const gardenData = await response.json();
+                    setGardenName(gardenData.name); // Assuming the garden data contains a 'name' field
                 } else {
-                    setError('Garden not found');
+                    console.error('Failed to fetch garden details');
                 }
             } catch (error) {
-                console.error('Error fetching PieChart data:', error);
-                setError('Failed to load PieChart data');
+                console.error('Error fetching garden details:', error);
             }
         };
 
-        // Fetch pie chart data when the component mounts and when the id changes
-        setLoading(true);
-        fetchPieChartData().finally(() => setLoading(false));
-    }, [id]);  // Re-fetch data when the id changes
-
-
-    // Code for APIs
-    /*
-    const GardenStats = () => {
-        const [pieData, setPieData] = useState([]);
-        const [barData, setBarData] = useState([]);
-        const [loading, setLoading] = useState(true);
-        const [error, setError] = useState(null);
-
-        useEffect(() => {
-            const fetchPieChartData = async () => {
-                try {
-                    const response = await axios.get('/api/garden-bed-stats'); // Replace with your actual API endpoint
-                    const pieChartData = response.data.map((bed) => ({
-                        name: bed.crop_name, // Assuming API returns crop name
-                        value: bed.crop_count, // Assuming API returns crop count per bed
-                    }));
-                    setPieData(pieChartData);
-                } catch (error) {
-                    console.error('Error fetching PieChart data:', error);
-                    setError('Failed to load PieChart data');
+        const fetchCrops = async () => {
+            try {
+                const response = await fetch(`/api/gardens/${id}/crops`); // Update with your actual API endpoint
+                if (response.ok) {
+                    const cropsData = await response.json();
+                    setGardenPartitions({ [id]: cropsData });
+                } else {
+                    console.error('Failed to fetch crops data');
                 }
-            };
+            } catch (error) {
+                console.error('Error fetching crops:', error);
+            }
+        };
 
-            const fetchBarChartData = async () => {
-                try {
-                    const response = await axios.get('/api/garden-activity-stats'); // Replace with your actual API endpoint
-                    const barChartData = response.data.map((activity) => ({
-                        day: activity.day,  // Assuming API returns the day of the activity
-                        garden1: activity.garden1_time,  // Assuming API returns time taken in Garden 1
-                        garden2: activity.garden2_time,  // Assuming API returns time taken in Garden 2
-                        timeTaken: activity.time_taken,  // Total time taken for the activity
-                    }));
-                    setBarData(barChartData);
-                } catch (error) {
-                    console.error('Error fetching BarChart data:', error);
-                    setError('Failed to load BarChart data');
-                }
-            };
+        fetchGardenDetails(); // Fetch garden name
+        fetchCrops(); // Fetch crops data
+    }, [id]);
 
-            // Fetch both pie and bar chart data
-            setLoading(true);
-            Promise.all([fetchPieChartData(), fetchBarChartData()])
-                .then(() => setLoading(false))
-                .catch(() => setLoading(false));
-        }, []);
+    const handlePartitionSubmit = (e) => {
+        e.preventDefault();
+        const newPartitions = Array.from({ length: numPartitions }, (_, index) => ({
+            name: `Bed ${index + 1}`,
+            crops: [],
+        }));
 
-        if (loading) {
-            return <div>Loading...</div>;
-        }
+        setGardenPartitions(prevState => ({
+            ...prevState,
+            [id]: newPartitions
+        }));
 
-        if (error) {
-            return <div>{error}</div>;
-        }
-    */
+        setIsPartitionFormOpen(false);
+    };
+
+    const handleAddCropsClick = (index) => {
+        setSelectedPartitionIndex(index);
+        setIsCropsFormOpen(true);
+    };
+
+    const handleSaveCrops = (index, cropData) => {
+        const updatedPartitions = gardenPartitions[id].map((partition, i) => {
+            if (i === index) {
+                return {
+                    ...partition,
+                    crops: [...partition.crops, cropData],
+                };
+            }
+            return partition;
+        });
+
+        setGardenPartitions(prevState => ({
+            ...prevState,
+            [id]: updatedPartitions,
+        }));
+    };
 
     return (
-        <div className="flex">
+        <div className="flex flex-col">
             <SideNav />
-            <div className="flex flex-col w-[84%] ml-[16%]">
+            <div className="flex flex-row justify-end w-[84%] ml-[16%]">
                 <Account />
-                <div className="bg-white p-6 rounded-lg shadow-md flex flex-col p-8 w-[100%] flex flex-col gap-8 ">
-                    <h2 className="text-lg font-bold mb-4">Garden Bed Space Usage</h2>
-                    <div className="relative flex">
-                        <PieChart className="mt-16" width={900} height={400}>
-                            <Pie
-                                data={pieData}
-                                cx="50%"
-                                cy="50%"
-                                labelLine={false}
-                                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-                                outerRadius={180}
-                                fill="#8884d8"
-                                dataKey="value"
-                            >
-                                {pieData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                        {/* Key for the Pie Chart */}
-                        <div className="absolute right-0 bottom-20 bg-gray-100 p-4 border border-gray-200 rounded-md shadow-md">
-                            <h3 className="text-lg font-semibold mb-2">Crops</h3>
-                            <ul>
-                                {pieData.map((entry, index) => (
-                                    <li key={index} className="flex items-center mb-1">
-                                        <span
-                                            className="inline-block w-4 h-4 mr-2 rounded-full"
-                                            style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                                        ></span>
-                                        {entry.name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+            </div>
+
+            <div className="flex flex-row justify-start w-[84%] ml-[16%] mt-4">
+                <div className="w-full">
+                    <h2 className="text-lg font-bold mb-4">Garden Stats for {gardenName}</h2> {/* Display garden name here */}
+                    <table className="min-w-full bg-white border border-gray-300 rounded-lg">
+                        <thead>
+                            <tr>
+                                <th className="py-2 px-4 border-b">Garden Name</th>
+                                <th className="py-2 px-4 border-b">Total Area</th>
+                                <th className="py-2 px-4 border-b">Crops</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="py-2 px-4 border-b">{gardenName || 'Loading...'}</td> {/* Display garden name */}
+                                <td className="py-2 px-4 border-b">500 sq ft</td>
+                                <td className="py-2 px-4 border-b">Mixed Vegetables</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div className="mt-4">
+                        <button
+                            className="py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            onClick={() => setIsPartitionFormOpen(true)}
+                        >
+                            Partition Garden
+                        </button>
                     </div>
                 </div>
             </div>
+
+            {isPartitionFormOpen && (
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 className="text-lg font-bold mb-4">Partition Garden</h3>
+                        <form onSubmit={handlePartitionSubmit}>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2">
+                                    Number of Partitions
+                                </label>
+                                <input
+                                    type="number"
+                                    value={numPartitions}
+                                    onChange={(e) => setNumPartitions(e.target.value)}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    min="1"
+                                    required
+                                />
+                            </div>
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    className="py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2"
+                                >
+                                    Create Partitions
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsPartitionFormOpen(false)}
+                                    className="py-2 px-4 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            <div className="w-[84%] ml-[16%] mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {gardenPartitions[id] && gardenPartitions[id].map((partition, index) => (
+                    <div key={index} className="border rounded-lg p-4">
+                        <h3 className="font-bold">{partition.name}</h3>
+                        <p>Soil Type: {partition.soilType}</p>
+                        <p>Crop Count: {partition.crops.length}</p>
+                        <button
+                            onClick={() => handleAddCropsClick(index)}
+                            className="mt-2 py-1 px-3 bg-green-600 text-white rounded"
+                        >
+                            Add Crops
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            {isCropsFormOpen && (
+                <AddCropsForm
+                    partitionIndex={selectedPartitionIndex}
+                    onClose={() => setIsCropsFormOpen(false)}
+                    onSave={handleSaveCrops}
+                />
+            )}
         </div>
     );
 };

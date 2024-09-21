@@ -2,61 +2,70 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 const SignUp = () => {
-    const [formData, setFormData] = useState(
-        {
-            username: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-        }
-    );
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    setError('');
 
-        setError('');
-        if (formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
-        // API call to sign up the user
-        try {
-            setLoading(true);
-            const response = await axios.post('http://127.0.0.1:8000/api/v1/signup/', {
-                username: formData.username,
-                email: formData.email,
-                password: formData.password,
-            });
+    // Client-side validation
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
 
-            navigate('/dashboard');
-        } catch (error) {
-            console.error('Error signing up:', error);
-            setError('Signup failed. Please try again.');
-        } finally {
-            setLoading(false);
-        }
-    };
+    if (!formData.email.includes('@')) {
+      setError('Invalid email format');
+      return;
+    }
+
+    // API call to sign up the user
+    try {
+      setLoading(true);
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/signup/', {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log(response)
+      navigate('/login');
+    } catch (error) {
+      if (error.response) {
+        console.error('Username or Email already taken', error.response.data);
+        setError(error.response.data.error || 'Username or Email already taken');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+        console.error('Error signing up, please try again later:', error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form className="bg-white p-8 rounded-lg shadow-md w-full max-w-md" onSubmit={handleSubmit}>
         <h2 className="text-2xl font-bold mb-6 text-center text-green-500">Sign Up</h2>
 
-        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+        {error && <p className="text-red-500 mb-4 text-center" aria-live="assertive">{error}</p>}
 
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2" htmlFor="username">Username</label>
@@ -65,7 +74,7 @@ const SignUp = () => {
             value={formData.username}
             onChange={handleChange}
             required
-            />
+          />
         </div>
 
         <div className="mb-4">
