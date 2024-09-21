@@ -9,8 +9,6 @@ const NewFarmForm = () => {
     const [description, setDescription] = useState('');
     const [lat, setLat] = useState('');
     const [long, setLong] = useState('');
-    const [partitionName, setPartitionName] = useState('');
-    const [partitionSize, setPartitionSize] = useState('');
     const [error, setError] = useState(null);
 
     // Handle form submission (final step) CHANGE BACKEND to match this

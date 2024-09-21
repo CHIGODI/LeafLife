@@ -19,8 +19,9 @@ class GardenList(generics.ListAPIView):
         auth_user = self.request.user
         # get the id of the user making the request
         query_user = self.kwargs.get('user_id')
-        if auth_user.id != query_user:
-            raise PermissionDenied("Not authorized")
+        # check if the user making the request is the authenticated user
+        if str(auth_user.id) != query_user:
+            raise PermissionDenied("Not Authorized")
         # retrieve gardens belonging to the authenticated user
         queryset = Garden.objects.filter(user=auth_user)
         # return an empty list if there is no garden
@@ -51,7 +52,7 @@ class GardenDetail(generics.RetrieveUpdateDestroyAPIView):
             # get user id from the request
             queried_user = self.kwargs.get('user_id')
             # check if the user id in the request matches the authenticated user
-            if queried_user != self.request.user.id:
+            if queried_user != str(self.request.user.id):
                 raise PermissionDenied("You do not have permission to access this garden.")
             
             # get gardens belonging to the authenticated user

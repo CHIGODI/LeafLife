@@ -4,15 +4,14 @@
 from django.shortcuts import get_object_or_404, Http404
 from django.core.exceptions import PermissionDenied
 from rest_framework.exceptions import NotFound
-from rest_framework.response import Response
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from ..models import Crop, Bed
 from ..serializers import CropSerializer
 from ..permissions import IsCropOwner
 
 
-class CropListCreate(generics.ListCreateAPIView):
+class CropList(generics.ListAPIView):
     """
     Create a new crop or list all crops
     """
@@ -26,7 +25,14 @@ class CropListCreate(generics.ListCreateAPIView):
         if auth_user.id != query_user:
             raise PermissionDenied("Not authorized")
         return Crop.objects.filter(bed__garden__user=self.request.user)
-    
+
+class CropCreate(generics.CreateAPIView):
+    """
+    Create a new crop or list all crops
+    """
+    serializer_class = CropSerializer
+    permission_classes = [IsAuthenticated]
+
     def perform_create(self, serializer):
         """Set the authenticated user as the owner of the crop"""
         query_user = self.kwargs.get('user_id')

@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 from django.urls import path
 from .views.users import UserList, UserCreate, UserDetail
-from .views.gardens import GardenCreate, GardenDetail
-from .views.beds import BedListCreate,  BedDetail
-from .views.crops import CropListCreate, CropDetail
-from .views.all_crops import AllCrops
-from .views.all_gardens import AllGardens
+from .views.gardens import GardenList, GardenCreate, GardenDetail
+from .views.beds import BedCreate, BedDetail, BedList
+from .views.crops import CropCreate, CropDetail
 from .views.user_garden_stats import GardenStatsView
+from .views.all_stats import GardenBedCropStatsView
 from .views.login import LoginView
 from .views.refresh import CustomTokenRefreshView
 from .views.logout import logout_view
@@ -17,15 +16,16 @@ urlpatterns = [
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', logout_view, name='logout'),
     path('users/', UserList.as_view(), name='user-list'),
-    path('users/<uuid:id>/', UserDetail.as_view(), name='user-detail'),
-    path('garden/create/', GardenCreate.as_view(), name='gardens-create'),
-    path('users/<uuid:user_id>/gardens/<garden_id>/', GardenDetail.as_view(), name='gardens-detail'),
-    path('users/<uuid:user_id>/gardens/<garden_id>/beds/', BedListCreate.as_view(), name='bed-list-create'),
+    path('users/<id>/', UserDetail.as_view(), name='user-detail'),
+    path('garden/create/', GardenCreate.as_view(), name='garden-create'),
+    path('users/<user_id>/gardens/', GardenList.as_view(), name='garden-list'),
+    path('users/<user_id>/gardens/<garden_id>/', GardenDetail.as_view(), name='garden-detail'),
+    path('users/<uuid:user_id>/gardens/<garden_id>/beds/', BedList.as_view(), name='bed-list'),
+    path('users/<uuid:user_id>/gardens/<garden_id>/bed/', BedCreate.as_view(), name='bed-create'),
     path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/', BedDetail.as_view(), name='bed-detail'),
-    path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/crops/', CropListCreate.as_view(), name='bed-list-crops'),
+    path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/crop/', CropCreate.as_view(), name='crop-create'),
     path('users/<uuid:user_id>/gardens/<garden_id>/beds/<bed_id>/crops/<crop_id>', CropDetail.as_view(), name='crop-detail'),
-    path('crops/', AllCrops.as_view(), name='all-crops'),
-    path('gardens/', AllGardens.as_view(), name='all-gardens'),
-    path('stats/', GardenStatsView.as_view(), name='garden-stats'),
+    path('user/stats/', GardenStatsView.as_view(), name='user-garden-stats'),
+    path('stats/', GardenBedCropStatsView.as_view(), name='all-stats'),
 
 ]

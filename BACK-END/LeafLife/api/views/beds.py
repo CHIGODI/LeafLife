@@ -10,7 +10,7 @@ from ..models import Bed, Garden
 from ..serializers import BedSerializer
 from ..permissions import IsBedOwner
 
-class BedListCreate(generics.ListCreateAPIView):
+class BedList(generics.ListAPIView):
     """
     Create a new bed or list all beds
     """
@@ -27,14 +27,20 @@ class BedListCreate(generics.ListCreateAPIView):
                                         garden_id=self.kwargs.get('garden_id'))) 
         # returns empty an list if there is no bed
         return query_set
-    
+
+class BedCreate(generics.CreateAPIView):
+    """
+    Create a new bed or list all beds
+    """
+    serializer_class = BedSerializer
+    permission_classes = [IsAuthenticated, IsBedOwner]
+
     def perform_create(self, serializer):
         """Set the authenticated user as the owner of the bed"""
         # retrieve the garden name from the url
         query_user = self.kwargs.get('user_id')
         if self.request.user.id != query_user:
             raise PermissionDenied("You don't have permission to create a bed in this garden")
-        
         garden_id = self.kwargs.get('garden_id')
     
         # retrieve the garden object

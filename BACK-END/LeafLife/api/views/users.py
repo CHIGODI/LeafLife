@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import PermissionDenied, NotFound
 from ..models import User
-from ..serializers import UserSerializer
+from ..serializers import UserSerializer, UserCustomSerializer
 from django.contrib.auth.hashers import make_password
 
 
@@ -30,7 +30,7 @@ class UserList(generics.ListAPIView):
     GET mehod to list all users
     """
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserCustomSerializer
     permission_classes = [IsAuthenticated]                           
 
 
