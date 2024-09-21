@@ -16,7 +16,8 @@ const GardenStats = () => {
     useEffect(() => {
         const fetchGardenDetails = async () => {
             try {
-                const response = await fetch(`/api/gardens/${id}`); // Adjust the endpoint as needed
+                const user_id = localStorage.getItem('user_id');
+                const response = await fetch(`http://127.0.0.1/api/v1/users/${user_id}/gardens`); // Adjust the endpoint as needed
                 if (response.ok) {
                     const gardenData = await response.json();
                     setGardenName(gardenData.name); // Assuming the garden data contains a 'name' field

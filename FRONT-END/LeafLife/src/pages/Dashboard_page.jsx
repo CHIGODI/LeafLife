@@ -7,12 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';  // Ensure axios is installed and imported
 
 const Dashboard = () => {
-  // dummy data to test the UI
-  const dummyData = {
-    gardens: 30,
-    beds: 0,
-    crops: 0,
-  };
+  // data is an object with keys gardens, beds and crops
   const [data, setData] = useState({
     gardens: 0,
     beds: 0,
@@ -26,12 +21,27 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/dashboard-data');
+        const response = await axios.get(
+          'http://127.0.0.1:8000/api/v1/stats/',
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
+          } 
+        );
+        console.log(response.data);
         setData(response.data);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching dashboard data:', err);
-        setError('Failed to load data');
+        if (error.response) {
+          // Server responded with a status code other than 2xx
+          console.error('[Backend]:', error.response.data);
+          setError(error.response.data.error);
+      } else {
+          // Network error or other unexpected error
+          setError('[Network]:An unexpected error occurred. Please try again.');
+          console.error('Error logging in:', error.message);
+      }
         setLoading(false);
       }
     };
@@ -54,7 +64,7 @@ const Dashboard = () => {
                 ) : error ? (
                   <p className="text-gray-600 mt-6">{error}</p>
                 ) : (
-                  <p className="text-gray-600 mt-6">You have {dummyData.gardens} gardens</p>
+                  <p className="text-gray-600 mt-6">You have {data.gardens} gardens</p>
                 )}
               </div>
 

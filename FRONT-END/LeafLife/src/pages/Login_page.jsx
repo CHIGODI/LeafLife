@@ -42,6 +42,10 @@ const LoginPage = () => {
             navigate('/dashboard');
             toast.success('Login successful!');
             console.log('User logged in successfully:', response.data);
+            localStorage.setItem('user_id', response.data.user_id);
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            console.log('[login]:', localStorage.getItem('access_token'));
         } catch (error) {
             if (error.response) {
                 // Server responded with a status code other than 2xx
