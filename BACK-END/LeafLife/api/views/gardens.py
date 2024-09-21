@@ -6,7 +6,7 @@ from ..serializers import GardenSerializer
 from ..permissions import IsGardenOwner
 
 
-class GardenListCreate(generics.ListCreateAPIView):
+class GardenList(generics.ListAPIView):
     """
     Create a new garden or list all gardens
     """
@@ -26,7 +26,8 @@ class GardenListCreate(generics.ListCreateAPIView):
         # return an empty list if there is no garden
         return queryset
 
-    
+class GardenCreate(generics.CreateAPIView):
+    """ Create a new garden """
     def perform_create(self, serializer):
         """ Set the authenticated user as the owner of the garden """
         serializer.save(user=self.request.user)
