@@ -19,11 +19,12 @@ class Base(models.Model):
 
     def to_dict(self):
         """Serializes an object to a dictionary"""
-        obj_dict = {field.name: getattr(self, field.name) for field in self._meta.fields}
-        obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.isoformat()
-        obj_dict['updated_at'] = self.updated_at.isoformat()
-        return obj_dict
+        return {
+            '__class__': self.__class__.__name__,
+            'id': str(self.id),
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat(),
+        }
 
     def save(self, *args, **kwargs):
         """Save the object and update the 'updated_at' field"""
@@ -36,4 +37,4 @@ class Base(models.Model):
 
     def __str__(self):
         """String representation of the object"""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.to_dict}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.to_dict()}"
