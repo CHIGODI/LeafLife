@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import handleLogout from '../utils/logout';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const Account = () => {
-
+    const navigate = useNavigate();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [user, setUser] = useState(null);
 
@@ -31,10 +33,32 @@ const Account = () => {
         setDropdownOpen((prev) => !prev);
     };
 
-    const handleLogout = () => {
-        console.log('Logged out');
+    /*
+    const handleLogout = async () => {
+        try {
+            // Make a request to the backend to log out the user
+            const response = await axios.post('http://127.0.0.1:8000/api/v1/logout/', {
+                refresh_token: localStorage.getItem('refresh_token'), // Use the correct key
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            });
+    
+            console.log(response.data); // Log the response data
+    
+            // Clear the authentication tokens from localStorage
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+    
+            // Redirect to the login page
+            navigate('/login');
+        } catch (error) {
+            console.error("Error logging out", error.response); // Use error.response for detailed error
+        }
     };
-
+    */
+    
     return (
         <div className="p-5 h-[5%] flex justify-end items-center pr-[2.5%]">
             <button onClick={toggleDropdown} className="flex items-end space-x-2">
@@ -46,7 +70,7 @@ const Account = () => {
                     <ul>
                         <li>
                             <button
-                                onClick={handleLogout}
+                                onClick={() => handleLogout(navigate)}
                                 className="block w-full text-center px-2 py-2 text-gray-700 hover:bg-red-500 border rounded-lg hover:border-red-400"
                             >
                                 Logout

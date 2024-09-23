@@ -8,8 +8,8 @@ const SideNav = () => {
 
   return (
     <div className="w-[16%] fixed min-h-screen bg-green-50 text-gray-800">
-      <div className="p-4 text-2xl font-bold border-b border-green-700">
-        Leaflife
+      <div className="p-4 text-2xl font-bold border-b border-green-700 cursor-pointer ">
+      <Link to="/" className='font-bold'>LeafLife</Link>
       </div>
       <ul className="mt-4 space-y-2 text-sm">
         <li className={`px-4 py-2 cursor-pointer ${location.pathname === '/dashboard' ? 'bg-green-200' : 'hover:bg-green-200'}  ${location.pathname === '/new-farm' ? 'bg-green-200' : 'hover:bg-green-200'}`}>
