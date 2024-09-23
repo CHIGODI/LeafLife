@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'LeafLife.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -107,6 +107,7 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
+'''
 # configure DRF to use JWT
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
