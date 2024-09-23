@@ -8,13 +8,16 @@ from .views.user_garden_stats import GardenStatsView
 from .views.all_stats import GardenBedCropStatsView
 from .views.login import LoginView
 from .views.refresh import CustomTokenRefreshView
-from .views.logout import logout_view
+from .views.logout import LogoutView
+from rest_framework_simplejwt.views import TokenBlacklistView
+
 
 urlpatterns = [
     path('signup/', UserCreate.as_view(), name='user-create'),
     path('login/', LoginView.as_view(), name='login'),
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
-    path('logout/', logout_view, name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
     path('users/', UserList.as_view(), name='user-list'),
     path('users/<id>/', UserDetail.as_view(), name='user-detail'),
     path('garden/create/', GardenCreate.as_view(), name='garden-create'),
