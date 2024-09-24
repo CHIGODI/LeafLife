@@ -38,21 +38,12 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Update or delete a user
     """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    lookup_field = 'id'
-    lookup_url_kwarg = 'id'
+    serializer_class = UserCustomSerializer
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        """Override to ensure that users can only access their own data."""
-        try:
-            queried_user = super().get_object()
-            # Check if the authenticated user is trying to access their own data
-            print(self.request.user)
-            if queried_user != self.request.user:
-                raise PermissionDenied("You are not authorized to access this user's details.")
-            return queried_user
-        except User.DoesNotExist:
-            raise NotFound("User does not exist")
+        """Get the user object"""
+        queryset = User.objects.all()
+        obj = get_object_or_404(queryset, pk=self.request.user.id)
+        return obj
       

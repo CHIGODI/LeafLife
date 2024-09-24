@@ -3,12 +3,13 @@ import handleLogout from '../utils/logout';
 import React from 'react';
 import logo from '../assets/images/leaf-life-logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ACCESS_TOKEN } from '../utils/constants';
 
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isAuthenticated = !!localStorage.getItem('access_token');
+  const isAuthenticated = !(!localStorage.getItem(ACCESS_TOKEN));
 
   const linkClasses = (path) =>
     `text-green-600 bg-transparent hover-underline ${location.pathname === path ? 'active-underline' : 'hover:bg-transparent'

@@ -4,10 +4,10 @@ import SideNav from '../components/SideNav';
 import Account from '../components/Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';  // Ensure axios is installed and imported
+import api from '../utils/api';
 
 const Dashboard = () => {
-  // data is an object with keys gardens, beds and crops
+  // State for data, loading status, and error
   const [data, setData] = useState({
     gardens: 0,
     beds: 0,
@@ -16,37 +16,29 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Here we will fetch data for number of gardens, crops and beds
-  // Here django is supposed to return a dictionary with keys gardens, beds and crops
+  // Fetch data for gardens, beds, and crops
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Start loading state
       try {
-        const response = await axios.get(
-          'http://127.0.0.1:8000/api/v1/user/stats/',
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
-          } 
-        );
+        const response = await api.get('/user/stats/'); // Use the api instance
         console.log(response.data);
         setData(response.data);
-        setLoading(false);
-      } catch (err) {
-        if (error.response) {
-          // Server responded with a status code other than 2xx
-          console.error('[Backend]:', error.response.data);
-          setError(error.response.data.error);
-      } else {
-          // Network error or other unexpected error
-          setError('[Network]:An unexpected error occurred. Please try again.');
-          console.error('Error logging in:', error.message);
-      }
-        setLoading(false);
+      } catch (err) { // Catching the error correctly
+        if (err.response) { // Check if the error response exists
+          console.error('[Backend]:', err.response.data);
+          setError(err.response.data.error); // Set error message from backend
+        } else {
+          // Handle network error or unexpected error
+          setError('[Network]: An unexpected error occurred. Please try again.');
+          console.error('Error fetching data:', err.message);
+        }
+      } finally {
+        setLoading(false); // Ensure loading is set to false after fetch attempt
       }
     };
     fetchData();
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   return (
     <>

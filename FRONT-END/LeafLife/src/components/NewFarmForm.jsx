@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Account from './Account';
 import Sidebar from './SideNav';
-import axios from 'axios';
+import api from '../utils/api';
 
 const NewFarmForm = () => {
     const [step, setStep] = useState(1);
@@ -16,7 +16,7 @@ const NewFarmForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/v1/garden/create/', {
+            const response = await api.post('/garden/create/', {
                 name,
                 description,
                 lat,
