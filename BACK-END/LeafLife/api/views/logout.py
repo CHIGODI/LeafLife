@@ -22,7 +22,7 @@ class LogoutView(APIView):
             
             # Create a response instance
             response = Response(
-                {'message': 'Logged out successfully'},
+                {'message': 'Successfully logged out'},
                 status=status.HTTP_200_OK
             )
 

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import api from '../utils/api';
+import { ACCESS_TOKEN, REFRESH_TOKEN, USER_ID } from '../utils/constants';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState(
@@ -33,29 +34,29 @@ const LoginPage = () => {
             setLoading(true);
             setError('');
 
-            // Make a POST request to the server
-            const response = await axios.post('http://127.0.0.1:8000/api/v1/login/', {
-                username: formData.username,
-                password: formData.password,
-            })
-            console.log(response)
-            navigate('/dashboard');
-            toast.success('Login successful!');
-            console.log('User logged in successfully:', response.data);
-            localStorage.setItem('user_id', response.data.user_id);
-            localStorage.setItem('access_token', response.data.access);
-            localStorage.setItem('refresh_token', response.data.refresh);
-            console.log('[login]:', localStorage.getItem('access_token'));
-        } catch (error) {
-            if (error.response) {
-                // Server responded with a status code other than 2xx
-                console.error('Error logging in:', error.response.data);
+            // Send login request using the API instance
+            const response = await api.post('/login/', {
+            username: formData.username,
+            password: formData.password,
+        });
+            // console.log(response.data);
+            // Handle successful login
+            localStorage.setItem(USER_ID, response.data.user_id);
+            localStorage.setItem(ACCESS_TOKEN, response.data.access);
+            localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
+            
+            toast.success(response.data.message);
+            navigate('/dashboard');  // Redirect to dashboard
+            
+            } catch (error) {
+                if (error.response) {
+                // Handle server error responses
                 setError(error.response.data.error || 'Login failed. Please try again.');
             } else {
-                // Network error or other unexpected error
+                // Handle network or other unexpected errors
                 setError('An unexpected error occurred. Please try again.');
-                console.error('Error logging in:', error.message);
             }
+            console.error('Error logging in:', error.message);
         } finally {
             setLoading(false);
         }
