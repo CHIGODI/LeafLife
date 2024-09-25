@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTractor } from '@fortawesome/free-solid-svg-icons';
+import { faTractor, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 const FarmsDropdown = () => {
     const [isFarmsOpen, setIsFarmsOpen] = useState(false);
@@ -17,11 +17,9 @@ const FarmsDropdown = () => {
             setGardens(response.data); // Assuming the API returns an array of gardens
         } catch (err) {
             if (err.response) {
-                // Handle server errors
                 console.error('[Backend]:', err.response.data);
                 setError(err.response.data.error);
             } else {
-                // Handle network errors
                 setError('[Network]: An unexpected error occurred. Please try again.');
                 console.error('Error fetching gardens:', err.message);
             }
@@ -41,29 +39,36 @@ const FarmsDropdown = () => {
         <div>
             <button
                 onClick={handleFarmsClick}
-                className={`w-[90%] rounded-tr-lg rounded-br-lg px-4 py-2 cursor-pointer w-full text-left ${
-                    location.pathname.startsWith('/gardens') ? 'bg-green-200' : 'hover:bg-green-200'
-                }`}
+                className={`w-full rounded-tr-full rounded-br-full px-4 py-2 cursor-pointer text-base text-left ${location.pathname.startsWith('/gardens') ? 'bg-nav-active' : 'hover:text-nav-hover transition-colors duration-300 ease-in-out'}`}
             >
-                <FontAwesomeIcon className='mx-2' icon={faTractor} />
+                <FontAwesomeIcon className="mx-2" icon={faTractor} />
                 My Farms
+                <FontAwesomeIcon
+                    className="ml-24"
+                    icon={isFarmsOpen ? faCaretUp : faCaretDown}
+                />
             </button>
             {isFarmsOpen && (
-                <ul className="pl-6 text-sm bg-green-50 rounded-md cursor-pointer">
+                <ul className="bg-custom-green w-full pl-6 text-base cursor-pointer max-h-40 overflow-y-auto">
                     {loading ? (
-                        <li>Loading...</li>
+                        <li className="animate-pulse flex justify-center align-center">
+                            <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                        </li>
                     ) : error ? (
                         <li>{error}</li>
                     ) : gardens.length > 0 ? (
                         gardens.map(garden => (
-                            <li key={garden.id} className={`mt-0 px-2 py-1 ${location.pathname === `/gardenstats/${garden.id}` ? 'bg-green-200' : 'hover:bg-green-200'}`}>
-                                <Link to={`/gardenstats/${garden.id}`} className="block w-full">
+                            <li
+                                key={garden.id}
+                                className={`pt-2 pb-2 ml-7 ${location.pathname === `/gardenstats/${garden.id}` ? 'bg-nav-active' : 'hover:nav-text'}`}
+                            >
+                                <Link to={`/gardenstats/${garden.id}`} className="block w-full text-sm">
                                     {garden.name}
                                 </Link>
                             </li>
                         ))
                     ) : (
-                        <li>No gardens found</li>
+                        <li></li>
                     )}
                 </ul>
             )}
@@ -72,109 +77,3 @@ const FarmsDropdown = () => {
 };
 
 export default FarmsDropdown;
-
-/* import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import gardensData from './gardendata'; // Import the local garden data
-
-const FarmsDropdown = () => {
-    const [isFarmsOpen, setIsFarmsOpen] = useState(false);
-    const [gardens, setGardens] = useState([]);
-
-    const fetchGardens = () => {
-        setGardens(gardensData); // Simulate fetching data from a file
-    };
-
-    const handleFarmsClick = () => {
-        setIsFarmsOpen(!isFarmsOpen);
-        if (!isFarmsOpen) {
-            fetchGardens(); // Fetch gardens when the dropdown is opened
-        }
-    };
-
-    return (
-        <div>
-            <button
-                onClick={handleFarmsClick}
-                className={`px-4 py-2 cursor-pointer w-full text-left ${location.pathname.startsWith('/gardens') ? 'bg-green-200' : 'hover:bg-green-200'
-                    }`}
-            >
-                My Farms
-            </button>
-            {isFarmsOpen && (
-                <ul className="pl-6 text-sm bg-green-50 rounded-md cursor-pointer">
-                    {gardens.length > 0 ? (
-                        gardens.map(garden => (
-                            <li key={garden.id} className={`mt-0 px-2 py-1 ${location.pathname === '/gardenstats' ? 'bg-green-200' : 'hover:bg-green-200'}`}>
-                                <Link to={`/gardenstats/${garden.id}`} className="block w-full">
-                                    {garden.name}
-                                </Link>
-                            </li>
-                        ))
-                    ) : (
-                        <li>No gardens found</li>
-                    )}
-                </ul>
-            )}
-        </div>
-    );
-};
-
-export default FarmsDropdown;
-
-// Will be used with api calls
-
-// import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
-
-// const FarmsDropdown = () => {
-//     const [isFarmsOpen, setIsFarmsOpen] = useState(false);
-//     const [gardens, setGardens] = useState([]);
-
-//     const fetchGardens = async () => {
-//         try {
-//             const response = await axios.get('/api/user-gardens/'); // Ensure the URL matches your backend API endpoint
-//             setGardens(response.data);
-//         } catch (error) {
-//             console.error('Error fetching gardens:', error);
-//         }
-//     };
-
-//     const handleFarmsClick = () => {
-//         setIsFarmsOpen(!isFarmsOpen);
-//         if (!isFarmsOpen) {
-//             fetchGardens(); // Fetch gardens when the dropdown is opened
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <button
-//                 onClick={handleFarmsClick}
-//                 className={`px-4 py-2 cursor-pointer w-full text-left ${location.pathname.startsWith('/gardens') ? 'bg-green-200' : 'hover:bg-green-200'
-//                     }`}
-//             >
-//                 My Farms
-//             </button>
-//             {isFarmsOpen && (
-//                 <ul className="pl-6 text-sm bg-green-50 rounded-md cursor-pointer">
-//                     {gardens.length > 0 ? (
-//                         gardens.map(garden => (
-//                             <li key={garden.id} className={`mt-0 px-2 py-1 ${location.pathname === '/gardenstats' ? 'bg-green-200' : 'hover:bg-green-200'}`}>
-//                                 <Link to={`/gardenstats/${garden.id}`} className="block w-full">
-//                                     {garden.name}
-//                                 </Link>
-//                             </li>
-//                         ))
-//                     ) : (
-//                         <li>No gardens found</li>
-//                     )}
-//                 </ul>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default FarmsDropdown;
- */

@@ -65,10 +65,10 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex bg-bg h-screen">
         <SideNav className="w-64" />
 
-        <div className="w-[84%] ml-[16%] flex flex-col p-6">
+        <div className="w-[80%] ml-[16%] flex flex-col p-6">
           <Account />
           <div className="flex justify-center mt-4">
             <div className="flex space-x-4 w-[80%]">

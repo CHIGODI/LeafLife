@@ -5,7 +5,6 @@ import FounderMessage from '../components/FounderMessage';
 import HighlightDataCard from '../components/HighlightDataCard';
 import MissionValues from '../components/MissionValues';
 import Sustainability from '../components/Sustainability';
-import Founders from '../components/Founders';
 import Contact from '../components/Contact';
 import agriImage from '../assets/images/agri2.jpg';
 import agriImage2 from '../assets/images/aerial1.jpg';
