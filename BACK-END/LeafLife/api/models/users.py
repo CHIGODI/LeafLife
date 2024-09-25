@@ -6,7 +6,7 @@ import uuid
 class CustomUserManager(BaseUserManager):
     """methods to create and manage users"""
     
-    
+    '''
     def create_user(self, username, email, password=None, **extra_fields):
         """create and return a user with an email and password"""
         if not email:
@@ -15,7 +15,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, email=email, **extra_fields)
         # hashes the password
         user.set_password(password)
-        # print("password hashed")
+        print("password hashed")
         user.is_active = True
         user.save()
         return user
@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(username, email, password, **extra_fields)
-    
+    '''
 class User(AbstractBaseUser, Base):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)

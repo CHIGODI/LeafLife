@@ -20,7 +20,7 @@ class Bed(Base):
     ]
 
     # override the default primary key
-    bed_number = models.CharField(max_length=10, unique=True) # Ensure unique constraint
+    bed_number = models.CharField(max_length=10)
 
     garden = models.ForeignKey('Garden', on_delete=models.CASCADE, related_name='beds')
     # predefined bed types
@@ -38,9 +38,4 @@ class Bed(Base):
     class Meta:
         """Set the table name in the database"""
         db_table = 'beds'
-        unique_together = ('bed_number', 'garden')
-
-    def save(self, *args, **kwargs):
-        if self.length <= 0 or self.width <= 0:
-            raise ValueError("Length and width must be positive values.")
-        super().save(*args, **kwargs)
+        # unique_together = ('garden_id', 'bed_number')
