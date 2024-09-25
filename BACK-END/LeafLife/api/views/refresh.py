@@ -6,8 +6,8 @@ from .login import set_cookie
 
 class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
-        refresh_token = request.COOKIES.get('refresh_token')
-        print(request.COOKIES)
+        refresh_token = request.COOKIES.get('refresh_token') or request.data.get('refresh')
+        print("Refresh Token [Refresh]:", refresh_token)
         if not refresh_token:
             return Response({'error': 'Refresh token not found in cookies'}, status=status.HTTP_400_BAD_REQUEST)
         

@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from ..models import Bed, Crop
+from ..models import Bed, Crop, User
 from rest_framework.permissions import IsAuthenticated
+from ..serializers import UserSerializer
 
 class GardenStatsView(APIView):
     permission_classes = [IsAuthenticated]
@@ -9,6 +10,10 @@ class GardenStatsView(APIView):
     def get(self, request, *args, **kwargs):
         """Return the number of gardens, beds, and crops for the authenticated user"""
         user = request.user
+
+        #full drill down of user, garden, bed, crop
+        full_tree = User.objects.get(id=user.id)
+        serialized_data = UserSerializer(full_tree).data
         
         # Count the number of gardens for the user
         garden_count = user.gardens.count()
@@ -21,6 +26,7 @@ class GardenStatsView(APIView):
 
         # Prepare the response data
         data = {
+            "full_tree": serialized_data,
             "gardens": garden_count,
             "beds": bed_count,
             "crops": crop_count

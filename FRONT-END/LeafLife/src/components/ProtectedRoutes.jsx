@@ -21,14 +21,15 @@ const ProtectedRoutes = ({ children }) => {
         }
         try {
             // Get a new access token using the refresh token
-            const response = await api.post('/api/token/refresh/', {
-                refresh: refreshToken
+            const response = await api.post('/token/refresh/', {
+                refresh_token: refreshToken
             });
             // If refresh token is valid, set new access token and set isAuthenticated to true
             if (response.status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, response.data.access);
                 setIsAuthenticated(true);
             } else {
+                localStorage.clear();
                 setIsAuthenticated(false);
             }
         } catch (error) {

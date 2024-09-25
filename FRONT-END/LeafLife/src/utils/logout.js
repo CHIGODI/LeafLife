@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants';
+import {REFRESH_TOKEN } from './constants';
 import api from './api';
 import { toast } from 'react-toastify';
 

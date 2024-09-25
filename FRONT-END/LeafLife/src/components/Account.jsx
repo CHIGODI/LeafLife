@@ -15,7 +15,6 @@ const Account = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const user_id = localStorage.getItem(USER_ID);
                 const response = await api.get('/profile'); // Use the api instance
 
                 setUser(response.data);
@@ -46,8 +45,8 @@ const Account = () => {
                         <li>
                             <button
                                 onClick={() => handleLogout(navigate)} // Use logout function to navigate
-                                className="block w-full text-center px-2 py-2 text-gray-700 hover:bg-red-500 border rounded-lg hover:border-red-400"
-                            >
+                                className="block w-full text-center px-2 py-2 text-gray-700 rounded-lg custom_hover"
+                           >
                                 Logout
                             </button>
                         </li>

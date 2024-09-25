@@ -8,3 +8,11 @@
     font-weight: 400;
     font-style: normal;
 }
+
+.custom_btn{
+    border: 1px solid #ff5353 ;
+}
+.custom_btn:hover{
+    background-color: #ff5353;
+    border-color:#ff5353;
+}

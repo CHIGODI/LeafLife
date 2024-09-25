@@ -18,10 +18,10 @@ class GardenList(generics.ListAPIView):
         """ Filter gardens that belong to the authenticated user """
         auth_user = self.request.user
         # get the id of the user making the request
-        query_user = self.kwargs.get('user_id')
+        # query_user = self.kwargs.get('user_id')
         # check if the user making the request is the authenticated user
-        if str(auth_user.id) != query_user:
-            raise PermissionDenied("Not Authorized")
+        # if str(auth_user.id) != query_user:
+        #    raise PermissionDenied("Not Authorized")
         # retrieve gardens belonging to the authenticated user
         queryset = Garden.objects.filter(user=auth_user)
         # return an empty list if there is no garden

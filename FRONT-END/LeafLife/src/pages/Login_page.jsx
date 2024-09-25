@@ -24,8 +24,8 @@ const LoginPage = () => {
         });
     };
 
-    if (formData.password.len < 8){
-        error('Password length must be more than 8 characters')
+    if (formData.password.len < 5){
+        error('Password length must be equal or more than 5 characters')
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,10 +35,11 @@ const LoginPage = () => {
             setError('');
 
             // Send login request using the API instance
-            const response = await api.post('/login/', {
+            const response = await api.post('login/', {
             username: formData.username,
             password: formData.password,
-        });
+            });
+
             // console.log(response.data);
             // Handle successful login
             localStorage.setItem(USER_ID, response.data.user_id);

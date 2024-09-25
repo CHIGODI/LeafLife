@@ -83,7 +83,7 @@ const Navbar = () => {
             </Link>
             <button
               onClick={() => handleLogout(navigate)}
-              className="border border-red-600 px-[2%] py-2 rounded-[1rem] hover:bg-red-600 hover:text-white"
+              className="px-[2%] py-2 rounded-[1rem]  hover:text-white custom_btn"
             >
               Logout
             </button>

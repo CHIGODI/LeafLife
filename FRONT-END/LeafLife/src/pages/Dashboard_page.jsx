@@ -5,40 +5,63 @@ import Account from '../components/Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import api from '../utils/api';
+import FarmsDropdown from './FarmsDropdown';
 
 const Dashboard = () => {
-  // State for data, loading status, and error
+  // data is an object with keys gardens, beds and crops
   const [data, setData] = useState({
     gardens: 0,
     beds: 0,
     crops: 0,
   });
+  const [full_tree  , setGardens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch data for gardens, beds, and crops
+  // Here we will fetch data for number of gardens, crops and beds
+  // Here django is supposed to return a dictionary with keys gardens, beds and crops
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Start loading state
       try {
         const response = await api.get('/user/stats/'); // Use the api instance
-        console.log(response.data);
-        setData(response.data);
-      } catch (err) { // Catching the error correctly
-        if (err.response) { // Check if the error response exists
-          console.error('[Backend]:', err.response.data);
-          setError(err.response.data.error); // Set error message from backend
-        } else {
-          // Handle network error or unexpected error
-          setError('[Network]: An unexpected error occurred. Please try again.');
-          console.error('Error fetching data:', err.message);
-        }
-      } finally {
-        setLoading(false); // Ensure loading is set to false after fetch attempt
+        // Calculate total gardens, beds, and crops
+        const { gardens } = response.data.full_tree;
+        // Calculate total gardens, beds, and crops in a single pass
+        let totalGardens = gardens.length;
+        let totalBeds = 0;
+        let totalCrops = 0;
+
+        gardens.forEach(garden => {
+          totalBeds += garden.beds.length; // Count beds in each garden
+          garden.beds.forEach(bed => {
+            totalCrops += bed.crops.length; // Count crops in each bed
+            });
+          });
+        // Update the state with the fetched data
+        setData({
+          gardens: totalGardens,
+          beds: totalBeds,
+          crops: totalCrops,
+        });
+        setLoading(false);
+        // get full tree
+        const fullTree = response.data.full_tree
+        // console.log(fullTree.gardens)
+      } catch (err) {
+        if (error.response) {
+          // Server responded with a status code other than 2xx
+          console.error('[Backend]:', error.response.data);
+          setError(error.response.data.error);
+      } else {
+          // Network error or other unexpected error
+          setError('[Network]:An unexpected error occurred. Please try again.');
+          console.error('Error logging in:', error.message);
+      }
+        setLoading(false);
       }
     };
     fetchData();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   return (
     <>
@@ -50,7 +73,7 @@ const Dashboard = () => {
           <div className="flex justify-center mt-4">
             <div className="flex space-x-4 w-[80%]">
               <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
-                <h3 className="text-lg text-gray-700 font-semibold">Gardens</h3>
+                <h3 className="text-lg text-gray-700 font-semibold">Total Gardens</h3>
                 {loading ? (
                   <p className="text-gray-600 mt-6">Loading...</p>
                 ) : error ? (
@@ -61,7 +84,7 @@ const Dashboard = () => {
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
-                <h3 className="text-lg text-gray-700 font-semibold">Beds</h3>
+                <h3 className="text-lg text-gray-700 font-semibold">Total Beds</h3>
                 {loading ? (
                   <p className="text-gray-600 mt-6">Loading...</p>
                 ) : error ? (
@@ -72,7 +95,7 @@ const Dashboard = () => {
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
-                <h3 className="text-lg text-gray-700 font-semibold">Crops planted</h3>
+                <h3 className="text-lg text-gray-700 font-semibold">Total Crops planted</h3>
                 {loading ? (
                   <p className="text-gray-600 mt-6">Loading...</p>
                 ) : error ? (
@@ -94,6 +117,7 @@ const Dashboard = () => {
             </button>
           </Link>
         </div>
+        
       </div>
     </>
   );

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
 import AddCropsForm from './AddCropsForm';
+import api from '../utils/api';
 
 const GardenStats = () => {
     const { id } = useParams();
@@ -17,13 +18,13 @@ const GardenStats = () => {
         const fetchGardenDetails = async () => {
             try {
                 const user_id = localStorage.getItem('user_id');
-                const response = await fetch(`http://127.0.0.1/api/v1/users/${user_id}/gardens`); // Adjust the endpoint as needed
-                if (response.ok) {
-                    const gardenData = await response.json();
-                    setGardenName(gardenData.name); // Assuming the garden data contains a 'name' field
-                } else {
-                    console.error('Failed to fetch garden details');
-                }
+                // get id from url
+                const garden_id = location.pathname.split('/')[2];
+                const response = await api.get(`/user/${user_id}/garden/${garden_id}`); // Adjust the endpoint as needed 
+                const gardenData = response.data;
+                //console.log(gardenData);
+                //console.log(gardenData.name);
+                setGardenName(gardenData.name); // Assuming the garden data contains a 'name' field
             } catch (error) {
                 console.error('Error fetching garden details:', error);
             }
@@ -31,7 +32,7 @@ const GardenStats = () => {
 
         const fetchCrops = async () => {
             try {
-                const response = await fetch(`/api/gardens/${id}/crops`); // Update with your actual API endpoint
+                const response = await fetch(`/gardens/${id}/crops`); // Update with your actual API endpoint
                 if (response.ok) {
                     const cropsData = await response.json();
                     setGardenPartitions({ [id]: cropsData });
