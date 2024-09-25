@@ -18,3 +18,4 @@ class CropRotation(Base):
 
     class Meta:
         db_table = 'crop_rotations'
+        unique_together = ('previous_crop', 'current_crop', 'garden')
