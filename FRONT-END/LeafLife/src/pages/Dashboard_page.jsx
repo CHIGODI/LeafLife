@@ -5,7 +5,7 @@ import Account from '../components/Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import api from '../utils/api';
-import FarmsDropdown from './FarmsDropdown';
+import FarmsDropdown from '../components/FarmsDropdown';
 
 const Dashboard = () => {
   // data is an object with keys gardens, beds and crops
@@ -14,7 +14,7 @@ const Dashboard = () => {
     beds: 0,
     crops: 0,
   });
-  const [full_tree  , setGardens] = useState([]);
+  const [full_tree, setGardens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -35,8 +35,8 @@ const Dashboard = () => {
           totalBeds += garden.beds.length; // Count beds in each garden
           garden.beds.forEach(bed => {
             totalCrops += bed.crops.length; // Count crops in each bed
-            });
           });
+        });
         // Update the state with the fetched data
         setData({
           gardens: totalGardens,
@@ -52,11 +52,11 @@ const Dashboard = () => {
           // Server responded with a status code other than 2xx
           console.error('[Backend]:', error.response.data);
           setError(error.response.data.error);
-      } else {
+        } else {
           // Network error or other unexpected error
           setError('[Network]:An unexpected error occurred. Please try again.');
           console.error('Error logging in:', error.message);
-      }
+        }
         setLoading(false);
       }
     };
@@ -117,7 +117,7 @@ const Dashboard = () => {
             </button>
           </Link>
         </div>
-        
+
       </div>
     </>
   );

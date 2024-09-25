@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../utils/api'; // Import your API utility
+import api from '../utils/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTractor } from '@fortawesome/free-solid-svg-icons';
 
 const FarmsDropdown = () => {
     const [isFarmsOpen, setIsFarmsOpen] = useState(false);
@@ -39,10 +41,11 @@ const FarmsDropdown = () => {
         <div>
             <button
                 onClick={handleFarmsClick}
-                className={`px-4 py-2 cursor-pointer w-full text-left ${
+                className={`w-[90%] rounded-tr-lg rounded-br-lg px-4 py-2 cursor-pointer w-full text-left ${
                     location.pathname.startsWith('/gardens') ? 'bg-green-200' : 'hover:bg-green-200'
                 }`}
             >
+                <FontAwesomeIcon className='mx-2' icon={faTractor} />
                 My Farms
             </button>
             {isFarmsOpen && (
