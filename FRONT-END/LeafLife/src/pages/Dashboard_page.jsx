@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSeedling, faMountain, faLeaf, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import api from '../utils/api';
 import FarmsDropdown from '../components/FarmsDropdown';
 
@@ -73,53 +73,81 @@ const Dashboard = () => {
           <Account />
           <div className="flex flex-row flex-wrap justify-center gap-4  mt-[1.2%]">
             <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
-              <h3 className="text-lg text-gray-700 font-semibold">Total Gardens</h3>
-              {loading ? (
-                <p className="text-gray-600 mt-6">Loading...</p>
-              ) : error ? (
-                <p className="text-gray-600 mt-6">{error}</p>
-              ) : (
-                <p className="text-gray-600 mt-6">You have {data.gardens} gardens</p>
-              )}
+              <h5 className="text-text-lg flex justify-between items-center">
+                GARDENS
+                <FontAwesomeIcon icon={faMountain} className="mr-2" />
+              </h5>
+
+                {loading ? (
+                  <h2 className="text-text-dk text-bold text-xl">Loading...</h2>
+                ) : error ? (
+                  <h2 className="text-text-dk text-bold text-xl">{error}</h2>
+                ) : (
+                  <h2 className="text-text-dk text-bold text-xl">{data.gardens}</h2>
+                )}
+              <p class="text-text-lg text-sm">
+                Total number of gardens you have
+              </p>
             </div>
 
             <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
-              <h3 className="text-lg text-gray-700 font-semibold">Total Beds</h3>
+              <h5 className="text-text-lg flex justify-between items-center">
+                BEDS
+                <FontAwesomeIcon icon={faMountain} className="mr-2" />
+              </h5>
+
               {loading ? (
-                <p className="text-gray-600 mt-6">Loading...</p>
+                <h2 className="text-text-dk text-bold text-xl">Loading...</h2>
               ) : error ? (
-                <p className="text-gray-600 mt-6">{error}</p>
+                <h2 className="text-text-dk text-bold text-xl">{error}</h2>
               ) : (
-                <p className="text-gray-600 mt-6">You have {data.beds} beds</p>
+                <h2 className="text-text-dk text-bold text-xl">{data.beds}</h2>
               )}
+              <p class="text-text-lg text-sm">
+                Total number of beds you have
+              </p>
             </div>
 
             <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
-              <h3 className="text-lg text-gray-700 font-semibold">Total Crops Planted</h3>
+              <h5 className="text-text-lg flex justify-between items-center">
+                CROPS
+                <FontAwesomeIcon icon={faSeedling} className="mr-2" />
+              </h5>
+
               {loading ? (
-                <p className="text-gray-600 mt-6">Loading...</p>
+                <h2 className="text-text-dk text-bold text-xl">Loading...</h2>
               ) : error ? (
-                <p className="text-gray-600 mt-6">{error}</p>
+                <h2 className="text-text-dk text-bold text-xl">{error}</h2>
               ) : (
-                <p className="text-gray-600 mt-6">You have {data.crops} crops</p>
+                <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
               )}
+              <p class="text-text-lg text-sm">
+                Total number of crops planted
+              </p>
             </div>
 
             <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
-              <h3 className="text-lg text-gray-700 font-semibold">Total Crops Planted</h3>
+              <h5 className="text-text-lg flex justify-between items-center">
+                ACTIVITIES
+                <FontAwesomeIcon icon={faChartLine} className="mr-2" />
+              </h5>
+
               {loading ? (
-                <p className="text-gray-600 mt-6">Loading...</p>
+                <h2 className="text-text-dk text-bold text-xl">Loading...</h2>
               ) : error ? (
-                <p className="text-gray-600 mt-6">{error}</p>
+                <h2 className="text-text-dk text-bold text-xl">{error}</h2>
               ) : (
-                <p className="text-gray-600 mt-6">You have {data.crops} crops</p>
+                <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
               )}
+              <p class="text-text-lg text-sm">
+                You have no activities yet
+              </p>
             </div>
           </div>
 
           <Link
             to="/new-farm"
-            className="bg-green-500 text-white py-2 px-4 rounded mt-[10%] w-[16%] ml-[20%] flex items-center justify-center hover:bg-green-400"
+            className="bg-green-500 text-white py-2 px-4 rounded mt-[10%] w-[16%] ml-[80%] flex items-center justify-center hover:bg-green-400 transition-colors duration-300 ease-in-out"
           >
             <button>
               <FontAwesomeIcon icon={faPlus} className="" />
