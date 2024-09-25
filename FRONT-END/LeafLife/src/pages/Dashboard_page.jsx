@@ -7,6 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import api from '../utils/api';
 import FarmsDropdown from '../components/FarmsDropdown';
 
+
 const Dashboard = () => {
   // data is an object with keys gardens, beds and crops
   const [data, setData] = useState({
@@ -70,7 +71,7 @@ const Dashboard = () => {
 
         <div className="w-[80%] ml-[16%] flex flex-col p-6">
           <Account />
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-4 p-[4%]">
             <div className="flex space-x-4 w-[80%]">
               <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
                 <h3 className="text-lg text-gray-700 font-semibold">Total Gardens</h3>
