@@ -17,7 +17,12 @@ export default {
         'color-p': '#A8E6CF',
         'bg': '#f8fafb',
         'hover': '#22c55e',
-        
+        'hover-d': '#E8F5E9',
+        'text-lg': '#b5bcc6',
+        'text-dk': '#0e224c',
+
+
+
         'nav-bg': '#FFFFFF',         // Vibrant Green (Nav Background)
         'nav-text': '#0e2238',           // Off-White (Link Text)
         'nav-hover': '#22c55e',          // Light Green (Hover State for Links)
@@ -27,7 +32,11 @@ export default {
       },
       boxShadow: {
         'right': '3px 0px 8px rgba(99, 99, 99, 0.2)',
+        'all': 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
 
+      },
+      fontWeight: {
+        'extrabold': '800',
       },
     },
   },
