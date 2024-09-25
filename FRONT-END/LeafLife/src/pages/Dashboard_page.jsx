@@ -67,53 +67,62 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex bg-bg h-screen">
-        <SideNav className="w-64" />
+        <SideNav className="w-[20%]" />
 
-        <div className="w-[80%] ml-[16%] flex flex-col p-6">
+        <div className="w-[80%] ml-[20%] flex flex-col pl-[4%] pr-[4%]">
           <Account />
-          <div className="flex justify-center mt-4 p-[4%]">
-            <div className="flex space-x-4 w-[80%]">
-              <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
-                <h3 className="text-lg text-gray-700 font-semibold">Total Gardens</h3>
-                {loading ? (
-                  <p className="text-gray-600 mt-6">Loading...</p>
-                ) : error ? (
-                  <p className="text-gray-600 mt-6">{error}</p>
-                ) : (
-                  <p className="text-gray-600 mt-6">You have {data.gardens} gardens</p>
-                )}
-              </div>
+          <div className="flex flex-row flex-wrap justify-center gap-4  mt-[1.2%]">
+            <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
+              <h3 className="text-lg text-gray-700 font-semibold">Total Gardens</h3>
+              {loading ? (
+                <p className="text-gray-600 mt-6">Loading...</p>
+              ) : error ? (
+                <p className="text-gray-600 mt-6">{error}</p>
+              ) : (
+                <p className="text-gray-600 mt-6">You have {data.gardens} gardens</p>
+              )}
+            </div>
 
-              <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
-                <h3 className="text-lg text-gray-700 font-semibold">Total Beds</h3>
-                {loading ? (
-                  <p className="text-gray-600 mt-6">Loading...</p>
-                ) : error ? (
-                  <p className="text-gray-600 mt-6">{error}</p>
-                ) : (
-                  <p className="text-gray-600 mt-6">You have {data.beds} beds</p>
-                )}
-              </div>
+            <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
+              <h3 className="text-lg text-gray-700 font-semibold">Total Beds</h3>
+              {loading ? (
+                <p className="text-gray-600 mt-6">Loading...</p>
+              ) : error ? (
+                <p className="text-gray-600 mt-6">{error}</p>
+              ) : (
+                <p className="text-gray-600 mt-6">You have {data.beds} beds</p>
+              )}
+            </div>
 
-              <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1">
-                <h3 className="text-lg text-gray-700 font-semibold">Total Crops planted</h3>
-                {loading ? (
-                  <p className="text-gray-600 mt-6">Loading...</p>
-                ) : error ? (
-                  <p className="text-gray-600 mt-6">{error}</p>
-                ) : (
-                  <p className="text-gray-600 mt-6">You have {data.crops} crops</p>
-                )}
-              </div>
+            <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
+              <h3 className="text-lg text-gray-700 font-semibold">Total Crops Planted</h3>
+              {loading ? (
+                <p className="text-gray-600 mt-6">Loading...</p>
+              ) : error ? (
+                <p className="text-gray-600 mt-6">{error}</p>
+              ) : (
+                <p className="text-gray-600 mt-6">You have {data.crops} crops</p>
+              )}
+            </div>
+
+            <div className="bg-white p-4 rounded-lg border border-gray-200 flex-1 min-w-[48%] max-w-[50%] shadow-all">
+              <h3 className="text-lg text-gray-700 font-semibold">Total Crops Planted</h3>
+              {loading ? (
+                <p className="text-gray-600 mt-6">Loading...</p>
+              ) : error ? (
+                <p className="text-gray-600 mt-6">{error}</p>
+              ) : (
+                <p className="text-gray-600 mt-6">You have {data.crops} crops</p>
+              )}
             </div>
           </div>
 
           <Link
             to="/new-farm"
-            className="bg-green-500 text-white py-2 px-4 rounded mt-[10%] w-[16%] ml-[10%] flex items-center justify-center hover:bg-green-400"
+            className="bg-green-500 text-white py-2 px-4 rounded mt-[10%] w-[16%] ml-[20%] flex items-center justify-center hover:bg-green-400"
           >
             <button>
-              <FontAwesomeIcon icon={faPlus} className="mr-2" />
+              <FontAwesomeIcon icon={faPlus} className="" />
               New Farm
             </button>
           </Link>

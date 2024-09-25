@@ -27,14 +27,14 @@ const Account = () => {
         if (token) {
             fetchUser(); // Fetch user only if token exists
         }
-    }, []); // Empty dependency array means this runs once on mount
+    }, []);
 
     const toggleDropdown = () => {
         setDropdownOpen((prev) => !prev);
     };
 
     return (
-        <div className="p-5 h-[5%] flex justify-end items-center pr-[2.5%]">
+        <div className="flex justify-end items-center h-[18%]">
             <button onClick={toggleDropdown} className="flex items-end space-x-2">
                 <FontAwesomeIcon icon={faUser} className="h-4 w-4 text-gray-600 mr-2" />
                 {user && <span className="text-gray-700">{user.name}</span>}
