@@ -14,7 +14,6 @@ class Harvest(Base):
                                 related_name='harvests')
     quantity_harvested = models.PositiveIntegerField()
     notes = models.TextField(blank=True, null=True)
-    date = models.DateField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         """Override save to update the related crop's harvest date."""

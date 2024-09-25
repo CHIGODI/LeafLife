@@ -1,5 +1,4 @@
 from . import models, Base
-from django.core.exceptions import ValidationError
 
 
 class Activity(Base):
@@ -40,11 +39,3 @@ class Activity(Base):
     class Meta:
         """sets the table name in the database"""
         db_table = 'activities'
-
-    def clean(self):
-        if self.activity_type not in dict(self.ACTIVITY_TYPE_CHOICES):
-            raise ValidationError(f"Invalid activity type: {self.activity_type}")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
