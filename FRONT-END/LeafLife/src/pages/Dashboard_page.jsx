@@ -85,7 +85,7 @@ const Dashboard = () => {
                 ) : (
                   <h2 className="text-text-dk text-bold text-xl">{data.gardens}</h2>
                 )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 Total number of gardens you have
               </p>
             </div>
@@ -103,7 +103,7 @@ const Dashboard = () => {
               ) : (
                 <h2 className="text-text-dk text-bold text-xl">{data.beds}</h2>
               )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 Total number of beds you have
               </p>
             </div>
@@ -121,7 +121,7 @@ const Dashboard = () => {
               ) : (
                 <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
               )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 Total number of crops planted
               </p>
             </div>
@@ -139,7 +139,7 @@ const Dashboard = () => {
               ) : (
                 <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
               )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 You have no activities yet
               </p>
             </div>

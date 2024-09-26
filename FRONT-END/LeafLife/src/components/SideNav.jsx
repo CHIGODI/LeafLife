@@ -36,8 +36,8 @@ const SideNav = () => {
             Reports Summary
           </Link>
         </li>
-        <li className={`w-[90%] rounded-tr-full rounded-br-full px-4 py-2 cursor-pointer ${location.pathname === '/growth-tracker' ? 'bg-nav-active' : 'hover:text-nav-hover transition-colors duration-300 ease-in-out'}`}>
-          <Link to="/growth-tracker" className="block w-full text-base">
+        <li className={`w-[90%] rounded-tr-full rounded-br-full px-4 py-2 cursor-pointer ${location.pathname === '/account-info' ? 'bg-nav-active' : 'hover:text-nav-hover transition-colors duration-300 ease-in-out'}`}>
+          <Link to="/account-info" className="block w-full text-base">
             <FontAwesomeIcon className='mx-2' icon={faGear} />
             Account
           </Link>
