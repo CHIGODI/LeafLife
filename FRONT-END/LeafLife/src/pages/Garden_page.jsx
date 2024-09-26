@@ -20,7 +20,7 @@ const GardenStats = () => {
                 const user_id = localStorage.getItem('user_id');
                 // get id from url
                 const garden_id = location.pathname.split('/')[2];
-                const response = await api.get(`/user/${user_id}/garden/${garden_id}`); // Adjust the endpoint as needed 
+                const response = await api.get(`/user/${user_id}/garden/${garden_id}`); // Adjust the endpoint as needed
                 const gardenData = response.data;
                 //console.log(gardenData);
                 //console.log(gardenData.name);
@@ -88,11 +88,10 @@ const GardenStats = () => {
     return (
         <div className="flex flex-col">
             <SideNav />
-            <div className="flex flex-row justify-end w-[84%] ml-[16%]">
+            <div className="flex flex-row justify-end w-[80%] ml-[20%]">
                 <Account />
             </div>
-
-            <div className="flex flex-row justify-start w-[84%] ml-[16%] mt-4">
+            <div className="flex flex-row justify-start w-[80%] ml-[20%] mt-4 p-[4%]">
                 <div className="w-full">
                     <h2 className="text-lg font-bold mb-4">Garden Stats for {gardenName}</h2> {/* Display garden name here */}
                     <table className="min-w-full bg-white border border-gray-300 rounded-lg">
