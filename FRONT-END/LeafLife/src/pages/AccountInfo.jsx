@@ -10,8 +10,10 @@ const AccountInfo = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await api.get('/users/');
+        const response = await api.get('/user/');
         setProfile(response.data);
+
+        console.log(response.data);
       } catch (err) {
         setError('Unable to fetch profile information.');
         console.error(err);
@@ -51,10 +53,8 @@ const AccountInfo = () => {
             <FaCalendarAlt className="text-gray-600" /> Account Insights
           </h2>
           <div className="text-gray-700 space-y-2">
-            <p>Joined: {new Date(profile.created_at).toLocaleDateString()}</p>
+            <p>Joined: {new Date(profile.created_at).toLocaleDateString() }</p>
             <p>Last Login: {new Date(profile.last_login).toLocaleString()}</p>
-            <p>Posts: {profile.posts_count}</p>
-            <p>Followers: {profile.followers_count}</p>
           </div>
         </div>
 
