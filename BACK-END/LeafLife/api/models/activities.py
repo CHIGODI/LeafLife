@@ -28,7 +28,8 @@ class Activity(Base):
                             related_name='activities')
     activity_type = models.CharField(max_length=20,
                                      choices=ACTIVITY_TYPE_CHOICES,default='inspection')
-    date = models.DateField()
+    start = models.DateField()
+    end = models.DateField()
     notes = models.TextField()
 
 

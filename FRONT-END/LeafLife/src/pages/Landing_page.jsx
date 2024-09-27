@@ -11,6 +11,7 @@ import agriImage2 from '../assets/images/aerial1.jpg';
 import HowToAccessLeafLife from '../components/HowToAcessLeafLife';
 
 const LandingPage = () => {
+    localStorage.clear();
     return (
         <div className=" h-screen">
             <div

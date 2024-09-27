@@ -40,15 +40,16 @@ const LoginPage = () => {
             password: formData.password,
             });
 
-            // console.log(response.data);
+            console.log(response.data.access);
+            console.log(response.data.refresh);
             // Handle successful login
             localStorage.setItem(USER_ID, response.data.user_id);
             localStorage.setItem(ACCESS_TOKEN, response.data.access);
             localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
-            
+
             toast.success(response.data.message);
             navigate('/dashboard');  // Redirect to dashboard
-            
+
             } catch (error) {
                 if (error.response) {
                 // Handle server error responses

@@ -23,7 +23,7 @@ class UserCreate(generics.CreateAPIView):
         if password:
             serializer.validated_data['password'] = make_password(password)
         serializer.save()
-  
+
 
 class UserList(generics.ListAPIView):
     """
@@ -31,7 +31,7 @@ class UserList(generics.ListAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserCustomSerializer
-    permission_classes = [IsAuthenticated]                           
+    permission_classes = [IsAuthenticated]
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -46,4 +46,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         queryset = User.objects.all()
         obj = get_object_or_404(queryset, pk=self.request.user.id)
         return obj
-      
+
+class UserMeDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve, update, or delete the current authenticated user
+    """
+    serializer_class = UserCustomSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        """Return the current authenticated user"""
+        return self.request.user

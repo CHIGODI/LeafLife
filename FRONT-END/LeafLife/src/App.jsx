@@ -4,7 +4,8 @@ import LandingPage from './pages/Landing_page';
 import SignUp from './pages/SignUp_page';
 import LoginPage from './pages/Login_page';
 import Dashboard from './pages/Dashboard_page';
-import BedForm from './components/BedForm';
+import AddBedForm from './components/AddBedForm';
+import BedDetails from './pages/BedDetails';
 import CropPage from './pages/CropPage';
 import HarvestPage from './pages/HarvestPage';
 import AccountInfo from './pages/AccountInfo';
@@ -12,7 +13,7 @@ import Navbar from './components/Navbar';
 import Contact from './components/Contact';
 import NewFarmForm from './components/NewFarmForm';
 import GardenStats from './pages/Garden_page';
-import ActivityPage from './pages/ActivityPage';
+import ActivityPage from './pages/ReportSummary';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -41,21 +42,22 @@ const App = () => {
         <Route path="/contact" element={ <> <Navbar /> <Contact /></>}/>
         <Route path="/gardens" element={ <ProtectedRoutes> <GardenStats /> </ProtectedRoutes>} />
         <Route path="/gardenstats/:id" element={ <ProtectedRoutes> <GardenStats /> </ProtectedRoutes>} />
-        <Route path="/beds" element={ <ProtectedRoutes> <BedForm /> </ProtectedRoutes>} />
+        <Route path="/beds" element={ <ProtectedRoutes> <AddBedForm /> </ProtectedRoutes>} />
+        <Route path="/gardenstats/:id/bed/:id" element={ <ProtectedRoutes> <BedDetails /> </ProtectedRoutes>} />
         <Route path="/crops" element={ <ProtectedRoutes> <CropPage /> </ProtectedRoutes>} />
         <Route path="/harvests" element={<ProtectedRoutes> <HarvestPage /></ProtectedRoutes>} />
         <Route path="/activity" element={<ProtectedRoutes> <ActivityPage /> </ProtectedRoutes>} />
         <Route path="/account-info" element={<ProtectedRoutes> <AccountInfo/> </ProtectedRoutes>} />
         <Route path="/new-farm" element={<ProtectedRoutes> <NewFarmForm /> </ProtectedRoutes>} />
         <Route path="/logout" element={Logout} />
-        <Route path="*" element={<Navigate to="/" />} />  
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      <ToastContainer 
-        position="top-right" 
-        autoClose={2000} 
-        hideProgressBar={false} 
-        closeOnClick 
-        pauseOnHover 
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
         draggable
       />
     </Router>

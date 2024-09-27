@@ -22,7 +22,7 @@ const Contact = () => {
           <div>
             <h2 className="text-lg font-semibold mb-4">Products</h2>
             <ul>
-              <li>FarmCloud</li>
+              <li>LeafLife</li>
               <li>FarmShield</li>
               <li>Smart Greenhouses</li>
               <li>Screenhouses</li>
@@ -37,7 +37,7 @@ const Contact = () => {
             <ul>
               <li>About Us</li>
               <li>Farmer Help Centre</li>
-              <li>Sign into FarmCloud</li>
+              <li>Sign into LeafLife</li>
               <li>Pricing Calculator</li>
               <li>Pre-Site Survey</li>
               <li>Request a Meeting</li>
@@ -48,11 +48,10 @@ const Contact = () => {
 
           <div>
             <h2 className="text-lg font-semibold mb-4">Contact</h2>
-            <p>Synnefa Kenya office</p>
-            <p>Postal Address: P.O. BOX 23170-00505</p>
+            <p>LeafLife Kenya office</p>
+            <p>Postal Address: P.O. BOX 154</p>
             <p>Nairobi, Kenya</p>
-            <p>Kenya Support Line: +254 20 3892455</p>
-            <p>US Support Line: +1 302 545 4495</p>
+            <p>Kenya Support Line: +254 08051357</p>
 
             <div className="flex space-x-4 mt-4">
               <FaFacebookF />

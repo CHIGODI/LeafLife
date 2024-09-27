@@ -27,6 +27,8 @@ const Dashboard = () => {
         const response = await api.get('/user/stats/'); // Use the api instance
         // Calculate total gardens, beds, and crops
         const { gardens } = response.data.full_tree;
+
+        console.log(gardens);
         // Calculate total gardens, beds, and crops in a single pass
         let totalGardens = gardens.length;
         let totalBeds = 0;
@@ -85,7 +87,7 @@ const Dashboard = () => {
                 ) : (
                   <h2 className="text-text-dk text-bold text-xl">{data.gardens}</h2>
                 )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 Total number of gardens you have
               </p>
             </div>
@@ -103,7 +105,7 @@ const Dashboard = () => {
               ) : (
                 <h2 className="text-text-dk text-bold text-xl">{data.beds}</h2>
               )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 Total number of beds you have
               </p>
             </div>
@@ -121,7 +123,7 @@ const Dashboard = () => {
               ) : (
                 <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
               )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 Total number of crops planted
               </p>
             </div>
@@ -137,9 +139,9 @@ const Dashboard = () => {
               ) : error ? (
                 <h2 className="text-text-dk text-bold text-xl">{error}</h2>
               ) : (
-                <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
+                <h2 className="text-text-dk text-bold text-xl">{data.activities}</h2>
               )}
-              <p class="text-text-lg text-sm">
+              <p className="text-text-lg text-xs">
                 You have no activities yet
               </p>
             </div>

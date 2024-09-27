@@ -21,8 +21,8 @@ class CropSerializer(serializers.ModelSerializer):
     class Meta:
         model = Crop
         fields = ['id', 'created_at', 'updated_at', 'name',
-                  'variety', 'planting_date', 'bed_id']
-        
+                  'variety', 'planting_date', 'bed_id', 'harvest_date']
+
 class BedSerializer(serializers.ModelSerializer):
     """
     Serialize bed class to json
@@ -42,6 +42,12 @@ class GardenSerializer(serializers.ModelSerializer):
         model = Garden
         fields = ['id', 'created_at', 'updated_at', 'name',
                 'long', 'lat', 'description', 'beds']
+
+    def validate_name(self, value):
+        """Check that the garden name is unique."""
+        if Garden.objects.filter(name=value).exists():
+            raise serializers.ValidationError("A garden with this name already exists. Please choose a different name.")
+        return value
 
 
 class GardenListSerializer(serializers.ModelSerializer):
@@ -66,7 +72,8 @@ class UserCustomSerializer(serializers.ModelSerializer):
     """ Serialize user class to json"""
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['id', 'username', 'email', 'password', 'created_at', 'updated_at',
+                  'last_login', 'bio']
         # hide password from json response
         extra_kwargs = {'password': {'write_only': True}}
 

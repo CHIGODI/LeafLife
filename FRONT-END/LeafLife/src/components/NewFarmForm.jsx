@@ -2,18 +2,29 @@ import React, { useState } from 'react';
 import Account from './Account';
 import Sidebar from './SideNav';
 import api from '../utils/api';
+import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NewFarmForm = () => {
-    const [step, setStep] = useState(1);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [lat, setLat] = useState('');
     const [long, setLong] = useState('');
     const [error, setError] = useState(null);
+    const [formError, setFormError] = useState(null);
+    const navigate = useNavigate();
 
-    // Handle form submission (final step) CHANGE BACKEND to match this
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Check if required fields are filled
+        if (!name || !description) {
+            setFormError("Please fill in all required fields.");
+            return; // Stop the submission process
+        } else {
+            setFormError(null); // Clear the error if validation passes
+        }
 
         try {
             const response = await api.post('/garden/create/', {
@@ -21,17 +32,19 @@ const NewFarmForm = () => {
                 description,
                 lat,
                 long,
-            },  
-            {       
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                    }
             });
 
+            toast.success(response.data.message);
+            navigate('/dashboard');
             console.log('Garden created successfully:', response.data);
         } catch (error) {
-            console.error('There was an error creating the garden:', error);
+            if(error.response) {
+                console.error('[Backend] Error creating garden:', error.response.data);
+                setFormError(error.response.data.error);
+            } else {
+                setFormError('[Network] An unexpected error occurred. Please try again.');
+                console.error('There was an error creating the garden:', error);
+            }
         }
     };
 
@@ -51,16 +64,6 @@ const NewFarmForm = () => {
         }
     };
 
-    // Move to the next step
-    const nextStep = () => {
-        setStep(step + 1);
-    };
-
-    // Move to the previous step
-    const prevStep = () => {
-        setStep(step - 1);
-    };
-
     return (
         <div className="flex min-h-screen">
             <Sidebar />
@@ -70,53 +73,50 @@ const NewFarmForm = () => {
                     <div className="w-[60%] max-w-4xl p-6 bg-white rounded-lg shadow-md">
                         <h1 className="text-2xl font-bold mb-4">Add new farm</h1>
 
-                        {step === 1 && (
-                            <form className="space-y-4">
-                                <div>
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                        Garden Name<span className="text-red-700 ml-1">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
-                                        placeholder="Enter garden name"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                                        Description<span className="text-red-700 ml-1">*</span>
-                                    </label>
-                                    <textarea
-                                        id="description"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
-                                        placeholder="Enter garden description"
-                                        required
-                                    />
-                                </div>
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                    Garden Name<span className="text-red-700 ml-1">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
+                                    placeholder="Enter garden name"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                                    Description<span className="text-red-700 ml-1">*</span>
+                                </label>
+                                <textarea
+                                    id="description"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
+                                    placeholder="Enter garden description"
+                                />
+                            </div>
 
-                                {/* Hidden Latitude and Longitude */}
-                                <input type="hidden" value={lat} />
-                                <input type="hidden" value={long} />
+                            {/* Hidden Latitude and Longitude */}
+                            <input type="hidden" value={lat} />
+                            <input type="hidden" value={long} />
 
-                                <div>
-                                    <button
-                                        type="button"
-                                        onClick={getLocation}
-                                        className="w-[40%] py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-                                    >
-                                        Get My Location
-                                    </button>
-                                    {error && <p className="text-red-500">{error}</p>}
-                                </div>
-                                <button type="button" onClick={handleSubmit} className="ml-[80%] w-[20%] py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">Add farm</button>
-                            </form>
-                        )}
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={getLocation}
+                                    className="w-[40%] py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                                >
+                                    Get My Location
+                                </button>
+                                {error && <p className="text-red-500">{error}</p>}
+                            </div>
+                            {formError && <p className="text-red-500">{formError}</p>} {/* Display form errors */}
+                            <button type="submit" className="ml-[80%] w-[20%] py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">Add farm</button>
+                        </form>
                     </div>
                 </div>
             </div>
