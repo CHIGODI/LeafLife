@@ -37,7 +37,7 @@ const Contact = () => {
             <ul>
               <li>About Us</li>
               <li>Farmer Help Centre</li>
-              <li><Link to="/login">Sign into LeafLife</Link></li>
+              <li>Sign into LeafLife</li>
               <li>Pricing Calculator</li>
               <li>Pre-Site Survey</li>
               <li>Request a Meeting</li>

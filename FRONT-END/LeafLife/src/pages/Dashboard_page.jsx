@@ -27,6 +27,8 @@ const Dashboard = () => {
         const response = await api.get('/user/stats/'); // Use the api instance
         // Calculate total gardens, beds, and crops
         const { gardens } = response.data.full_tree;
+
+        console.log(gardens);
         // Calculate total gardens, beds, and crops in a single pass
         let totalGardens = gardens.length;
         let totalBeds = 0;

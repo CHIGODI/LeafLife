@@ -2,88 +2,104 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
-import AddCropsForm from './AddCropsForm';
+import BedCard from '../components/BedCard';
+import AddBedForm from '../components/AddBedForm';
+import AddCropForm from '../components/AddCropForm';
 import api from '../utils/api';
+import { toast } from 'react-toastify';
+
 
 const GardenStats = () => {
     const { id } = useParams();
-    const [isPartitionFormOpen, setIsPartitionFormOpen] = useState(false);
-    const [isCropsFormOpen, setIsCropsFormOpen] = useState(false);
-    const [numPartitions, setNumPartitions] = useState(0);
-    const [gardenPartitions, setGardenPartitions] = useState({});
-    const [selectedPartitionIndex, setSelectedPartitionIndex] = useState(null);
-    const [gardenName, setGardenName] = useState(''); // State for garden name
+    const [beds, setBeds] = useState([]);
+    const [crops, setCrops] = useState([]);
+    const [isBedFormOpen, setIsBedFormOpen] = useState(false);
+    const [gardenName, setGardenName] = useState('');
+    const user_id = localStorage.getItem('user_id');
+    const garden_id = location.pathname.split('/')[2];
+    const [selectedBedId, setSelectedBedId] = useState(null);
+    const [isCropFormOpen, setIsCropFormOpen] = useState(false);
 
     useEffect(() => {
         const fetchGardenDetails = async () => {
             try {
-                const user_id = localStorage.getItem('user_id');
-                // get id from url
-                const garden_id = location.pathname.split('/')[2];
-                const response = await api.get(`/user/${user_id}/garden/${garden_id}`); // Adjust the endpoint as needed
+                const response = await api.get(`/user/${user_id}/garden/${id}`);
                 const gardenData = response.data;
-                //console.log(gardenData);
-                //console.log(gardenData.name);
-                setGardenName(gardenData.name); // Assuming the garden data contains a 'name' field
+                setGardenName(gardenData.name);
             } catch (error) {
                 console.error('Error fetching garden details:', error);
             }
         };
 
-        const fetchCrops = async () => {
+        const fetchBeds = async () => {
             try {
-                const response = await fetch(`/gardens/${id}/crops`); // Update with your actual API endpoint
-                if (response.ok) {
-                    const cropsData = await response.json();
-                    setGardenPartitions({ [id]: cropsData });
-                } else {
-                    console.error('Failed to fetch crops data');
+                const response = await api.get(`/user/${user_id}/garden/${garden_id}/beds/`);
+                const bedsData = await response.data;
+                setBeds(bedsData);
+                } catch (error) {
+                    if (error.response) {
+                        toast.error(error.response.data.error);
+                        console.error('Error fetching beds:', error);
+                    }else {
+                        console.error('Error fetching beds:', error);
+                        toast.error('An unexpected error occurred. Please try again.');
+                    }
                 }
-            } catch (error) {
-                console.error('Error fetching crops:', error);
-            }
-        };
+            };
 
-        fetchGardenDetails(); // Fetch garden name
-        fetchCrops(); // Fetch crops data
+        fetchGardenDetails();
+        fetchBeds();
     }, [id]);
 
-    const handlePartitionSubmit = (e) => {
-        e.preventDefault();
-        const newPartitions = Array.from({ length: numPartitions }, (_, index) => ({
-            name: `Bed ${index + 1}`,
-            crops: [],
-        }));
+    const handleAddBed = async (newBed) => {
+        setBeds(prevBeds => [...prevBeds, newBed]);
+        setIsBedFormOpen(false);
 
-        setGardenPartitions(prevState => ({
-            ...prevState,
-            [id]: newPartitions
-        }));
+        try{
+            const response = await api.post(`/user/${user_id}/garden/${garden_id}/bed/`,
+                {
+                    bed_number: newBed.bed_number,
+                    length: newBed.length,
+                    width: newBed.width,
+                });
+            toast.success(response.data.message);
+            console.log(response.data.id);
+        }
+        catch(error){
+            if (error.response) {
+            console.error('Error adding bed:', error);
+            toast.error(error.response.data.error);
+        }
+        else {
+            console.error('Error adding bed:', error);
+            toast.error('An unexpected error occurred. Please try again.');
+        }
+    }};
 
-        setIsPartitionFormOpen(false);
-    };
+    const handleAddCrops = async (newCrop) => {
+        setCrops(prevCrops => [...prevCrops, newCrop]);
+        setIsCropFormOpen(false);
+        console.log(newCrop);
+        console.log(newCrop.name)
+        try {
+            const response = await api.post(`/user/${user_id}/garden/${garden_id}/bed/${selectedBedId}/crop/`,{
+                name: newCrop.name,
+                variety: newCrop.variety,
+                planting_date: newCrop.planting_date
+            });
+            toast.success(response.data.message);
 
-    const handleAddCropsClick = (index) => {
-        setSelectedPartitionIndex(index);
-        setIsCropsFormOpen(true);
-    };
-
-    const handleSaveCrops = (index, cropData) => {
-        const updatedPartitions = gardenPartitions[id].map((partition, i) => {
-            if (i === index) {
-                return {
-                    ...partition,
-                    crops: [...partition.crops, cropData],
-                };
+        } catch (error) {
+            if (error.response) {
+                console.error('Error adding crops:', error);
+                toast.error(error.response.data.error);
+            } else {
+                console.error('Error adding crops:', error);
+                toast.error('An unexpected error occurred. Please try again.');
             }
-            return partition;
-        });
-
-        setGardenPartitions(prevState => ({
-            ...prevState,
-            [id]: updatedPartitions,
-        }));
+        }
     };
+
 
     return (
         <div className="flex flex-col h-screen">
@@ -93,96 +109,42 @@ const GardenStats = () => {
             </div>
             <div className="flex flex-row justify-start w-[80%] ml-[20%] mt-4 p-[4%]">
                 <div className="w-full">
-                    <h2 className="text-lg font-bold mb-4">Garden Stats for {gardenName}</h2> {/* Display garden name here */}
-                    <table className="min-w-full bg-white border border-gray-300 rounded-lg">
-                        <thead>
-                            <tr>
-                                <th className="py-2 px-4 border-b">Garden Name</th>
-                                <th className="py-2 px-4 border-b">Total Area</th>
-                                <th className="py-2 px-4 border-b">Crops</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="py-2 px-4 border-b">{gardenName || 'Loading...'}</td> {/* Display garden name */}
-                                <td className="py-2 px-4 border-b">500 sq ft</td>
-                                <td className="py-2 px-4 border-b">Mixed Vegetables</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h2 className="text-lg font-bold mb-4">Garden Stats for {gardenName}</h2>
+                    <button
+                        className="py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4"
+                        onClick={() => setIsBedFormOpen(true)}
+                    >
+                        Add Bed
+                    </button>
 
-                    <div className="mt-4">
-                        <button
-                            className="py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            onClick={() => setIsPartitionFormOpen(true)}
-                        >
-                            Partition Garden
-                        </button>
+                    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {beds.map((bed, index) => (
+                            <BedCard
+                                key={index}
+                                bed={bed}
+                                onAdd={() => {
+                                    setSelectedBedId(bed.id);
+                                    setIsCropFormOpen(true);
+                                 }}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {isPartitionFormOpen && (
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 className="text-lg font-bold mb-4">Partition Garden</h3>
-                        <form onSubmit={handlePartitionSubmit}>
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">
-                                    Number of Partitions
-                                </label>
-                                <input
-                                    type="number"
-                                    value={numPartitions}
-                                    onChange={(e) => setNumPartitions(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    min="1"
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-end">
-                                <button
-                                    type="submit"
-                                    className="py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2"
-                                >
-                                    Create Partitions
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setIsPartitionFormOpen(false)}
-                                    className="py-2 px-4 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            <div className="w-[84%] ml-[16%] mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {gardenPartitions[id] && gardenPartitions[id].map((partition, index) => (
-                    <div key={index} className="border rounded-lg p-4">
-                        <h3 className="font-bold">{partition.name}</h3>
-                        <p>Soil Type: {partition.soilType}</p>
-                        <p>Crop Count: {partition.crops.length}</p>
-                        <button
-                            onClick={() => handleAddCropsClick(index)}
-                            className="mt-2 py-1 px-3 bg-green-600 text-white rounded"
-                        >
-                            Add Crops
-                        </button>
-                    </div>
-                ))}
-            </div>
-
-            {isCropsFormOpen && (
-                <AddCropsForm
-                    partitionIndex={selectedPartitionIndex}
-                    onClose={() => setIsCropsFormOpen(false)}
-                    onSave={handleSaveCrops}
+            {isBedFormOpen && (
+                <AddBedForm
+                    onClose={() => setIsBedFormOpen(false)}
+                    onAdd={handleAddBed}
                 />
             )}
+            {isCropFormOpen && (
+                <AddCropForm
+                    onClose={() => setIsCropFormOpen(false)}
+                    onAddCrop={handleAddCrops}
+                />
+            )}
+
         </div>
     );
 };

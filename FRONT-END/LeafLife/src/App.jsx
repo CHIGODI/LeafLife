@@ -42,20 +42,21 @@ const App = () => {
         <Route path="/gardens" element={ <ProtectedRoutes> <GardenStats /> </ProtectedRoutes>} />
         <Route path="/gardenstats/:id" element={ <ProtectedRoutes> <GardenStats /> </ProtectedRoutes>} />
         <Route path="/beds" element={ <ProtectedRoutes> <BedForm /> </ProtectedRoutes>} />
+        <Route path="/beds/:id" element={ <ProtectedRoutes> <BedForm /> </ProtectedRoutes>} />
         <Route path="/crops" element={ <ProtectedRoutes> <CropPage /> </ProtectedRoutes>} />
         <Route path="/harvests" element={<ProtectedRoutes> <HarvestPage /></ProtectedRoutes>} />
         <Route path="/activity" element={<ProtectedRoutes> <ActivityPage /> </ProtectedRoutes>} />
         <Route path="/account-info" element={<ProtectedRoutes> <AccountInfo/> </ProtectedRoutes>} />
         <Route path="/new-farm" element={<ProtectedRoutes> <NewFarmForm /> </ProtectedRoutes>} />
         <Route path="/logout" element={Logout} />
-        <Route path="*" element={<Navigate to="/" />} />  
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      <ToastContainer 
-        position="top-right" 
-        autoClose={2000} 
-        hideProgressBar={false} 
-        closeOnClick 
-        pauseOnHover 
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
         draggable
       />
     </Router>
