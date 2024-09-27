@@ -86,9 +86,9 @@ const GardenStats = () => {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
             <SideNav />
-            <div className="flex flex-row justify-end w-[80%] ml-[20%]">
+            <div className="w-[80%] ml-[20%] flex justify-end items-center pl-[4%] pr-[4%] h-[18%]">
                 <Account />
             </div>
             <div className="flex flex-row justify-start w-[80%] ml-[20%] mt-4 p-[4%]">

@@ -60,9 +60,9 @@ const FarmsDropdown = () => {
                         gardens.map(garden => (
                             <li
                                 key={garden.id}
-                                className={`pt-2 pb-2 ml-7 ${location.pathname === `/gardenstats/${garden.id}` ? 'bg-nav-active' : 'hover:nav-text'}`}
+                                className={`pt-2 pb-2 ml-7 ${location.pathname === `/gardenstats/${garden.id}` ? 'text-green-300' : 'hover:text-green-300 transition-colors duration-300 ease-in-out'}`}
                             >
-                                <Link to={`/gardenstats/${garden.id}`} className="block w-full text-sm">
+                                <Link to={`/gardenstats/${garden.id}`} className="block w-full text-sm font-bold">
                                     {garden.name}
                                 </Link>
                             </li>
