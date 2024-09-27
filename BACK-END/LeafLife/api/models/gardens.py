@@ -3,7 +3,7 @@ from . import models, Base
 
 class Garden(Base):
     """Garden model that inherits from Base and has additional attributes"""
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     lat = models.CharField(max_length=255)
     long = models.CharField(max_length=255)
     description = models.TextField()
