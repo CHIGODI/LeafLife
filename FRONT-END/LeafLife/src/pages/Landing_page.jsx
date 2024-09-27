@@ -30,16 +30,8 @@ const LandingPage = () => {
 
 
             {/* <FounderMessage /> */}
-            <div
-                className="relative min-h-screen bg-cover bg-center"
-                style={{
-                    backgroundImage: `url(${agriImage2})`,
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    backgroundBlendMode: 'overlay'
-                }}
-            >
                 <HighlightDataCard />
-            </div>
+
             <Sustainability />
             {/* <Founders /> */}
             <HowToAccessLeafLife />

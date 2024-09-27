@@ -8,7 +8,13 @@ const AddCropForm = ({ onClose, onAddCrop }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const harvestDate = plantingDate + daysToMaturity;
+        const plantingDateObj = new Date(plantingDate);
+
+        const harvestDateObj = new Date(plantingDateObj.getTime() + (daysToMaturity * 24 * 60 * 60 * 1000));
+
+        const harvestDate = harvestDateObj.toISOString().split('T')[0];
+        console.log(harvestDate);
+
         const newCrop =
             {
                 name: cropName,

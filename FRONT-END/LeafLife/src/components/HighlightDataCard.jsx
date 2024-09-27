@@ -1,5 +1,6 @@
 import React from 'react';
 import HighlightCard from './HighlightCard';
+import agriImage2 from '../assets/images/aerial1.jpg';
 
 // Import your images
 import Image1 from '../assets/images/highlight1.png';
@@ -32,6 +33,14 @@ const HighlightDataCard = () => {
   ];
 
   return (
+    <div
+      className="relative min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${agriImage2})`,
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        backgroundBlendMode: 'overlay'
+      }}
+    >
     <section className="py-10">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-green-500 mb-6 text-center">
@@ -49,6 +58,7 @@ const HighlightDataCard = () => {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

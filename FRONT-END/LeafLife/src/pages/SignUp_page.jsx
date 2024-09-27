@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -46,6 +47,7 @@ const SignUp = () => {
         password: formData.password,
       });
       console.log(response)
+      toast.success('Account created successfully! Please log in.');
       navigate('/login');
     } catch (error) {
       if (error.response) {

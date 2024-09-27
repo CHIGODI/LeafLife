@@ -8,6 +8,7 @@ import AddBedForm from './components/AddBedForm';
 import BedDetails from './pages/BedDetails';
 import CropPage from './pages/CropPage';
 import HarvestPage from './pages/HarvestPage';
+import HighlightDataCard from './components/HighlightDataCard';
 import AccountInfo from './pages/AccountInfo';
 import Navbar from './components/Navbar';
 import Contact from './components/Contact';
@@ -17,6 +18,7 @@ import ActivityPage from './pages/ReportSummary';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HighlightCard from './components/HighlightCard';
 
 
 
@@ -40,6 +42,7 @@ const App = () => {
         <Route path="/login" element={<> <Navbar /><LoginPage /></>}/>
         <Route path="/dashboard" element={ <ProtectedRoutes> <Dashboard /></ProtectedRoutes>} />
         <Route path="/contact" element={ <> <Navbar /> <Contact /></>}/>
+        <Route path='/services' element={<> <Navbar /> <HighlightDataCard /></>}/>
         <Route path="/gardens" element={ <ProtectedRoutes> <GardenStats /> </ProtectedRoutes>} />
         <Route path="/gardenstats/:id" element={ <ProtectedRoutes> <GardenStats /> </ProtectedRoutes>} />
         <Route path="/beds" element={ <ProtectedRoutes> <AddBedForm /> </ProtectedRoutes>} />
