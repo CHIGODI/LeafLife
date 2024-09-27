@@ -31,7 +31,8 @@ class BedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bed
         fields = ['id', 'created_at', 'updated_at', 'garden_id',
-                  'bed_number', 'bed_type', 'soil_type', 'crops']
+                  'bed_number', 'bed_type', 'soil_type', 'crops',
+                  'length', 'width']
 
 class GardenSerializer(serializers.ModelSerializer):
     """

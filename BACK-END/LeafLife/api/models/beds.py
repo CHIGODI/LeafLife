@@ -26,8 +26,8 @@ class Bed(Base):
     # predefined bed types
     bed_type = models.CharField(max_length=20, choices=BED_TYPE_CHOICES, default='raised')
     # dimensions in meters
-    length = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    width = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    length = models.IntegerField(default=2)
+    width = models.IntegerField(default=6)
     # soil type
     soil_type = models.CharField(max_length=255, choices=SOIL_TYPE_CHOICES, default='loam')
 
