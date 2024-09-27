@@ -17,7 +17,8 @@ const AddBedForm = ({ onClose, onAdd }) => {
             width,
             soil_type: soilType,
         };
-        onAdd(newBed);
+        onAdd(newBed); // Call the function passed from GardenStats to add the bed
+        // Optionally, you can also make an API call here to save the bed to the database.
     };
 
     return (

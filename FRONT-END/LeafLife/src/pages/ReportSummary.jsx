@@ -19,7 +19,7 @@ const ActivityPage = () => {
   useEffect(() => {
     // Dummy data for 5 gardens
     const dummyData = [
-      { date: '2024-09-20', garden1: 3, garden2: 2, garden3: 4, garden4: 5, garden5: 1, garden6: 0 },
+      { date: '2024-09-20', garden1: 70, garden2: 2, garden3: 4, garden4: 5, garden5: 1, garden6: 0 },
       { date: '2024-09-21', garden1: 4, garden2: 3, garden3: 2, garden4: 6, garden5: 3, garden6: 1 },
       { date: '2024-09-22', garden1: 2, garden2: 5, garden3: 5, garden4: 3, garden5: 4, garden6: 1 },
       { date: '2024-09-23', garden1: 5, garden2: 4, garden3: 1, garden4: 4, garden5: 2, garden6: 1 },

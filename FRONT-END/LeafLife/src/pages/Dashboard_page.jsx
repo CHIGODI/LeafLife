@@ -139,7 +139,7 @@ const Dashboard = () => {
               ) : error ? (
                 <h2 className="text-text-dk text-bold text-xl">{error}</h2>
               ) : (
-                <h2 className="text-text-dk text-bold text-xl">{data.crops}</h2>
+                <h2 className="text-text-dk text-bold text-xl">{data.activities}</h2>
               )}
               <p className="text-text-lg text-xs">
                 You have no activities yet

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 const BedCard = ({ bed, onAdd }) => {
+    const garden_id = location.pathname.split('/')[2];
     return (
         <div className="border rounded-lg p-4 relative">
             <h3 className="font-bold">{`Bed ${bed.bed_number}`}</h3>
@@ -18,7 +19,7 @@ const BedCard = ({ bed, onAdd }) => {
                 >
                     Add Crops
                 </button>
-                <Link to={`/bed/${bed.id}`} className='font-xl hover:text-hover transition-colors duration-300 ease-in-out'>
+                <Link to={`/gardenstats/${garden_id}/bed/${bed.id}`} className='font-xl hover:text-hover transition-colors duration-300 ease-in-out'>
                     <FontAwesomeIcon icon={faEye} />
                 </Link>
             </div>
