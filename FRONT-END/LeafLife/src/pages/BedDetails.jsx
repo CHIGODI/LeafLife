@@ -48,6 +48,7 @@ const BedDetails = () => {
                                 <th className="text-left p-4">Crop Name</th>
                                 <th className="text-left p-4">Variety</th>
                                 <th className="text-left p-4">Planting Date</th>
+                                <th className="text-left p-4">Expected Harvest Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +57,7 @@ const BedDetails = () => {
                                     <td className="p-4">{crop.name}</td>
                                     <td className="p-4">{crop.variety}</td>
                                     <td className="p-4">{crop.planting_date}</td>
+                                    <td className="p-4">{crop.harvest_date}</td>
                                 </tr>
                             ))}
                         </tbody>

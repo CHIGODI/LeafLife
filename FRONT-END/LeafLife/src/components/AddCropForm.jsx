@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 const AddCropForm = ({ onClose, onAddCrop }) => {
     const [cropName, setCropName] = useState('');
     const [variety, setVariety] = useState('');
+    const [daysToMaturity, setDaysToMaturity] = useState(0);
     const [plantingDate, setPlantingDate] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       const newCrop =
+        const harvestDate = plantingDate + daysToMaturity;
+        const newCrop =
             {
                 name: cropName,
+                harvest_date: harvestDate,
                 variety,
                 planting_date: plantingDate
              };
@@ -47,6 +50,16 @@ const AddCropForm = ({ onClose, onAddCrop }) => {
                             type="date"
                             value={plantingDate}
                             onChange={(e) => setPlantingDate(e.target.value)}
+                            className="border border-gray-300 p-2 rounded w-full"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium mb-1">Days to Maturity</label>
+                        <input
+                            type="text"
+                            value={daysToMaturity}
+                            onChange={(e) => setDaysToMaturity(e.target.value)}
                             className="border border-gray-300 p-2 rounded w-full"
                             required
                         />
