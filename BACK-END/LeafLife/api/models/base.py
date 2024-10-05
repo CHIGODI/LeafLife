@@ -9,7 +9,7 @@ class Base(models.Model):
                           default=uuid.uuid4,
                           editable=False)
     # automatically created at when an object is created
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     # automatically set when an object is updated
     updated_at = models.DateTimeField(auto_now=True)
 

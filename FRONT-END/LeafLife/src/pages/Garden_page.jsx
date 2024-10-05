@@ -6,6 +6,7 @@ import BedCard from '../components/BedCard';
 import AddBedForm from '../components/AddBedForm';
 import AddCropForm from '../components/AddCropForm';
 import api from '../utils/api';
+import WeatherStrip from '../components/WeatherStrip';
 import { toast } from 'react-toastify';
 
 
@@ -23,7 +24,7 @@ const GardenStats = () => {
     useEffect(() => {
         const fetchGardenDetails = async () => {
             try {
-                const response = await api.get(`/user/${user_id}/garden/${id}`);
+                const response = await api.get(`/garden/${id}`);
                 const gardenData = response.data;
                 setGardenName(gardenData.name);
             } catch (error) {
@@ -77,21 +78,19 @@ const GardenStats = () => {
     }};
 
     const handleAddCrops = async (newCrop) => {
-        setCrops(prevCrops => [...prevCrops, newCrop]);
-        setIsCropFormOpen(false);
-        console.log(newCrop);
-        console.log(newCrop.name)
         try {
-            const response = await api.post(`/user/${user_id}/garden/${garden_id}/bed/${selectedBedId}/crop/`,{
+            const response = await api.post(`/user/${user_id}/garden/${garden_id}/bed/${selectedBedId}/crop/`, {
                 name: newCrop.name,
                 variety: newCrop.variety,
                 planting_date: newCrop.planting_date
             });
-            toast.success(response.data.message);
+            toast.success("Crop Added Successfully");
 
+            // If the request is successful, add the new crop to the state
+            setCrops(prevCrops => [...prevCrops, response.data.crop]);  // Assuming `response.data.crop` has the new crop info
+            setIsCropFormOpen(false);
         } catch (error) {
-            if (error.response) {
-                console.error('Error adding crops:', error);
+            if (error.response && error.response.status === 400) {
                 toast.error(error.response.data.error);
             } else {
                 console.error('Error adding crops:', error);
@@ -104,12 +103,15 @@ const GardenStats = () => {
     return (
         <div className="flex flex-col h-screen">
             <SideNav />
-            <div className="w-[80%] ml-[20%] flex justify-end items-center pl-[4%] pr-[4%] h-[18%]">
+            <div className="w-[80%] ml-[20%] flex justify-end items-center pt-5 pl-[4%] pr-[4%] h-[18%]">
                 <Account />
             </div>
-            <div className="flex flex-row justify-start w-[80%] ml-[20%] mt-4 p-[4%]">
+            <div className="flex flex-row justify-start w-[80%] ml-[20%] p-[2%]">
                 <div className="w-full">
-                    <h2 className="text-lg font-bold mb-4">Garden Stats for {gardenName}</h2>
+                    <div className='pb-6' >
+                        <WeatherStrip gardenId={garden_id}/>
+                    </div>
+                    <h2 className="text-lg font-bold mb-4">{gardenName} Garden</h2>
                     <button
                         className="py-2 px-4 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4"
                         onClick={() => setIsBedFormOpen(true)}

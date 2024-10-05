@@ -58,24 +58,25 @@ const Account = () => {
                 {user && <span className="text-gray-700">{user.name}</span>}
             </button>
             {isDropdownOpen && (
-                <div ref={dropdownRef} className="absolute right-[2%] top-[50%] mt-2 w-40 bg-white shadow-md">
-                    <ul>
-                        <li>
-                            <button
-                                onClick={() => handleLogout(navigate)} // Use logout function to navigate
-                                className="block w-full text-center px-2 py-2 text-gray-700 rounded-lg hover:bg-hover-d  transition-colors duration-300 ease-in-out"
-                            >
-                                Logout
-                            </button>
-                        </li>
+                <div ref={dropdownRef} className="absolute right-[2%] top-[50%] mt-4 w-40 bg-white shadow-md">
+                    <ul className='divide-y'>
                         <li>
                             <button
                                 onClick={() => navigate('/account-info')} // Navigate to Account Info page
-                                className="block w-full text-center px-2 py-2 text-gray-700 hover:bg-hover-d  border rounded-lg transition-colors duration-300 ease-in-out"
+                                className="block w-full text-center px-2 py-2 text-gray-800 hover:bg-hover-d transition-colors duration-300 ease-in-out"
                             >
                                 Account
                             </button>
                         </li>
+                        <li>
+                            <button
+                                onClick={() => handleLogout(navigate)} // Use logout function to navigate
+                                className="block w-full text-center px-2 py-2 text-gray-800 hover:bg-hover-d transition-colors duration-300 ease-in-out"
+                            >
+                                Logout
+                            </button>
+                        </li>
+
                     </ul>
                 </div>
             )}
