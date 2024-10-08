@@ -17,17 +17,16 @@ def set_cookie(response, key, value, max_age, httponly=True, samesite='Lax'):
         httponly=httponly,  # Cannot be accessed by JavaScript
         samesite=samesite  # Protect against CSRF attacks
     )
-
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        # Authenticate user, generate tokens (using SimpleJWT or any token library)
         
-        # Authenticate user
         user = authenticate(request,
                             username=request.data['username'],
                             password=request.data['password'])
-        # generate tokens (using SimpleJWT or any token library)
+        
         if user is not None:
             # Generate tokens
             refresh = RefreshToken.for_user(user)
@@ -37,7 +36,6 @@ class LoginView(APIView):
                                  'refresh': str(refresh),
                                  'message': 'Login successful'},
                                 status=status.HTTP_200_OK)
-
             # print("refresh.access_token", refresh.access_token)
             # Set the access and refresh tokens in HttpOnly cookies
             set_cookie(response, 'access_token',

@@ -22,10 +22,9 @@ class CropList(generics.ListAPIView):
         """ Filter crops belonging to the authenticated user """
         auth_user = self.request.user
         query_user = self.kwargs.get('user_id')
-        bed_id = self.kwargs.get('bed_id') 
         if auth_user.id != query_user:
             raise PermissionDenied("Not authorized")
-        return Crop.objects.filter(bed__garden__user=self.request.user).filter(bed__id=bed_id)
+        return Crop.objects.filter(bed__garden__user=self.request.user)
 
 class CropCreate(generics.CreateAPIView):
     """
@@ -36,18 +35,15 @@ class CropCreate(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         """Set the authenticated user as the owner of the crop"""
-
-        # check user permission
         query_user = self.kwargs.get('user_id')
         if self.request.user.id != query_user:
             raise PermissionDenied("You don't have permission to add crop to this bed")
-        
-        # retrieve the bed object
+        # retrieve the bed id from the url
         bed_id = self.kwargs.get('bed_id')
+        # retrieve the bed object
         bed = get_object_or_404(Bed, id=bed_id, garden__user=self.request.user)
-        # try saving the crop
+        # save the crop with the bed object
         serializer.save(bed=bed)
-
 
 
 class CropDetail(generics.RetrieveUpdateDestroyAPIView):

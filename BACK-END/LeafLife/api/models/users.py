@@ -33,7 +33,6 @@ class User(AbstractBaseUser, Base):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     bio = models.TextField(blank=True, null=True)
-    last_login = models.DateTimeField(null=True, blank=True)
 
     objects = CustomUserManager()
 
@@ -42,7 +41,6 @@ class User(AbstractBaseUser, Base):
 
     # required fields for creating a super user
     REQUIRED_FIELDS = ['email']
-    
 
     def __str__(self):
         return f"{self.__class__.__name__}:{self.id}-{self.username}"

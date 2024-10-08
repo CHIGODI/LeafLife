@@ -5,6 +5,7 @@ import Account from '../components/Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faSeedling, faMountain, faLeaf, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import api from '../utils/api';
+import FarmsDropdown from '../components/FarmsDropdown';
 
 
 const Dashboard = () => {
@@ -148,11 +149,11 @@ const Dashboard = () => {
 
           <Link
             to="/new-farm"
-            className="bg-green-600 text-white py-2 px-4 rounded mt-[10%] w-[16%] ml-[80%] flex items-center justify-center hover:bg-green-700 transition-colors duration-300 ease-in-out"
+            className="bg-green-500 text-white py-2 px-4 rounded mt-[10%] w-[16%] ml-[80%] flex items-center justify-center hover:bg-green-400 transition-colors duration-300 ease-in-out"
           >
             <button>
               <FontAwesomeIcon icon={faPlus} className="" />
-              New Garden
+              New Farm
             </button>
           </Link>
         </div>
