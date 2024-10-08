@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from ..models import Bed, Crop, Garden
-from rest_framework.permissions import AllowAny
+from ..models import Bed, Crop, Garden, Activity
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 class GardenBedCropStatsView(APIView):
     permission_classes = [AllowAny]
@@ -18,11 +18,15 @@ class GardenBedCropStatsView(APIView):
         # Count the number of crops across all beds
         crop_count = Crop.objects.all().count()
 
+        # count the number of activities
+        activity_count = Activity.objects.all().count()
+
         # Prepare the response data
         data = {
             "gardens": garden_count,
             "beds": bed_count,
-            "crops": crop_count
+            "crops": crop_count,
+            "activities": activity_count
         }
 
         # Return the response as JSON

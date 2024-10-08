@@ -9,14 +9,16 @@ const WeatherStrip = ({ gardenId }) => {
   const [error, setError] = useState(null);
   const [lat, setLat] = useState(null);   // Store latitude dynamically
   const [lon, setLon] = useState(null);   // Store longitude dynamically
+  const [gardenName, setGardenName] = useState(null);
 
   useEffect(() => {
-    // Fetch garden data including lat and long
+    // Fetch garden data including coordinates
     const fetchGardenCoordinates = async () => {
       try {
         const gardenResponse = await api.get(`/garden/${gardenId}/`); // Fetch garden details
         setLat(gardenResponse.data.lat);
         setLon(gardenResponse.data.long);
+        setGardenName(gardenResponse.data.name);
       } catch (err) {
         setError('Error fetching garden coordinates');
         setLoading(false);
@@ -69,7 +71,7 @@ const WeatherStrip = ({ gardenId }) => {
   }
 
   const temperature = weather.main.temp;
-  const city = weather.name;
+  const garden = gardenName;
   const description = weather.weather[0].description;
   const windSpeed = weather.wind.speed;
   const iconCode = weather.weather[0].icon; // Get the icon code
@@ -77,7 +79,7 @@ const WeatherStrip = ({ gardenId }) => {
 
   return (
     <div className="bg-green-700 text-white w-60%] flex flex-col justify-between items-center p-8 rounded-md shadow-md">
-      <div className="text-xl font-bold">Weather in {city}</div>
+      <div className="text-xl font-bold">Current Weather at {garden}</div>
       <div className="flex items-center">
         <img 
           src={iconUrl} 

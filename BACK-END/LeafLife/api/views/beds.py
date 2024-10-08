@@ -20,9 +20,6 @@ class BedList(generics.ListAPIView):
     def get_queryset(self):
         """ Filter beds belonging to the authenticated user """
         auth_user = self.request.user
-        query_user = self.kwargs.get('user_id')
-        if auth_user.id != query_user:
-            raise PermissionDenied("Not authorized")
         query_set = (Bed.objects.filter(garden__user=auth_user,
                                         garden_id=self.kwargs.get('garden_id'))) 
         # returns empty an list if there is no bed
@@ -38,9 +35,6 @@ class BedCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         """Set the authenticated user as the owner of the bed"""
         # retrieve the garden name from the url
-        query_user = self.kwargs.get('user_id')
-        if self.request.user.id != query_user:
-            raise PermissionDenied("You don't have permission to create a bed in this garden")
         garden_id = self.kwargs.get('garden_id')
     
         # retrieve the garden object
@@ -63,12 +57,9 @@ class BedDetail(generics.RetrieveUpdateDestroyAPIView):
         """Return the beds for the logged-in user"""
         # Filter beds based on the garden and the logged-in user
         garden_id = self.kwargs.get('garden_id')
-        query_user = self.kwargs.get('user_id')
         auth_user = self.request.user
-        if auth_user.id != query_user:
-            raise PermissionDenied("Not authorized")
         return Bed.objects.filter(garden__id=garden_id, 
-                                  garden__user__id=auth_user.id)
+                                  garden__user=auth_user)
     
     
     def get_object(self):
