@@ -13,6 +13,7 @@ const Dashboard = () => {
     gardens: 0,
     beds: 0,
     crops: 0,
+    activities: 0,
   });
   const [full_tree, setGardens] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,11 +45,13 @@ const Dashboard = () => {
           gardens: totalGardens,
           beds: totalBeds,
           crops: totalCrops,
+          activities: response.data.activities,
+
         });
         setLoading(false);
         // get full tree
         const fullTree = response.data.full_tree
-        // console.log(fullTree.gardens)
+        console.log(fullTree.gardens)
       } catch (err) {
         if (error.response) {
           // Server responded with a status code other than 2xx
