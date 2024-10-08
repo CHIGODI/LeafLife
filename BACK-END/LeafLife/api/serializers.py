@@ -51,7 +51,6 @@ class GardenSerializer(serializers.ModelSerializer):
         model = Garden
         fields = ['id', 'created_at', 'updated_at', 'name',
                 'long', 'lat', 'description', 'beds']
-        read_only_fields = ['created_at', 'updated_at']
 
     def validate_name(self, value):
         """Check that the garden name is unique."""
@@ -115,11 +114,7 @@ class InspectionSerializer(serializers.ModelSerializer):
 
 class ActivitySerializer(serializers.ModelSerializer):
     """Serializes activities class to json"""
-    
     class Meta:
         model = Activity
-        fields = ['id', 'user', 'garden', 'bed',
-                  'activity_type', 'start', 'end',
-                  'notes', 'created_at', 'updated_at'
-                  ]
-        read_only_fields = ['created_at', 'updated_at', 'user']
+        fields = ['id', 'created_at', 'updated_at', 'user_id',
+                  'garden_id', 'bed_id', 'date', 'activity_type', 'notes']

@@ -5,7 +5,6 @@ import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const BedCard = ({ bed, onAdd, onDelete }) => {
     const garden_id = location.pathname.split('/')[2];
-    console.log(`Bedcard: ${bed}`)
 
     return (
         <div className="border rounded-lg p-4 relative">

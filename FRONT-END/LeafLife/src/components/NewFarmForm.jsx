@@ -7,14 +7,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 
 const NewFarmForm = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [lat, setLat] = useState(null);
+  const [long, setLong] = useState(null);
   const [formError, setFormError] = useState(null);
   const autocompleteRef = useRef(null);
   const navigate = useNavigate();
-  const GMAP_API_KEY = import.meta.env.VITE_GMAP_API_KEY;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,8 +25,8 @@ const NewFarmForm = () => {
 
     try {
       const response = await api.post('/garden/create/', { name, description, lat, long });
-      toast.success("Garden created successfully!");
-      navigate(`/gardenstats/${response.data.id}`);
+      toast.success(response.data.message);
+      navigate('/dashboard');
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.name);
@@ -44,8 +43,8 @@ const NewFarmForm = () => {
   };
 
   const defaultCenter = {
-    lat: 0.0236, // Default latitude
-    lng: 37.9062 // Default longitude
+    lat: 44.34, // Default latitude
+    lng: 10.99 // Default longitude
   };
 
   const onMapClick = (e) => {
@@ -100,7 +99,7 @@ const NewFarmForm = () => {
 
               {/* Google Map and Autocomplete */}
               <div className="my-4">
-                <LoadScript googleMapsApiKey={GMAP_API_KEY} libraries={['places']}>
+                <LoadScript googleMapsApiKey="AIzaSyAdbj9rMD2rN_J1Ghi5WcpQnYBH0XbPguk" libraries={['places']}>
                   <Autocomplete onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)} onPlaceChanged={onPlaceChanged}>
                     <input
                       type="text"
