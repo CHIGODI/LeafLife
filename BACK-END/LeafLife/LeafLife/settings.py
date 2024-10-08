@@ -32,14 +32,12 @@ DEBUG = True
 
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000',
     'http://localhost:3000',
 ]
 
-# allow cookies to be sent with requests
 CORS_ALLOW_CREDENTIALS = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1' ]
 
 
 # Application definition
@@ -55,7 +53,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [

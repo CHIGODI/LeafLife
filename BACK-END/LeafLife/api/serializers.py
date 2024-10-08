@@ -3,7 +3,7 @@
 This module contains classes that serilize all models
 to json objects, to be served by the API
 """
-from datetime import datetime
+
 from rest_framework import serializers
 from .models import User
 from .models import Garden
@@ -22,14 +22,6 @@ class CropSerializer(serializers.ModelSerializer):
         model = Crop
         fields = ['id', 'created_at', 'updated_at', 'name',
                   'variety', 'planting_date', 'bed_id', 'harvest_date']
-        
-    def validate(self, data):
-        """Check that planting date is before harvest date"""
-        planting_date = data.get('planting_date')
-        today = datetime.now().date()
-        if planting_date > today:
-            raise serializers.ValidationError("Planting date must not be in the future")
-        return data
 
 class BedSerializer(serializers.ModelSerializer):
     """
@@ -54,8 +46,7 @@ class GardenSerializer(serializers.ModelSerializer):
 
     def validate_name(self, value):
         """Check that the garden name is unique."""
-        user = self.context['request'].user
-        if Garden.objects.filter(user=user, name=value).exists():
+        if Garden.objects.filter(name=value).exists():
             raise serializers.ValidationError("A garden with this name already exists. Please choose a different name.")
         return value
 
