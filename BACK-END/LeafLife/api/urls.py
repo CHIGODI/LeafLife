@@ -9,6 +9,7 @@ from .views.all_stats import GardenBedCropStatsView
 from .views.login import LoginView
 from .views.refresh import CustomTokenRefreshView
 from .views.logout import LogoutView
+from .views.open_weather import WeatherAPIView
 from rest_framework_simplejwt.views import TokenBlacklistView
 
 
@@ -23,7 +24,7 @@ urlpatterns = [
     path('user/', UserMeDetail.as_view(), name='user-detail'),
     path('garden/create/', GardenCreate.as_view(), name='garden-create'),
     path('user/gardens/', GardenList.as_view(), name='garden-list'),
-    path('user/<user_id>/garden/<garden_id>/', GardenDetail.as_view(), name='garden-detail'),
+    path('garden/<garden_id>/', GardenDetail.as_view(), name='garden-detail'),
     path('user/<uuid:user_id>/garden/<uuid:garden_id>/beds/', BedList.as_view(), name='bed-list'),
     path('user/<uuid:user_id>/garden/<garden_id>/bed/', BedCreate.as_view(), name='bed-create'),
     path('user/<uuid:user_id>/garden/<garden_id>/bed/<bed_id>/', BedDetail.as_view(), name='bed-detail'),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('user/<uuid:user_id>/garden/<garden_id>/bed/<bed_id>/crop/<crop_id>', CropDetail.as_view(), name='crop-detail'),
     path('user/stats/', GardenStatsView.as_view(), name='user-garden-stats'),
     path('stats/', GardenBedCropStatsView.as_view(), name='all-stats'),
+    path('weather/', WeatherAPIView.as_view(), name='get_weather'),
 ]

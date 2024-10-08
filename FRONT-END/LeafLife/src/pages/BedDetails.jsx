@@ -11,6 +11,7 @@ const BedDetails = () => {
     const garden_id = location.pathname.split('/')[2];
     const bed_id = location.pathname.split('/')[4];
     const user_id = localStorage.getItem('user_id');
+    
 
     useEffect(() => {
         const fetchBedDetails = async () => {
@@ -63,7 +64,7 @@ const BedDetails = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No crops planted</p>
+                    <p>No crops planted in this bed</p>
                 )}
             </div>
         </div>
